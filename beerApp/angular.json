@@ -67,11 +67,13 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "beerApp:build"
+            "browserTarget": "beerApp:build",
+            "proxyConfig": "src/proxy.conf.js"
           },
           "configurations": {
             "production": {
-              "browserTarget": "beerApp:build:production"
+              "browserTarget": "beerApp:build:production",
+              "proxyConfig": "src/proxy.conf.js"
             }
           }
         },

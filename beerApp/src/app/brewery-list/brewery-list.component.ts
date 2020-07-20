@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+
+interface Brewery {
+  name: String
+}
+interface ApiBreweriesResponse {
+  data: Array<Brewery>
+}
 
 @Component({
   selector: 'app-brewery-list',
@@ -6,10 +14,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./brewery-list.component.scss']
 })
 export class BreweryListComponent implements OnInit {
+  breweries: Array<Brewery>
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private http: HttpClient) {
   }
 
+  ngOnInit(): void {
+    this.getAllBreweries()
+  }
+
+  getAllBreweries() {
+    let obs = this.http.get("/api/breweries?withLocations=Y")
+    obs.subscribe(
+      (response: ApiBreweriesResponse) => {
+        this.breweries = response.data
+        console.log('response', response);
+      });
+  }
 }
