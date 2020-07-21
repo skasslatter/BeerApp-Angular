@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
 interface Country {
@@ -19,6 +19,7 @@ interface Brewery {
 
 interface ImageSet {
   medium: String,
+  large: String,
 }
 
 interface ApiBreweriesResponse {
@@ -34,7 +35,8 @@ export class BreweryListComponent implements OnInit {
   breweries: Array<Brewery>;
   filteredBreweries: Array<Brewery>;
   uniqueCountryNames: Array<String>;
-  filteredCountry: any
+  nameSearch: String = "";
+  filteredCountry: String = "";
 
   constructor(private http: HttpClient) {
   }
@@ -73,12 +75,14 @@ export class BreweryListComponent implements OnInit {
     this.uniqueCountryNames = uniqueCountryNames
   }
 
-  onCountryChange($event) {
-    let selectedCountry = $event.target.value
+  onCountryChange(value) {
+    let selectedCountry = value
     this.filterBreweriesByCountry(selectedCountry)
   }
 
   filterBreweriesByCountry(countryName) {
+    this.nameSearch = ""
+    this.filteredCountry = countryName
     if (!countryName) {
       return this.breweries
     }
@@ -98,14 +102,22 @@ export class BreweryListComponent implements OnInit {
     this.filteredBreweries = filteredBreweries
   }
 
-  searchByName($event) {
+  searchByName(value) {
+    this.filteredCountry = ""
+    this.nameSearch = value
     this.filteredBreweries = this.breweries
-    const searchTerm = $event.target.value.toLowerCase()
+    const searchTerm = value.toLowerCase()
     const filteredBreweries = this.breweries
       .filter((brewery) => {
         return brewery.name.toLowerCase().indexOf(searchTerm) !== -1
-    })
+      })
     console.log("filteredBreweries", filteredBreweries)
     this.filteredBreweries = filteredBreweries
+  }
+
+  showAllBreweries() {
+    this.nameSearch = "";
+    this.filteredCountry = ""
+    this.filteredBreweries = this.breweries
   }
 }

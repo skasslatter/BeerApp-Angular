@@ -1,28 +1,35 @@
 <div>
   <h1 class="text-center">All the breweries</h1>
 
-  <!--  Filter by Country-->
-  <div>
-    <h3>Filter by Country</h3>
-    <select (change)="onCountryChange($event)" (change)="nameSearch.value = ''" defaultValue="" #filteredCountry
-            name="filteredCountry">
-      <option value="" disabled selected="selected">Select</option>
-      <option *ngFor="let countryName of uniqueCountryNames" value="{{countryName}}">{{countryName}}</option>
-    </select>
-  </div>
+  <div id="filterFunctions">
+    <!--  Filter by Country-->
+    <div>
+      <h3>Filter by Country</h3>
+<!--      <select (change)="onCountryChange($event)" (change)="nameSearch.value = ''" defaultValue="" #filteredCountry-->
+<!--              name="filteredCountry">-->
+      <select [ngModel]="filteredCountry" (ngModelChange)="onCountryChange($event)">
+        <option value="" disabled selected="selected">Select</option>
+        <option *ngFor="let countryName of uniqueCountryNames" value="{{countryName}}">{{countryName}}</option>
+      </select>
+    </div>
 
-  <!--  Search by name-->
-  <div>
-    <h3>Search by name</h3>
-    <input type="text" (input)="searchByName($event)" (input)="filteredCountry.value = ''" placeholder="Search by name"
-           #nameSearch name="nameSearch">
+    <!--  Search by name-->
+    <div>
+      <h3>Search by name</h3>
+<!--      <input type="text" (input)="searchByName($event)" (input)="filteredCountry.value = ''"-->
+<!--             placeholder="Type to search..."-->
+<!--             #nameSearch name="nameSearch">-->
+      <input type="text" [ngModel]="nameSearch" (ngModelChange)="searchByName($event)"  placeholder="Type to search...">
+    </div>
+
+    <button class="btn btn-show-all" (click)="showAllBreweries()">Show all</button>
   </div>
 
   <!--  -->
   <div class="row justify-content-center">
-    <div class="col-sm-6">
+    <div class="col-sm-10">
       <div *ngFor="let brewery of filteredBreweries" class="card">
-        <img class="card-img-top" *ngIf="brewery.images" src="{{brewery.images.medium}}" alt="Brewery Image">
+        <img class="card-img-top" *ngIf="brewery.images" src="{{brewery.images.large}}" alt="Brewery Image">
         <div class="card-body">
           <h3 class="card-title">{{brewery.name}}</h3>
           <p class="card-subtitle mb-2 text-muted" *ngIf="brewery.established">established

@@ -1,1 +1,16 @@
+#filterFunctions{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 7vh;
+  div {
+    text-align: center
+  }
+}
 
+.btn-show-all {
+  height: fit-content;
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}

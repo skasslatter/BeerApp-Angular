@@ -1,6 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Roboto+Slab:wght@200&display=swap');
 
 body, html {
   height: 100%;
+  font-family: 'Roboto Slab', serif;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
 }
