@@ -1,15 +1,24 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
+interface Country {
+  name: String
+}
+
+interface Location {
+  country: Country
+}
+
 interface Brewery {
   name: String,
   description: String,
   established: Number,
   images?: ImageSet,
+  locations: Array<Location>,
 }
 
 interface ImageSet {
-  medium: string,
+  medium: String,
 }
 
 interface ApiBreweriesResponse {
@@ -29,6 +38,7 @@ export class BreweryListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllBreweries()
+
   }
 
   getAllBreweries() {
@@ -37,6 +47,27 @@ export class BreweryListComponent implements OnInit {
       (response: ApiBreweriesResponse) => {
         this.breweries = response.data
         console.log('response', response);
+        this.getBreweriesLocations()
       });
+  }
+
+  getBreweriesLocations() {
+    const locations: Array<Array<Location>> = this.breweries
+      .filter((brewery) => {
+        return brewery.locations !== null && brewery.locations !== undefined
+      })
+      .map((brewery) => {
+        return brewery.locations
+      })
+    let flatLocations = []
+    locations.forEach((locationArray) => {
+      flatLocations = flatLocations.concat(locationArray)
+    })
+    const countryNames = flatLocations.map((location) => {
+      return location.country.displayName;
+    })
+    let uniqueCountryNames = [...new Set(countryNames)]
+    console.log("uniqueCountryNames", uniqueCountryNames)
+    return uniqueCountryNames
   }
 }
