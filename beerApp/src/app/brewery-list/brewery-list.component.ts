@@ -34,6 +34,7 @@ export class BreweryListComponent implements OnInit {
   breweries: Array<Brewery>;
   filteredBreweries: Array<Brewery>;
   uniqueCountryNames: Array<String>;
+  filteredCountry: any
 
   constructor(private http: HttpClient) {
   }
@@ -69,12 +70,10 @@ export class BreweryListComponent implements OnInit {
       return location.country.displayName;
     })
     let uniqueCountryNames = [...new Set(countryNames)]
-    console.log("uniqueCountryNames", uniqueCountryNames)
     this.uniqueCountryNames = uniqueCountryNames
   }
 
   onCountryChange($event) {
-    console.log("event target", $event.target.value)
     let selectedCountry = $event.target.value
     this.filterBreweriesByCountry(selectedCountry)
   }
@@ -96,6 +95,17 @@ export class BreweryListComponent implements OnInit {
         })
         return hasLocation
       });
+    this.filteredBreweries = filteredBreweries
+  }
+
+  searchByName($event) {
+    this.filteredBreweries = this.breweries
+    const searchTerm = $event.target.value.toLowerCase()
+    const filteredBreweries = this.breweries
+      .filter((brewery) => {
+        return brewery.name.toLowerCase().indexOf(searchTerm) !== -1
+    })
+    console.log("filteredBreweries", filteredBreweries)
     this.filteredBreweries = filteredBreweries
   }
 }
