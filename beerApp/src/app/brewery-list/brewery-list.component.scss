@@ -11,6 +11,19 @@
 .btn-show-all {
   height: fit-content;
   color: #fff;
-  background-color: #dc3545;
   border-color: #dc3545;
+  background-color: var(--base-color)
+}
+
+.breweries-list {
+  h1, h3 {
+    color: var(--base-color)
+  }
+}
+
+.card {
+  border-top: 2px solid var(--base-color);
+  border-left: none;
+  border-right:none;
+  padding: 4vh 0;
 }

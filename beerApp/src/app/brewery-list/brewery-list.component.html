@@ -1,12 +1,10 @@
-<div>
+<div class="breweries-list">
   <h1 class="text-center">All the breweries</h1>
 
   <div id="filterFunctions">
     <!--  Filter by Country-->
     <div>
-      <h3>Filter by Country</h3>
-<!--      <select (change)="onCountryChange($event)" (change)="nameSearch.value = ''" defaultValue="" #filteredCountry-->
-<!--              name="filteredCountry">-->
+      <h4>Filter by Country</h4>
       <select [ngModel]="filteredCountry" (ngModelChange)="onCountryChange($event)">
         <option value="" disabled selected="selected">Select</option>
         <option *ngFor="let countryName of uniqueCountryNames" value="{{countryName}}">{{countryName}}</option>
@@ -15,7 +13,7 @@
 
     <!--  Search by name-->
     <div>
-      <h3>Search by name</h3>
+      <h4>Search by name</h4>
 <!--      <input type="text" (input)="searchByName($event)" (input)="filteredCountry.value = ''"-->
 <!--             placeholder="Type to search..."-->
 <!--             #nameSearch name="nameSearch">-->
@@ -31,7 +29,7 @@
       <div *ngFor="let brewery of filteredBreweries" class="card">
         <img class="card-img-top" *ngIf="brewery.images" src="{{brewery.images.large}}" alt="Brewery Image">
         <div class="card-body">
-          <h3 class="card-title">{{brewery.name}}</h3>
+          <h3 class="card-title text-center">{{brewery.name}}</h3>
           <p class="card-subtitle mb-2 text-muted" *ngIf="brewery.established">established
             in {{brewery.established}}</p>
           <p class="card-text">{{brewery.description}}</p>
