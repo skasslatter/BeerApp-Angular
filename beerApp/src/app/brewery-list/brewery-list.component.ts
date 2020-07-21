@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
 interface Country {
-  name: String
+  displayName: String
 }
 
 interface Location {
@@ -31,14 +31,15 @@ interface ApiBreweriesResponse {
   styleUrls: ['./brewery-list.component.scss']
 })
 export class BreweryListComponent implements OnInit {
-  breweries: Array<Brewery>
+  breweries: Array<Brewery>;
+  filteredBreweries: Array<Brewery>;
+  uniqueCountryNames: Array<String>;
 
   constructor(private http: HttpClient) {
   }
 
   ngOnInit(): void {
     this.getAllBreweries()
-
   }
 
   getAllBreweries() {
@@ -46,6 +47,7 @@ export class BreweryListComponent implements OnInit {
     obs.subscribe(
       (response: ApiBreweriesResponse) => {
         this.breweries = response.data
+        this.filteredBreweries = this.breweries
         console.log('response', response);
         this.getBreweriesLocations()
       });
@@ -68,6 +70,32 @@ export class BreweryListComponent implements OnInit {
     })
     let uniqueCountryNames = [...new Set(countryNames)]
     console.log("uniqueCountryNames", uniqueCountryNames)
-    return uniqueCountryNames
+    this.uniqueCountryNames = uniqueCountryNames
+  }
+
+  onCountryChange($event) {
+    console.log("event target", $event.target.value)
+    let selectedCountry = $event.target.value
+    this.filterBreweriesByCountry(selectedCountry)
+  }
+
+  filterBreweriesByCountry(countryName) {
+    if (!countryName) {
+      return this.breweries
+    }
+    const filteredBreweries = this.breweries
+      .filter((brewery) => {
+        return brewery.locations !== null && brewery.locations !== undefined;
+      })
+      .filter((brewery) => {
+        let hasLocation = false
+        brewery.locations.forEach((location) => {
+          if (location.country.displayName === countryName) {
+            hasLocation = true
+          }
+        })
+        return hasLocation
+      });
+    this.filteredBreweries = filteredBreweries
   }
 }
