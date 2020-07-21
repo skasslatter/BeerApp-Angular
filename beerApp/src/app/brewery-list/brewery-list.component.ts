@@ -2,8 +2,16 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
 interface Brewery {
-  name: String
+  name: String,
+  description: String,
+  established: Number,
+  images?: ImageSet,
 }
+
+interface ImageSet {
+  medium: string,
+}
+
 interface ApiBreweriesResponse {
   data: Array<Brewery>
 }
