@@ -50,6 +50,7 @@ export class BreweryDetailComponent implements OnInit {
   loading: boolean = true;
   nameSearch: String = ""
   uniqueBeerTypes: Array<String>
+  filteredType: String = "";
   private routeSub: Subscription;
 
   constructor
@@ -79,6 +80,7 @@ export class BreweryDetailComponent implements OnInit {
   }
 
   searchByName(value) {
+    this.filteredType = ""
     this.nameSearch = value
     this.filteredBeers = this.breweryApiData
     const searchTerm = value.toLowerCase()
@@ -88,11 +90,6 @@ export class BreweryDetailComponent implements OnInit {
       })
     console.log("filteredBeers", filteredBeers)
     this.filteredBeers = filteredBeers
-  }
-
-  showAllBeers() {
-    this.nameSearch = "";
-    this.filteredBeers = this.breweryApiData
   }
 
   getBeerTypes() {
@@ -106,9 +103,34 @@ export class BreweryDetailComponent implements OnInit {
     const types = styles.map((style) => {
       return style.shortName
     })
-    console.log("types", types)
-    let uniqueBeerTypes = [...new Set(types)]
+    let uniqueBeerTypes = [...new Set(types)].sort()
     this.uniqueBeerTypes = uniqueBeerTypes
-    console.log("uniqueBeerTypes", uniqueBeerTypes)
+  }
+
+  onTypeChange(value) {
+    let selectedBeerType = value
+    this.filterBeersByType(selectedBeerType)
+  }
+
+  filterBeersByType(selectedType) {
+    this.nameSearch = ""
+    this.filteredType = selectedType
+    if (!selectedType) {
+      return this.breweryApiData
+    }
+    const filteredBeers = this.breweryApiData
+      .filter((beer) => {
+        return beer.style !== null && beer.style !== undefined;
+      })
+      .filter((beer) => {
+        return beer.style.shortName === selectedType
+      })
+    this.filteredBeers = filteredBeers
+  }
+
+  showAllBeers() {
+    this.nameSearch = "";
+    this.filteredType = "";
+    this.filteredBeers = this.breweryApiData
   }
 }

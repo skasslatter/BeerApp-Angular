@@ -25,6 +25,15 @@
   <h3 class="text-center">The beers</h3>
 
   <section id="filterFunctions">
+    <!--  Filter by Type-->
+    <div>
+      <h4>Filter by Type</h4>
+      <select [ngModel]="filteredType" (ngModelChange)="onTypeChange($event)">
+        <option disabled selected="selected" value="">Select</option>
+        <option *ngFor="let type of uniqueBeerTypes" value="{{type}}">{{type}}</option>
+      </select>
+    </div>
+
     <!--  Search by Name-->
     <div>
       <h4>Search by name</h4>
