@@ -7,13 +7,17 @@ body, html {
   font-family: 'Roboto Slab', serif;
 }
 
+:root
+{
+  --base-color: #dc3545;
+}
+
 h1, h2, h3, h4, h5 {
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
 }
 
-:root
-{
-  --base-color: #dc3545;
+h1 {
+  color: var(--base-color)
 }
 

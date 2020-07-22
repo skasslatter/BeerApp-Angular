@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { BreweryListComponent } from './brewery-list/brewery-list.component';
 import {FormsModule} from "@angular/forms";
+import { BreweryDetailComponent } from './brewery-detail/brewery-detail.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomepageComponent,
-    BreweryListComponent
+    BreweryListComponent,
+    BreweryDetailComponent
   ],
   imports: [
     BrowserModule,

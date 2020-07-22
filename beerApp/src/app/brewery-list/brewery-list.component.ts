@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
 interface Country {
@@ -14,6 +14,7 @@ interface Brewery {
   description: String,
   established: Number,
   images?: ImageSet,
+  id: String,
   locations: Array<Location>,
 }
 
