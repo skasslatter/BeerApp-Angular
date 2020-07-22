@@ -1,0 +1,12 @@
+.brewery-info {
+  box-shadow: 3px 3px 12px 1px rgba(0, 0, 0, 0.82);
+  background-color: var(--base-color);
+  padding: 3vh;
+  margin-top: 3vh;
+  border: 1px solid #BD2130;
+  border-radius: 14px;
+
+  p {
+    color: lightgrey;
+  }
+}

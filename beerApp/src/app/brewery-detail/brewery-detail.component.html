@@ -2,15 +2,28 @@
   <h3 class="text-center">🍻🍻🍻 Loading...</h3>
 </div>
 
-<div>
-<h1 class="text-center">{{breweryData.name}}</h1>
-<img *ngIf="breweryData.images" src="{{breweryData.images.large}}" alt="Brewery Logo">
+<section class=" container justify-content-center">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="text-center">{{breweryData.name}}</h1>
+    </div>
+  </div>
 
-<p *ngIf="breweryData.description; else noDescription">{{breweryData.description}}</p>
-<p>{{breweryData.established}}</p>
-<p>{{breweryData.website}}</p>
+  <div class="row">
+    <div class="col-sm-12 text-center">
+      <img *ngIf="breweryData.images" src="{{breweryData.images.large}}" alt="Brewery Logo">
+    </div>
+    <div class="col-sm-12 brewery-info">
+      <p *ngIf="breweryData.established">
+        established in {{breweryData.established}}</p>
+      <p *ngIf="breweryData.description; else noDescription">{{breweryData.description}}</p>
+      <a href="{{breweryData.website}}" target="_blank">{{breweryData.website}}</a>
+    </div>
+  </div>
 
-<ng-template #noDescription>
-  <p>Sorry, no description available.</p>
-</ng-template>
-</div>
+  <ng-template #noDescription>
+    <p>Sorry, no description available.</p>
+  </ng-template>
+
+
+</section>
