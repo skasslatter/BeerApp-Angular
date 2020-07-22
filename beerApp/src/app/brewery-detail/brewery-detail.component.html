@@ -1,0 +1,12 @@
+<div>
+<h1 class="text-center">{{breweryData.name}}</h1>
+<img *ngIf="breweryData.images" src="{{breweryData.images.large}}" alt="Brewery Logo">
+
+<p *ngIf="breweryData.description; else noDescription">{{breweryData.description}}</p>
+<p>{{breweryData.established}}</p>
+<p>{{breweryData.website}}</p>
+
+<ng-template #noDescription>
+  <p>Sorry, no description available.</p>
+</ng-template>
+</div>

@@ -24,7 +24,7 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [
-              "src/favicon.ico",
+              "src/favicon.png",
               "src/assets"
             ],
             "styles": [
@@ -67,11 +67,13 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "beerApp:build"
+            "browserTarget": "beerApp:build",
+            "proxyConfig": "src/proxy.conf.js"
           },
           "configurations": {
             "production": {
-              "browserTarget": "beerApp:build:production"
+              "browserTarget": "beerApp:build:production",
+              "proxyConfig": "src/proxy.conf.js"
             }
           }
         },
@@ -89,7 +91,7 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
-              "src/favicon.ico",
+              "src/favicon.png",
               "src/assets"
             ],
             "styles": [

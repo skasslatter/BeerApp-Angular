@@ -1,0 +1,29 @@
+#filterFunctions{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 7vh;
+  div {
+    text-align: center
+  }
+}
+
+.btn-show-all {
+  height: fit-content;
+  color: #fff;
+  border-color: #dc3545;
+  background-color: var(--base-color)
+}
+
+.breweries-list {
+  h3 {
+    color: var(--base-color)
+  }
+}
+
+.card {
+  border-top: 2px solid var(--base-color);
+  border-left: none;
+  border-right:none;
+  padding: 4vh 0;
+}
