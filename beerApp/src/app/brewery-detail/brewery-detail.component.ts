@@ -27,6 +27,7 @@ interface ApiBreweryInfoResponse {
 })
 export class BreweryDetailComponent implements OnInit {
   breweryData: Brewery;
+  loading: boolean = true;
   private routeSub: Subscription;
 
   constructor
@@ -48,6 +49,7 @@ export class BreweryDetailComponent implements OnInit {
       (response: ApiBreweryInfoResponse) => {
         console.log('response', response);
         this.breweryData = response.data
+        this.loading = false
       });
   }
 
