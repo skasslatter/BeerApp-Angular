@@ -25,3 +25,20 @@ h1, h3,  {
 h5 {
   color: var(--base-color);
 }
+
+.btn-show-all {
+  height: fit-content;
+  color: #fff;
+  border-color: #dc3545;
+  background-color: var(--base-color)
+}
+
+#filterFunctions{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 7vh;
+  div {
+    text-align: center
+  }
+}

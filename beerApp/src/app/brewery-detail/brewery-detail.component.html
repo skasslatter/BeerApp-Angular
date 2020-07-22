@@ -25,14 +25,24 @@
     </ng-template>
   </section>
 
-  <section>
-    <h3 class="text-center">The beers</h3>
+  <h3 class="text-center">The beers</h3>
 
+  <section id="filterFunctions">
+    <!--  Search by Name-->
+    <div>
+      <h4>Search by name</h4>
+      <input type="text" [ngModel]="nameSearch" (ngModelChange)="searchByName($event)" placeholder="Type to search...">
+    </div>
+
+        <button class="btn btn-show-all" (click)="showAllBeers()">Show all</button>
+  </section>
+
+  <section id="beer-list">
     <div class="container">
       <div class="row ">
-        <div class="col-sm-6" *ngFor="let beer of breweryApiData">
+        <div class="col-sm-6" *ngFor="let beer of filteredBeers">
           <div class="row beer-info">
-            <div class="col-sm-4 beer-label">
+            <div class="col-sm-4 beer-image">
               <img *ngIf="beer.labels; else noImage" src="{{ beer.labels.icon }}"/>
             </div>
             <div class="col-sm-8">

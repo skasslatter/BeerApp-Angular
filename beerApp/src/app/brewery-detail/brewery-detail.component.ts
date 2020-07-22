@@ -30,7 +30,6 @@ interface ImageSet {
 }
 
 interface Style {
-  description: String,
   name: String,
 }
 
@@ -45,8 +44,10 @@ interface ApiBreweryInfoResponse {
 })
 export class BreweryDetailComponent implements OnInit {
   breweryApiData: Array<Beer>;
+  filteredBeers: Array<Beer>
   breweryInfo: Brewery;
   loading: boolean = true;
+  nameSearch: String = ""
   private routeSub: Subscription;
 
   constructor
@@ -68,9 +69,26 @@ export class BreweryDetailComponent implements OnInit {
       (response: ApiBreweryInfoResponse) => {
         console.log('breweryData response', response);
         this.breweryApiData = response.data
+        this.filteredBeers = response.data
         this.breweryInfo = this.breweryApiData[0].breweries[0]
         this.loading = false
       });
   }
 
+  searchByName(value) {
+    this.nameSearch = value
+    this.filteredBeers = this.breweryApiData
+    const searchTerm = value.toLowerCase()
+    const filteredBeers = this.breweryApiData
+      .filter((beer) => {
+        return beer.name.toLowerCase().indexOf(searchTerm) !== -1
+      })
+    console.log("filteredBeers", filteredBeers)
+    this.filteredBeers = filteredBeers
+  }
+
+  showAllBeers(){
+    this.nameSearch = "";
+    this.filteredBeers = this.breweryApiData
+  }
 }
