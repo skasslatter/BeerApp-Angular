@@ -31,6 +31,7 @@ interface ImageSet {
 
 interface Style {
   name: String,
+  shortName: String,
 }
 
 interface ApiBreweryInfoResponse {
@@ -48,6 +49,7 @@ export class BreweryDetailComponent implements OnInit {
   breweryInfo: Brewery;
   loading: boolean = true;
   nameSearch: String = ""
+  uniqueBeerTypes: Array<String>
   private routeSub: Subscription;
 
   constructor
@@ -67,11 +69,12 @@ export class BreweryDetailComponent implements OnInit {
     let obs = this.http.get(`/api/brewery/${id}/beers?withBreweries=Y`)
     obs.subscribe(
       (response: ApiBreweryInfoResponse) => {
-        console.log('breweryData response', response);
+        console.log('breweryData response', response.data);
         this.breweryApiData = response.data
         this.filteredBeers = response.data
         this.breweryInfo = this.breweryApiData[0].breweries[0]
         this.loading = false
+        this.getBeerTypes()
       });
   }
 
@@ -87,8 +90,25 @@ export class BreweryDetailComponent implements OnInit {
     this.filteredBeers = filteredBeers
   }
 
-  showAllBeers(){
+  showAllBeers() {
     this.nameSearch = "";
     this.filteredBeers = this.breweryApiData
+  }
+
+  getBeerTypes() {
+    const styles = this.breweryApiData
+      .filter((beer) => {
+        return beer.style !== null && beer.style !== undefined
+      })
+      .map((beer) => {
+        return beer.style
+      })
+    const types = styles.map((style) => {
+      return style.shortName
+    })
+    console.log("types", types)
+    let uniqueBeerTypes = [...new Set(types)]
+    this.uniqueBeerTypes = uniqueBeerTypes
+    console.log("uniqueBeerTypes", uniqueBeerTypes)
   }
 }
