@@ -20,9 +20,6 @@
         <a href="{{breweryInfo.website}}" target="_blank">{{breweryInfo.website}}</a>
       </div>
     </div>
-    <ng-template #noDescription>
-      <p>Sorry, no description available.</p>
-    </ng-template>
   </section>
 
   <h3 class="text-center">The beers</h3>
@@ -33,8 +30,7 @@
       <h4>Search by name</h4>
       <input type="text" [ngModel]="nameSearch" (ngModelChange)="searchByName($event)" placeholder="Type to search...">
     </div>
-
-        <button class="btn btn-show-all" (click)="showAllBeers()">Show all</button>
+    <button class="btn btn-show-all" (click)="showAllBeers()">Show all</button>
   </section>
 
   <section id="beer-list">
@@ -52,10 +48,13 @@
           </div>
         </div>
       </div>
-      <ng-template #noImage>
-        <img src="../../assets/beer.png"/>
-      </ng-template>
     </div>
-
   </section>
 </div>
+
+<ng-template #noDescription>
+  <p>Sorry, no description available.</p>
+</ng-template>
+<ng-template #noImage>
+  <img src="../../assets/beer.png"/>
+</ng-template>
