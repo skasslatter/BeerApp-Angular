@@ -1,12 +1,24 @@
 .brewery-info {
-  box-shadow: 3px 3px 12px 1px rgba(0, 0, 0, 0.82);
+  //box-shadow: 3px 3px 12px 1px rgba(0, 0, 0, 0.82);
   background-color: var(--base-color);
+  //filter: brightness(70%);
+  opacity: 0.8;
   padding: 3vh;
   margin-top: 3vh;
   border: 1px solid #BD2130;
-  border-radius: 14px;
+  //border-radius: 14px;
 
   p {
-    color: lightgrey;
+    //color: lightgrey;
+    color: white;
   }
+}
+
+.beer-info {
+  padding: 2vh;
+}
+
+.beer-label {
+  align-self: center;
+  text-align: center;
 }

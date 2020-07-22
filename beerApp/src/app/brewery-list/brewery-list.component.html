@@ -1,5 +1,7 @@
 <div class="breweries-list">
-  <h1 class="text-center">All breweries</h1>
+  <div class="hero-image">
+    <h1 class="text-center hero-text">All breweries</h1>
+  </div>
 
   <section id="filterFunctions">
     <!--  Filter by Country-->
@@ -28,7 +30,6 @@
   <section class="row justify-content-center">
     <div class="col-sm-10">
       <div *ngFor="let brewery of filteredBreweries" class="card">
-
         <a routerLink="/brewery-detail/{{brewery.id}}" routerLinkActive="active">
           <img class="card-img-top" *ngIf="brewery.images" src="{{brewery.images.large}}" alt="Brewery Image">
           <div class="card-body">
@@ -38,7 +39,6 @@
             <p class="card-text">{{brewery.description}}</p>
           </div>
         </a>
-
       </div>
     </div>
   </section>

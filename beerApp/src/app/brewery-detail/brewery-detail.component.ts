@@ -3,6 +3,19 @@ import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 
+interface Beer {
+  breweries: Array<Brewery>
+  name: String,
+  id: Number,
+  style: Style,
+  labels: LabelSet
+}
+
+interface LabelSet {
+  icon: String,
+  large: String,
+}
+
 interface Brewery {
   name: String,
   description: String,
@@ -16,8 +29,13 @@ interface ImageSet {
   large: String,
 }
 
+interface Style {
+  description: String,
+  name: String,
+}
+
 interface ApiBreweryInfoResponse {
-  data: Brewery;
+  data: Array<Beer>,
 }
 
 @Component({
@@ -26,7 +44,8 @@ interface ApiBreweryInfoResponse {
   styleUrls: ['./brewery-detail.component.scss']
 })
 export class BreweryDetailComponent implements OnInit {
-  breweryData: Brewery;
+  breweryApiData: Array<Beer>;
+  breweryInfo: Brewery;
   loading: boolean = true;
   private routeSub: Subscription;
 
@@ -44,16 +63,14 @@ export class BreweryDetailComponent implements OnInit {
   }
 
   getBreweryInformation(id) {
-    let obs = this.http.get(`/api/brewery/${id}`)
+    let obs = this.http.get(`/api/brewery/${id}/beers?withBreweries=Y`)
     obs.subscribe(
       (response: ApiBreweryInfoResponse) => {
-        console.log('response', response);
-        this.breweryData = response.data
+        console.log('breweryData response', response);
+        this.breweryApiData = response.data
+        this.breweryInfo = this.breweryApiData[0].breweries[0]
         this.loading = false
       });
   }
 
-  getAllBreweryBeers() {
-
-  }
 }

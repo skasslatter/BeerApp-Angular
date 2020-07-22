@@ -2,28 +2,50 @@
   <h3 class="text-center">🍻🍻🍻 Loading...</h3>
 </div>
 
-<section class=" container justify-content-center">
-  <div class="row">
-    <div class="col-sm-12">
-      <h1 class="text-center">{{breweryData.name}}</h1>
+<div *ngIf="!loading">
+  <section class=" justify-content-center">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1 class="text-center">{{breweryInfo.name}}</h1>
+      </div>
     </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-12 text-center">
-      <img *ngIf="breweryData.images" src="{{breweryData.images.large}}" alt="Brewery Logo">
+    <div>
+      <div class="text-center">
+        <img *ngIf="breweryInfo.images" src="{{breweryInfo.images.large}}" alt="Brewery Logo">
+      </div>
+      <div class="brewery-info">
+        <p *ngIf="breweryInfo.established">
+          <i>established in {{breweryInfo.established}}</i></p>
+        <p *ngIf="breweryInfo.description; else noDescription">{{breweryInfo.description}}</p>
+        <a href="{{breweryInfo.website}}" target="_blank">{{breweryInfo.website}}</a>
+      </div>
     </div>
-    <div class="col-sm-12 brewery-info">
-      <p *ngIf="breweryData.established">
-        established in {{breweryData.established}}</p>
-      <p *ngIf="breweryData.description; else noDescription">{{breweryData.description}}</p>
-      <a href="{{breweryData.website}}" target="_blank">{{breweryData.website}}</a>
+    <ng-template #noDescription>
+      <p>Sorry, no description available.</p>
+    </ng-template>
+  </section>
+
+  <section>
+    <h3 class="text-center">The beers</h3>
+
+    <div class="container">
+      <div class="row ">
+        <div class="col-sm-6" *ngFor="let beer of breweryApiData">
+          <div class="row beer-info">
+            <div class="col-sm-4 beer-label">
+              <img *ngIf="beer.labels; else noImage" src="{{ beer.labels.icon }}"/>
+            </div>
+            <div class="col-sm-8">
+              <h5>{{beer.name}}</h5>
+              <span>{{beer.style.name}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #noImage>
+        <img src="../../assets/beer.png"/>
+      </ng-template>
     </div>
-  </div>
 
-  <ng-template #noDescription>
-    <p>Sorry, no description available.</p>
-  </ng-template>
-
-
-</section>
+  </section>
+</div>
