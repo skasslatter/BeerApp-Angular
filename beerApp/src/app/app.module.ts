@@ -8,6 +8,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { BreweryListComponent } from './brewery-list/brewery-list.component';
 import {FormsModule} from "@angular/forms";
 import { BreweryDetailComponent } from './brewery-detail/brewery-detail.component';
+import { BeerDetailComponent } from './beer-detail/beer-detail.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { BreweryDetailComponent } from './brewery-detail/brewery-detail.componen
     AppComponent,
     HomepageComponent,
     BreweryListComponent,
-    BreweryDetailComponent
+    BreweryDetailComponent,
+    BeerDetailComponent
   ],
   imports: [
     BrowserModule,
