@@ -38,6 +38,7 @@ export class BreweryListComponent implements OnInit {
   uniqueCountryNames: Array<String>;
   nameSearch: String = "";
   filteredCountry: String = "";
+  loading: boolean = true;
 
   constructor(private http: HttpClient) {
   }
@@ -54,6 +55,7 @@ export class BreweryListComponent implements OnInit {
         this.filteredBreweries = this.breweries
         console.log('response', response);
         this.getBreweriesLocations()
+        this.loading = false
       });
   }
 

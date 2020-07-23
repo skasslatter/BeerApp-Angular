@@ -1,19 +1,4 @@
-#filterFunctions{
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  margin: 7vh;
-  div {
-    text-align: center
-  }
-}
 
-.btn-show-all {
-  height: fit-content;
-  color: #fff;
-  border-color: #dc3545;
-  background-color: var(--base-color)
-}
 
 .breweries-list {
   h3 {
@@ -26,4 +11,25 @@
   border-left: none;
   border-right:none;
   padding: 4vh 0;
+  a {
+    text-decoration: none;
+    color: black
+  }
+}
+
+.hero-image {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://images.unsplash.com/photo-1542835497-a6813df96ed9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1951&q=80");
+  height: 50vh;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+.hero-text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
 }
