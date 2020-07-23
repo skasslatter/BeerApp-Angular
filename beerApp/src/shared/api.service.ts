@@ -3,16 +3,12 @@ import {Observable, of} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
 
-interface ApiBreweriesResponse {
+import {Brewery} from "../app/models/brewery";
+
+interface ApiResponse {
   data: Array<Brewery>
 }
 
-interface Brewery {
-  name: String,
-  description: String,
-  established: Number,
-  id: String,
-}
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +20,7 @@ export class ApiService {
   getAllBreweries(): Observable<any> {
     let breweries = []
     return this.http.get("/api/breweries?withLocations=Y")
-      .pipe((map((data: ApiBreweriesResponse) => {
+      .pipe((map((data: ApiResponse) => {
         breweries = data.data;
         return breweries;
       })))
@@ -33,9 +29,18 @@ export class ApiService {
   getBreweryInformation(id: number): Observable<any> {
     let breweryApiData = []
     return this.http.get(`/api/brewery/${id}/beers?withBreweries=Y`)
-      .pipe((map((data: ApiBreweriesResponse) => {
+      .pipe((map((data: ApiResponse) => {
         breweryApiData = data.data;
         return breweryApiData;
+      })))
+  }
+
+  getBeerInformation(id: number): Observable<any> {
+    let beerApiData = []
+    return this.http.get(`/api/beer/${id}?withBreweries=Y`)
+      .pipe((map((data: ApiResponse) => {
+        beerApiData = data.data;
+        return beerApiData;
       })))
   }
 }

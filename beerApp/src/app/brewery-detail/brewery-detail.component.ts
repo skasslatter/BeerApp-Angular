@@ -4,40 +4,8 @@ import {Subscription} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {ApiService} from "../../shared/api.service";
 
-interface Beer {
-  breweries: Array<Brewery>
-  name: String,
-  id: Number,
-  style: Style,
-  labels: LabelSet
-}
-
-interface LabelSet {
-  icon: String,
-  large: String,
-}
-
-interface Brewery {
-  name: String,
-  description: String,
-  established: Number,
-  website: String,
-  images?: ImageSet,
-}
-
-interface ImageSet {
-  medium: String,
-  large: String,
-}
-
-interface Style {
-  name: String,
-  shortName: String,
-}
-
-interface ApiBreweryInfoResponse {
-  data: Array<Beer>,
-}
+import { Brewery } from "../models/brewery";
+import { Beer } from "../models/beer";
 
 @Component({
   selector: 'app-brewery-detail',
@@ -67,7 +35,6 @@ export class BreweryDetailComponent implements OnInit {
 
   getBreweryInformation(id: number) {
     this.apiService.getBreweryInformation(id).subscribe((response) => {
-      console.log("getBreweryInformation", response)
       this.breweryApiData = response
       this.filteredBeers = response
       this.breweryInfo = this.breweryApiData[0].breweries[0]
@@ -76,7 +43,7 @@ export class BreweryDetailComponent implements OnInit {
     })
   }
 
-  searchByName(value) {
+  searchByName(value: string) {
     this.filteredType = ""
     this.nameSearch = value
     this.filteredBeers = this.breweryApiData
@@ -104,12 +71,12 @@ export class BreweryDetailComponent implements OnInit {
     this.uniqueBeerTypes = uniqueBeerTypes
   }
 
-  onTypeChange(value) {
+  onTypeChange(value: string) {
     let selectedBeerType = value
     this.filterBeersByType(selectedBeerType)
   }
 
-  filterBeersByType(selectedType) {
+  filterBeersByType(selectedType: string) {
     this.nameSearch = ""
     this.filteredType = selectedType
     if (!selectedType) {

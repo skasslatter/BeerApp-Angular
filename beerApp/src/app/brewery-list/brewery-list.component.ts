@@ -1,32 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ApiService} from "src/shared/api.service"
-
-interface Country {
-  displayName: String
-}
-
-interface Location {
-  country: Country
-}
-
-interface Brewery {
-  name: String,
-  description: String,
-  established: Number,
-  images?: ImageSet,
-  id: String,
-  locations: Array<Location>,
-}
-
-interface ImageSet {
-  medium: String,
-  large: String,
-}
-
-interface ApiBreweriesResponse {
-  data: Array<Brewery>
-}
+import { Brewery } from "../models/brewery";
 
 @Component({
   selector: 'app-brewery-list',
@@ -59,7 +34,7 @@ export class BreweryListComponent implements OnInit {
   }
 
   getBreweriesLocations() {
-    const locations: Array<Array<Location>> = this.breweries
+    const locations = this.breweries
       .filter((brewery) => {
         return brewery.locations !== null && brewery.locations !== undefined
       })

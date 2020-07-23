@@ -24,7 +24,10 @@
 }
 
 .beer-info {
-  padding: 2vh;
+  //padding: 2vh;
+  min-height: 20vh;
+  align-content: center;
+  border: 1px solid rgba(0,0,0,0.06);
 }
 
 .beer-image {
