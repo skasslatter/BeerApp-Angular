@@ -11,7 +11,7 @@
   </div>
   <section class=" justify-content-center">
     <div>
-      <div class="text-center">
+      <div class="text-center brewery-image">
         <img *ngIf="breweryInfo.images" src="{{breweryInfo.images.large}}" alt="Brewery Logo">
       </div>
       <div class="brewery-info">
@@ -25,7 +25,7 @@
     </div>
   </section>
 
-  <h2 class="text-center">The beers</h2>
+<!--  <h2 class="text-center">The beers</h2>-->
 
   <section id="filterFunctions">
     <!--  Filter by Type-->
@@ -42,7 +42,7 @@
       <h5>Search by name</h5>
       <input type="text" [ngModel]="nameSearch" (ngModelChange)="searchByName($event)" placeholder="Type to search...">
     </div>
-    <button class="btn btn-show-all" (click)="showAllBeers()">Show all</button>
+    <button class="btn btn-show-all" (click)="showAllBeers()">Show all beers</button>
   </section>
 
   <section id="beer-list">
@@ -55,8 +55,8 @@
                 <img *ngIf="beer.labels; else noImage" src="{{ beer.labels.icon }}"/>
               </div>
               <div class="col-sm-8">
-                <h5>{{beer.name}}</h5>
-                <span>{{beer.style.name}}</span>
+                <h5 *ngIf="beer.name">{{beer.name}}</h5>
+                <span *ngIf="beer.style.name">{{beer.style.name}}</span>
               </div>
             </div>
           </a>
