@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {ApiService} from "src/shared/api.service"
 
 interface Country {
   displayName: String
@@ -40,7 +41,8 @@ export class BreweryListComponent implements OnInit {
   filteredCountry: String = "";
   loading: boolean = true;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private apiService: ApiService) {
   }
 
   ngOnInit(): void {
@@ -48,15 +50,12 @@ export class BreweryListComponent implements OnInit {
   }
 
   getAllBreweries() {
-    let obs = this.http.get("/api/breweries?withLocations=Y")
-    obs.subscribe(
-      (response: ApiBreweriesResponse) => {
-        this.breweries = response.data
-        this.filteredBreweries = this.breweries
-        console.log('response', response);
-        this.getBreweriesLocations()
-        this.loading = false
-      });
+    this.apiService.getAllBreweries().subscribe((response) => {
+      this.breweries = response
+      this.filteredBreweries = this.breweries
+      this.getBreweriesLocations()
+      this.loading = false
+    })
   }
 
   getBreweriesLocations() {

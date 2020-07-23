@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {ApiService} from "../../shared/api.service";
 
 interface Beer {
   breweries: Array<Brewery>
@@ -54,29 +55,25 @@ export class BreweryDetailComponent implements OnInit {
   private routeSub: Subscription;
 
   constructor
-  (private route: ActivatedRoute, private http: HttpClient) {
+  (private route: ActivatedRoute, private http: HttpClient, private apiService: ApiService) {
   }
 
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(params => {
       let selectedBreweryID = params.id
-      console.log("selectedBreweryID:", selectedBreweryID)
-
       this.getBreweryInformation(selectedBreweryID)
     });
   }
 
-  getBreweryInformation(id) {
-    let obs = this.http.get(`/api/brewery/${id}/beers?withBreweries=Y`)
-    obs.subscribe(
-      (response: ApiBreweryInfoResponse) => {
-        console.log('breweryData response', response.data);
-        this.breweryApiData = response.data
-        this.filteredBeers = response.data
-        this.breweryInfo = this.breweryApiData[0].breweries[0]
-        this.loading = false
-        this.getBeerTypes()
-      });
+  getBreweryInformation(id: number) {
+    this.apiService.getBreweryInformation(id).subscribe((response) => {
+      console.log("getBreweryInformation", response)
+      this.breweryApiData = response
+      this.filteredBeers = response
+      this.breweryInfo = this.breweryApiData[0].breweries[0]
+      this.loading = false
+      this.getBeerTypes()
+    })
   }
 
   searchByName(value) {
