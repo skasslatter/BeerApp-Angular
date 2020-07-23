@@ -1,4 +1,6 @@
 nav {
+  background-color: var(--base-color);
+
   ul {
     padding: 0;
     margin: 0;
@@ -7,6 +9,10 @@ nav {
   li {
     display: inline-block;
     padding: 10px 30px;
+  }
+
+  a{
+    color: white;
   }
 }
 

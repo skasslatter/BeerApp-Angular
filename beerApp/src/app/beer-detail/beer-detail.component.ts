@@ -13,6 +13,7 @@ import {Beer} from "../models/beer";
 
 export class BeerDetailComponent implements OnInit {
   beer: Beer
+  loading: boolean = true
   private routeSub: Subscription;
 
   constructor
@@ -30,6 +31,7 @@ export class BeerDetailComponent implements OnInit {
       this.apiService.getBeerInformation(selectedBeerID).subscribe((response) => {
         console.log("response", response)
         this.beer = response
+        this.loading = false
       })
     })
   }

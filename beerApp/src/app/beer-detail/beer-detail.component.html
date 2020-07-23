@@ -1,3 +1,21 @@
-<p>{{beer.name}}</p>
-<p>{{beer.description}}</p>
-<p>{{beer.style.shortName}}</p>
+<div *ngIf="loading">
+  <div class="hero-image"></div>
+  <h3 class="text-center">🍻🍻🍻 Loading...</h3>
+</div>
+
+<div *ngIf="!loading">
+  <div>
+    <div class="hero-image">
+      <h1 class="text-center hero-text">{{beer.name}}</h1>
+    </div>
+  </div>
+  <div class="container">
+    <h5 *ngIf="beer.style.shortName">Type: {{beer.style.shortName}}</h5>
+    <br>
+    <p *ngIf="beer.description, else noDescription">{{beer.description}}</p>
+  </div>
+</div>
+
+<ng-template #noDescription>
+  <p>Sorry, no description available.</p>
+</ng-template>

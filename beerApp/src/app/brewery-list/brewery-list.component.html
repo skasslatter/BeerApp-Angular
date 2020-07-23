@@ -6,7 +6,7 @@
   <section id="filterFunctions">
     <!--  Filter by Country-->
     <div>
-      <h4>Filter by Country</h4>
+      <h5>Filter by Country</h5>
       <select [ngModel]="filteredCountry" (ngModelChange)="onCountryChange($event)">
         <option value="" disabled selected="selected">Select</option>
         <option *ngFor="let countryName of uniqueCountryNames" value="{{countryName}}">{{countryName}}</option>
@@ -15,7 +15,7 @@
 
     <!--  Search by Name-->
     <div>
-      <h4>Search by name</h4>
+      <h5>Search by name</h5>
       <input type="text" [ngModel]="nameSearch" (ngModelChange)="searchByName($event)" placeholder="Type to search...">
     </div>
     <button class="btn btn-show-all" (click)="showAllBreweries()">Show all</button>
