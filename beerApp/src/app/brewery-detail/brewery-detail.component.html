@@ -55,8 +55,8 @@
                 <img *ngIf="beer.labels; else noImage" src="{{ beer.labels.icon }}"/>
               </div>
               <div class="col-sm-8">
-                <h5 *ngIf="beer.name">{{beer.name}}</h5>
-                <span *ngIf="beer.style.name">{{beer.style.name}}</span>
+                <h5>{{beer.name}}</h5>
+                <span *ngIf="beer.style">{{beer.style.name}}</span>
               </div>
             </div>
           </a>
