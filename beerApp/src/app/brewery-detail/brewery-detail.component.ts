@@ -2,41 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {ApiService} from "../../shared/api.service";
 
-interface Beer {
-  breweries: Array<Brewery>
-  name: String,
-  id: Number,
-  style: Style,
-  labels: LabelSet
-}
-
-interface LabelSet {
-  icon: String,
-  large: String,
-}
-
-interface Brewery {
-  name: String,
-  description: String,
-  established: Number,
-  website: String,
-  images?: ImageSet,
-}
-
-interface ImageSet {
-  medium: String,
-  large: String,
-}
-
-interface Style {
-  name: String,
-  shortName: String,
-}
-
-interface ApiBreweryInfoResponse {
-  data: Array<Beer>,
-}
+import { Brewery } from "../models/brewery";
+import { Beer } from "../models/beer";
 
 @Component({
   selector: 'app-brewery-detail',
@@ -54,32 +23,27 @@ export class BreweryDetailComponent implements OnInit {
   private routeSub: Subscription;
 
   constructor
-  (private route: ActivatedRoute, private http: HttpClient) {
+  (private route: ActivatedRoute, private http: HttpClient, private apiService: ApiService) {
   }
 
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(params => {
       let selectedBreweryID = params.id
-      console.log("selectedBreweryID:", selectedBreweryID)
-
       this.getBreweryInformation(selectedBreweryID)
     });
   }
 
-  getBreweryInformation(id) {
-    let obs = this.http.get(`/api/brewery/${id}/beers?withBreweries=Y`)
-    obs.subscribe(
-      (response: ApiBreweryInfoResponse) => {
-        console.log('breweryData response', response.data);
-        this.breweryApiData = response.data
-        this.filteredBeers = response.data
-        this.breweryInfo = this.breweryApiData[0].breweries[0]
-        this.loading = false
-        this.getBeerTypes()
-      });
+  getBreweryInformation(id: number) {
+    this.apiService.getBreweryInformation(id).subscribe((response) => {
+      this.breweryApiData = response
+      this.filteredBeers = response
+      this.breweryInfo = this.breweryApiData[0].breweries[0]
+      this.loading = false
+      this.getBeerTypes()
+    })
   }
 
-  searchByName(value) {
+  searchByName(value: string) {
     this.filteredType = ""
     this.nameSearch = value
     this.filteredBeers = this.breweryApiData
@@ -107,12 +71,12 @@ export class BreweryDetailComponent implements OnInit {
     this.uniqueBeerTypes = uniqueBeerTypes
   }
 
-  onTypeChange(value) {
+  onTypeChange(value: string) {
     let selectedBeerType = value
     this.filterBeersByType(selectedBeerType)
   }
 
-  filterBeersByType(selectedType) {
+  filterBeersByType(selectedType: string) {
     this.nameSearch = ""
     this.filteredType = selectedType
     if (!selectedType) {

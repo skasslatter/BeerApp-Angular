@@ -1,31 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-
-interface Country {
-  displayName: String
-}
-
-interface Location {
-  country: Country
-}
-
-interface Brewery {
-  name: String,
-  description: String,
-  established: Number,
-  images?: ImageSet,
-  id: String,
-  locations: Array<Location>,
-}
-
-interface ImageSet {
-  medium: String,
-  large: String,
-}
-
-interface ApiBreweriesResponse {
-  data: Array<Brewery>
-}
+import {ApiService} from "src/shared/api.service"
+import { Brewery } from "../models/brewery";
 
 @Component({
   selector: 'app-brewery-list',
@@ -40,7 +16,8 @@ export class BreweryListComponent implements OnInit {
   filteredCountry: String = "";
   loading: boolean = true;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private apiService: ApiService) {
   }
 
   ngOnInit(): void {
@@ -48,19 +25,16 @@ export class BreweryListComponent implements OnInit {
   }
 
   getAllBreweries() {
-    let obs = this.http.get("/api/breweries?withLocations=Y")
-    obs.subscribe(
-      (response: ApiBreweriesResponse) => {
-        this.breweries = response.data
-        this.filteredBreweries = this.breweries
-        console.log('response', response);
-        this.getBreweriesLocations()
-        this.loading = false
-      });
+    this.apiService.getAllBreweries().subscribe((response) => {
+      this.breweries = response
+      this.filteredBreweries = this.breweries
+      this.getBreweriesLocations()
+      this.loading = false
+    })
   }
 
   getBreweriesLocations() {
-    const locations: Array<Array<Location>> = this.breweries
+    const locations = this.breweries
       .filter((brewery) => {
         return brewery.locations !== null && brewery.locations !== undefined
       })
