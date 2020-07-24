@@ -1,74 +1,75 @@
 <div *ngIf="loading">
-  <div class="hero-image"></div>
-  <h3 class="text-center">🍻🍻🍻 Loading...</h3>
+    <div class="hero-image"></div>
+    <h3 class="text-center">🍻🍻🍻 Loading...</h3>
 </div>
 
 <div *ngIf="!loading">
-  <div>
-    <div class="hero-image">
-      <h1 class="text-center hero-text">{{breweryInfo.name}}</h1>
-    </div>
-  </div>
-  <section class=" justify-content-center">
     <div>
-      <div class="text-center brewery-image">
-        <img *ngIf="breweryInfo.images" src="{{breweryInfo.images.large}}" alt="Brewery Logo">
-      </div>
-      <div class="brewery-info">
-        <p *ngIf="breweryInfo.established">
-          <i>established in {{breweryInfo.established}}</i></p>
-        <p *ngIf="breweryInfo.description; else noDescription">{{breweryInfo.description}}</p>
-        <div class="text-center">
-          <a href="{{breweryInfo.website}}" target="_blank">{{breweryInfo.website}}</a>
+        <div class="hero-image">
+            <h1 class="text-center hero-text">{{breweryInfo.name}}</h1>
         </div>
-      </div>
     </div>
-  </section>
-
-<!--  <h2 class="text-center">The beers</h2>-->
-
-  <section id="filterFunctions">
-    <!--  Filter by Type-->
-    <div>
-      <h5>Filter by Type</h5>
-      <select [ngModel]="filteredType" (ngModelChange)="onTypeChange($event)">
-        <option disabled selected="selected" value="">Select</option>
-        <option *ngFor="let type of uniqueBeerTypes" value="{{type}}">{{type}}</option>
-      </select>
-    </div>
-
-    <!--  Search by Name-->
-    <div>
-      <h5>Search by name</h5>
-      <input type="text" [ngModel]="nameSearch" (ngModelChange)="searchByName($event)" placeholder="Type to search...">
-    </div>
-    <button class="btn btn-show-all" (click)="showAllBeers()">Show all beers</button>
-  </section>
-
-  <section id="beer-list">
-    <div class="container">
-      <div class="row ">
-        <div class="col-sm-6" *ngFor="let beer of filteredBeers">
-          <a routerLink="/beer-detail/{{beer.id}}" routerLinkActive="active">
-            <div class="row beer-info">
-              <div class="col-sm-4 beer-image">
-                <img *ngIf="beer.labels; else noImage" src="{{ beer.labels.icon }}"/>
-              </div>
-              <div class="col-sm-8">
-                <h5>{{beer.name}}</h5>
-                <span *ngIf="beer.style">{{beer.style.name}}</span>
-              </div>
+    <section class=" justify-content-center">
+        <div>
+            <div class="text-center brewery-image">
+                <img *ngIf="breweryInfo.images" src="{{breweryInfo.images.large}}" alt="Brewery Logo">
             </div>
-          </a>
+            <div class="brewery-info">
+                <p *ngIf="breweryInfo.established">
+                    <i>established in {{breweryInfo.established}}</i></p>
+                <p *ngIf="breweryInfo.description; else noDescription">{{breweryInfo.description}}</p>
+                <div class="text-center">
+                    <a href="{{breweryInfo.website}}" target="_blank">{{breweryInfo.website}}</a>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
+
+    <!--  <h2 class="text-center">The beers</h2>-->
+
+    <section id="filterFunctions">
+        <!--  Filter by Type-->
+        <div>
+            <h5>Filter by Type</h5>
+            <select [ngModel]="filteredType" (ngModelChange)="onTypeChange($event)">
+                <option disabled selected="selected" value="">Select</option>
+                <option *ngFor="let type of uniqueBeerTypes" value="{{type}}">{{type}}</option>
+            </select>
+        </div>
+
+        <!--  Search by Name-->
+        <div>
+            <h5>Search by name</h5>
+            <input type="text" [ngModel]="nameSearch" (ngModelChange)="searchByName($event)"
+                   placeholder="Type to search...">
+        </div>
+        <button class="btn btn-show-all" (click)="showAllBeers()">Show all beers</button>
+    </section>
+
+    <section id="beer-list">
+        <div class="container">
+            <div class="row ">
+                <div class="col-sm-6" *ngFor="let beer of filteredBeers">
+                    <a routerLink="/beer-detail/{{beer.id}}" routerLinkActive="active">
+                        <div class="row beer-info">
+                            <div class="col-sm-4 beer-image">
+                                <img *ngIf="beer.labels; else noImage" src="{{ beer.labels.icon }}"/>
+                            </div>
+                            <div class="col-sm-8">
+                                <h5>{{beer.name}}</h5>
+                                <span *ngIf="beer.style">{{beer.style.name}}</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
 <ng-template #noDescription>
-  <p>Sorry, no description available.</p>
+    <p>Sorry, no description available.</p>
 </ng-template>
 <ng-template #noImage>
-  <img src="../../assets/beer.png"/>
+    <img src="../../assets/beer.png"/>
 </ng-template>

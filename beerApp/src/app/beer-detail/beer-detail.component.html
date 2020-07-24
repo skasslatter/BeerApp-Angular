@@ -1,31 +1,31 @@
 <div *ngIf="loading">
-  <div class="hero-image"></div>
-  <h3 class="text-center">🍻🍻🍻 Loading...</h3>
+    <div class="hero-image"></div>
+    <h3 class="text-center">🍻🍻🍻 Loading...</h3>
 </div>
 
 <div *ngIf="!loading">
-  <div>
-    <div class="hero-image">
-      <h1 class="text-center hero-text">{{beer.name}}</h1>
+    <div>
+        <div class="hero-image">
+            <h1 class="text-center hero-text">{{beer.name}}</h1>
+        </div>
     </div>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-6 beer-image">
-        <img *ngIf="beer.labels; else noImage" src="{{beer.labels.medium}}">
-      </div>
-      <div class="col-sm-5 beer-info">
-        <h5 *ngIf="beer.style.shortName">Type: {{beer.style.shortName}}</h5>
-        <br>
-        <p *ngIf="beer.description, else noDescription">{{beer.description}}</p>
-      </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 beer-image">
+                <img *ngIf="beer.labels; else noImage" src="{{beer.labels.medium}}">
+            </div>
+            <div class="col-sm-5 beer-info">
+                <h5 *ngIf="beer.style.shortName">Type: {{beer.style.shortName}}</h5>
+                <br>
+                <p *ngIf="beer.description, else noDescription">{{beer.description}}</p>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <ng-template #noDescription>
-  <p>Sorry, no description available.</p>
+    <p>Sorry, no description available.</p>
 </ng-template>
 <ng-template #noImage>
-  <img src="../../assets/beer-large.png"/>
+    <img src="../../assets/beer-large.png"/>
 </ng-template>
