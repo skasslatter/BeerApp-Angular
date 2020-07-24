@@ -12,15 +12,17 @@ import {Beer} from "../../../models/beer";
 export class BeerListComponent implements OnInit {
     beers: Array<Beer>
     loading: boolean = true;
-    displayedPage: number = 1;
-
+    page: number = 1;
+    pagePlusOne: number = this.page + 1;
+    pagePlusTwo: number = this.page + 2;
+    pagePlusThree: number = this.page + 3;
 
     constructor(private http: HttpClient,
                 private apiService: ApiService) {
     }
 
     ngOnInit(): void {
-        this.getAllBeers(this.displayedPage)
+        this.getAllBeers(this.page)
     }
 
     getAllBeers(page: number) {
@@ -32,16 +34,30 @@ export class BeerListComponent implements OnInit {
     }
 
     showPreviousPage() {
-        if (this.displayedPage > 1) {
-            this.displayedPage = this.displayedPage - 1
+        if (this.page > 1) {
+            this.page = this.page - 1
         }
-        this.getAllBeers(this.displayedPage)
+        this.getAllBeers(this.page)
+        this.pagePlusOne = this.pagePlusOne - 1
+        this.pagePlusTwo = this.pagePlusTwo - 1
+        this.pagePlusThree = this.pagePlusThree - 1
     }
 
     showNextPage() {
-        if (this.displayedPage < 23) {
-            this.displayedPage = this.displayedPage + 1
+        if (this.page < 23) {
+            this.page = this.page + 1
         }
-        this.getAllBeers(this.displayedPage)
+        this.getAllBeers(this.page)
+        this.pagePlusOne = this.pagePlusOne + 1
+        this.pagePlusTwo = this.pagePlusTwo + 1
+        this.pagePlusThree = this.pagePlusThree + 1
+    }
+
+    showDifferentPage(clickedPage) {
+        this.getAllBeers(clickedPage)
+        this.page = clickedPage
+        this.pagePlusOne = clickedPage + 1
+        this.pagePlusTwo = clickedPage + 2
+        this.pagePlusThree = clickedPage + 3
     }
 }
