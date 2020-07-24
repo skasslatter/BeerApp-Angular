@@ -1,21 +1,22 @@
 import {Brewery} from "./brewery";
 
 interface LabelSet {
-  icon: String,
-  large: String,
-  medium: String,
+    icon: String,
+    large: String,
+    medium: String,
+    contentAwareMedium: String,
 }
 
 interface Style {
-  name: String,
-  shortName: String,
+    name: String,
+    shortName: String,
 }
 
 export interface Beer {
-  breweries: Array<Brewery>
-  name: String,
-  description: String,
-  id: Number,
-  style: Style,
-  labels: LabelSet
+    breweries: Array<Brewery>
+    name: String,
+    description: String,
+    id: Number,
+    style: Style,
+    labels: LabelSet
 }

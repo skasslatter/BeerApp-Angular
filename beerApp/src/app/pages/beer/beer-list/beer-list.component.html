@@ -1,12 +1,27 @@
+<div>
+    <div class="hero-image">
+        <h1 class="text-center hero-text">All beers</h1>
+    </div>
+</div>
+
 <div *ngIf="loading">
     <h3 class="text-center">🍻🍻🍻 Loading...</h3>
 </div>
 
+<!-- Beer List -->
 <div *ngIf="!loading">
-    <div *ngFor="let beer of beers">
-        <p>{{beer.name}}</p>
+    <div class="row">
+        <div *ngFor="let beer of beers" class="card col-sm-6">
+            <img *ngIf="beer.labels; else noImage" src="{{beer.labels.medium}}" alt="Beer Label" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title text-center">{{beer.name}}</h5>
+                <!--                <p *ngIf="beer.style">{{beer.style.shortName}}</p>-->
+                <p>{{beer.breweries[0].name}}</p>
+            </div>
+        </div>
     </div>
 
+    <!-- Pagination -->
     <section>
         <nav aria-label="Page navigation">
             <ul class="pagination">
@@ -30,3 +45,8 @@
         </nav>
     </section>
 </div>
+
+<ng-template #noImage>
+    <img src="../../../../assets/beer.png" alt="Beer Image" class="card-img-top">
+</ng-template>
+
