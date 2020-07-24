@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ApiService} from "../../shared/api.service";
 
-import { Beer } from "../models/beer";
+import {Beer} from "../models/beer";
 
 @Component({
   selector: 'app-beer-list',
@@ -11,19 +11,36 @@ import { Beer } from "../models/beer";
 })
 export class BeerListComponent implements OnInit {
   beers: Array<Beer>
+  loading: boolean = true;
+  displayedPage: number = 3
 
   constructor(private http: HttpClient,
               private apiService: ApiService) {
   }
 
   ngOnInit(): void {
-    this.getAllBeers()
+    this.getAllBeers(this.displayedPage)
   }
 
-  getAllBeers() {
-    this.apiService.getAllBeers().subscribe((response) => {
+  getAllBeers(page: number) {
+    this.apiService.getAllBeers(page).subscribe((response) => {
       this.beers = response
       console.log("all beers response", this.beers)
+      this.loading = false
     })
+  }
+
+  showPreviousPage() {
+    if (this.displayedPage >= 2) {
+      this.displayedPage = this.displayedPage - 1
+    }
+    this.getAllBeers(this.displayedPage)
+  }
+
+  showNextPage() {
+    if (this.displayedPage <= 22) {
+      this.displayedPage = this.displayedPage + 1
+    }
+    this.getAllBeers(this.displayedPage)
   }
 }
