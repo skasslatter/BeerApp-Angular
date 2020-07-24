@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ApiService} from "src/services/api.service"
-import {Brewery} from "../models/brewery";
+import {Brewery} from "../../../models/brewery";
 
 @Component({
     selector: 'app-brewery-list',

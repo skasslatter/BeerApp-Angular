@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {ApiService} from "../../services/api.service";
+import {ApiService} from "../../../../services/api.service";
 
-import {Beer} from "../models/beer";
+import {Beer} from "../../../models/beer";
 
 @Component({
     selector: 'app-beer-list',

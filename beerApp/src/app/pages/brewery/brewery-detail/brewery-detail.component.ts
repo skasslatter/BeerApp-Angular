@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {ApiService} from "../../services/api.service";
+import {ApiService} from "../../../../services/api.service";
 
-import {Brewery} from "../models/brewery";
-import {Beer} from "../models/beer";
+import {Brewery} from "../../../models/brewery";
+import {Beer} from "../../../models/beer";
 
 @Component({
     selector: 'app-brewery-detail',

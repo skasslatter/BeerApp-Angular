@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {ApiService} from "../../services/api.service";
-import {Beer} from "../models/beer";
+import {ApiService} from "../../../../services/api.service";
+import {Beer} from "../../../models/beer";
 
 @Component({
     selector: 'app-beer-detail',
