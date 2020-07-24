@@ -9,6 +9,7 @@ import { BreweryListComponent } from './brewery-list/brewery-list.component';
 import {FormsModule} from "@angular/forms";
 import { BreweryDetailComponent } from './brewery-detail/brewery-detail.component';
 import { BeerDetailComponent } from './beer-detail/beer-detail.component';
+import { BeerListComponent } from './beer-list/beer-list.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { BeerDetailComponent } from './beer-detail/beer-detail.component';
     HomepageComponent,
     BreweryListComponent,
     BreweryDetailComponent,
-    BeerDetailComponent
+    BeerDetailComponent,
+    BeerListComponent
   ],
   imports: [
     BrowserModule,
