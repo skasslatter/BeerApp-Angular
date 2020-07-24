@@ -26,6 +26,15 @@ export class ApiService {
       })))
   }
 
+  getAllBeers(): Observable<any> {
+    let beers = []
+    return this.http.get("/api/beers")
+      .pipe((map((data: ApiResponse) => {
+        beers = data.data;
+        return beers;
+      })))
+  }
+
   getBreweryInformation(id: number): Observable<any> {
     let breweryApiData = []
     return this.http.get(`/api/brewery/${id}/beers?withBreweries=Y`)
