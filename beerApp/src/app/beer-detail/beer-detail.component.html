@@ -10,12 +10,22 @@
     </div>
   </div>
   <div class="container">
-    <h5 *ngIf="beer.style.shortName">Type: {{beer.style.shortName}}</h5>
-    <br>
-    <p *ngIf="beer.description, else noDescription">{{beer.description}}</p>
+    <div class="row">
+      <div class="col-sm-6 beer-image">
+        <img *ngIf="beer.labels; else noImage" src="{{beer.labels.medium}}">
+      </div>
+      <div class="col-sm-5 beer-info">
+        <h5 *ngIf="beer.style.shortName">Type: {{beer.style.shortName}}</h5>
+        <br>
+        <p *ngIf="beer.description, else noDescription">{{beer.description}}</p>
+      </div>
+    </div>
   </div>
 </div>
 
 <ng-template #noDescription>
   <p>Sorry, no description available.</p>
+</ng-template>
+<ng-template #noImage>
+  <img src="../../assets/beer-large.png"/>
 </ng-template>

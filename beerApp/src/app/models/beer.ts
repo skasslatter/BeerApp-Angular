@@ -3,6 +3,7 @@ import {Brewery} from "./brewery";
 interface LabelSet {
   icon: String,
   large: String,
+  medium: String,
 }
 
 interface Style {
