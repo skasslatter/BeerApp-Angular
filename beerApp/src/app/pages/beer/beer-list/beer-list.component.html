@@ -11,12 +11,17 @@
 <!-- Beer List -->
 <div *ngIf="!loading">
     <div class="row">
-        <div *ngFor="let beer of beers" class="card col-sm-6">
-            <img *ngIf="beer.labels; else noImage" src="{{beer.labels.medium}}" alt="Beer Label" class="card-img-top">
+        <div *ngFor="let beer of beers" class="card col-sm-3">
+            <a routerLink="/beer-detail/{{beer.id}}" routerLinkActive="active">
+                <img *ngIf="beer.labels; else noImage" src="{{beer.labels.medium}}" alt="Beer Label"
+                     class="card-img-top"></a>
             <div class="card-body">
-                <h5 class="card-title text-center">{{beer.name}}</h5>
-                <!--                <p *ngIf="beer.style">{{beer.style.shortName}}</p>-->
-                <p>{{beer.breweries[0].name}}</p>
+                <a routerLink="/beer-detail/{{beer.id}}" routerLinkActive="active">
+                    <h5 class="card-title text-center">{{beer.name}}</h5>
+                </a>
+                <a routerLink="/brewery-detail/{{beer.breweries[0].id}}" routerLinkActive="active">
+                    <p>{{beer.breweries[0].name}}</p>
+                </a>
             </div>
         </div>
     </div>
