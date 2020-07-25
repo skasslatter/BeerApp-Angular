@@ -17,3 +17,30 @@
     transform: translate(-50%, -50%);
     color: white;
 }
+
+.beer-info {
+    min-height: 25vh;
+    align-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.beer-image {
+    align-self: center;
+    text-align: center;
+}
+
+#beer-list {
+    margin-bottom: 5vh;
+    a {
+        text-decoration: none;
+        color: black
+    }
+}
+
+.pagination {
+    justify-content: center;
+    margin: 2vh 0 ;
+    a{
+        color: var(--base-color);
+    }
+}

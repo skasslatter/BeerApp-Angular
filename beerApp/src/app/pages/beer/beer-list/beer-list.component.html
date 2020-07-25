@@ -10,9 +10,9 @@
 
 <!-- Beer List -->
 <div *ngIf="!isLoading">
-    <div class="container">
+    <div id="beer-list" class="container">
         <div class="row">
-            <div *ngFor="let beer of beers" class="card col-sm-6">
+            <div *ngFor="let beer of beers" class="col-sm-6">
 
                 <div class="row beer-info">
                     <div class="col-sm-4 beer-image">
@@ -23,18 +23,19 @@
                     <div class="col-sm-8">
                         <a routerLink="/beer-detail/{{beer.id}}" routerLinkActive="active">
                             <h5>{{beer.name}}</h5>
-                            <span *ngIf="beer.style">{{beer.style.name}}</span>
+                            <p *ngIf="beer.style">{{beer.style.name}}</p>
                         </a>
+
                         <a routerLink="/brewery-detail/{{beer.breweries[0].id}}" routerLinkActive="active">
-                            <p>{{beer.breweries[0].name}}</p>
+                            <p><i>{{beer.breweries[0].name}}</i></p>
                         </a>
                     </div>
                 </div>
             </div>
         </div>
-
+    </div>
         <!-- Pagination -->
-        <section>
+        <section id="pagination">
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <li *ngIf="page >1" class="page-item ">
@@ -60,7 +61,7 @@
                 </ul>
             </nav>
         </section>
-    </div>
+
 </div>
 
 <ng-template #noImage>
