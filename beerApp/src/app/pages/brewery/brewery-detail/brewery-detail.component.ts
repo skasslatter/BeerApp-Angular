@@ -13,13 +13,13 @@ import {Beer} from "../../../models/beer";
     styleUrls: ['./brewery-detail.component.scss']
 })
 export class BreweryDetailComponent implements OnInit {
-    breweryApiData: Array<Beer>;
-    filteredBeers: Array<Beer>
+    breweryApiData: Beer[] = [];
+    filteredBeers: Beer[] = [];
     breweryInfo: Brewery;
     loading: boolean = true;
-    nameSearch: String = ""
-    uniqueBeerTypes: Array<String>
-    filteredType: String = "";
+    nameSearch: String;
+    uniqueBeerTypes: String[] = [];
+    filteredType: String;
     private routeSub: Subscription;
 
     constructor
@@ -68,13 +68,11 @@ export class BreweryDetailComponent implements OnInit {
         const types = styles.map((style) => {
             return style.shortName
         })
-        let uniqueBeerTypes = [...new Set(types)].sort()
-        this.uniqueBeerTypes = uniqueBeerTypes
+        this.uniqueBeerTypes = [...new Set(types)].sort()
     }
 
     onTypeChange(value: string) {
-        let selectedBeerType = value
-        this.filterBeersByType(selectedBeerType)
+        this.filterBeersByType(value)
     }
 
     filterBeersByType(selectedType: string) {
@@ -83,14 +81,13 @@ export class BreweryDetailComponent implements OnInit {
         if (!selectedType) {
             return this.breweryApiData
         }
-        const filteredBeers = this.breweryApiData
+        this.filteredBeers = this.breweryApiData
             .filter((beer) => {
                 return beer.style !== null && beer.style !== undefined;
             })
             .filter((beer) => {
                 return beer.style.shortName === selectedType
             })
-        this.filteredBeers = filteredBeers
     }
 
     showAllBeers() {

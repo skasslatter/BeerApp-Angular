@@ -9,11 +9,11 @@ import {Brewery} from "../../../models/brewery";
     styleUrls: ['./brewery-list.component.scss']
 })
 export class BreweryListComponent implements OnInit {
-    breweries: Array<Brewery>;
-    filteredBreweries: Array<Brewery>;
-    uniqueCountryNames: Array<String>;
-    nameSearch: String = "";
-    filteredCountry: String = "";
+    breweries: Brewery[] = [];
+    filteredBreweries: Brewery[] = [];
+    uniqueCountryNames: String[] = [];
+    nameSearch: String;
+    filteredCountry: String;
     loading: boolean = true;
 
     constructor(private http: HttpClient,
@@ -48,13 +48,11 @@ export class BreweryListComponent implements OnInit {
         const countryNames = flatLocations.map((location) => {
             return location.country.displayName;
         })
-        let uniqueCountryNames = [...new Set(countryNames)]
-        this.uniqueCountryNames = uniqueCountryNames
+        this.uniqueCountryNames = [...new Set(countryNames)]
     }
 
     onCountryChange(value) {
-        let selectedCountry = value
-        this.filterBreweriesByCountry(selectedCountry)
+        this.filterBreweriesByCountry(value)
     }
 
     filterBreweriesByCountry(countryName) {
@@ -63,7 +61,7 @@ export class BreweryListComponent implements OnInit {
         if (!countryName) {
             return this.breweries
         }
-        const filteredBreweries = this.breweries
+        this.filteredBreweries = this.breweries
             .filter((brewery) => {
                 return brewery.locations !== null && brewery.locations !== undefined;
             })
@@ -75,8 +73,7 @@ export class BreweryListComponent implements OnInit {
                     }
                 })
                 return hasLocation
-            });
-        this.filteredBreweries = filteredBreweries
+            })
     }
 
     searchByName(value) {

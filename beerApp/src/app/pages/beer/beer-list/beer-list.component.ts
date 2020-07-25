@@ -10,9 +10,10 @@ import {Beer} from "../../../models/beer";
     styleUrls: ['./beer-list.component.scss']
 })
 export class BeerListComponent implements OnInit {
-    beers: Array<Beer>
-    loading: boolean = true;
+    beers: Beer[] = [];
+    isLoading: boolean = true;
     page: number = 1;
+    pageCount: number;
     pagePlusOne: number = this.page + 1;
     pagePlusTwo: number = this.page + 2;
     pagePlusThree: number = this.page + 3;
@@ -26,31 +27,33 @@ export class BeerListComponent implements OnInit {
     }
 
     getAllBeers(page: number) {
+        this.isLoading = true
         this.apiService.getAllBeers(page).subscribe((response) => {
-            this.beers = response
+            this.beers = response.data
             console.log("all beers response", this.beers)
-            this.loading = false
+            this.isLoading = false
+            this.pageCount = response.numberOfPages
         })
     }
 
     showPreviousPage() {
         if (this.page > 1) {
             this.page = this.page - 1
+            this.pagePlusOne = this.pagePlusOne - 1
+            this.pagePlusTwo = this.pagePlusTwo - 1
+            this.pagePlusThree = this.pagePlusThree - 1
         }
         this.getAllBeers(this.page)
-        this.pagePlusOne = this.pagePlusOne - 1
-        this.pagePlusTwo = this.pagePlusTwo - 1
-        this.pagePlusThree = this.pagePlusThree - 1
     }
 
     showNextPage() {
-        if (this.page < 23) {
+        if (this.page < this.pageCount) {
             this.page = this.page + 1
+            this.pagePlusOne = this.pagePlusOne + 1
+            this.pagePlusTwo = this.pagePlusTwo + 1
+            this.pagePlusThree = this.pagePlusThree + 1
         }
         this.getAllBeers(this.page)
-        this.pagePlusOne = this.pagePlusOne + 1
-        this.pagePlusTwo = this.pagePlusTwo + 1
-        this.pagePlusThree = this.pagePlusThree + 1
     }
 
     showDifferentPage(clickedPage) {

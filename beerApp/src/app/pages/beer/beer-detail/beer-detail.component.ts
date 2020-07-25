@@ -12,8 +12,9 @@ import {Beer} from "../../../models/beer";
 })
 
 export class BeerDetailComponent implements OnInit {
-    beer: Beer
-    loading: boolean = true
+    beer: Beer;
+    isLoading: boolean = true;
+
     private routeSub: Subscription;
 
     constructor
@@ -30,7 +31,7 @@ export class BeerDetailComponent implements OnInit {
             this.apiService.getBeerInformation(selectedBeerID).subscribe((response) => {
                 console.log("Beer detail response", response)
                 this.beer = response
-                this.loading = false
+                this.isLoading = false
             })
         })
     }

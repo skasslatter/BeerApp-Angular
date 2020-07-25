@@ -19,16 +19,16 @@ import {BeerListComponent} from './pages/beer/beer-list/beer-list.component';
         BreweryListComponent,
         BreweryDetailComponent,
         BeerDetailComponent,
-        BeerListComponent
+        BeerListComponent,
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        FormsModule
+        FormsModule,
     ],
     providers: [],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 })
 export class AppModule {
 }
