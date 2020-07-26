@@ -14,9 +14,10 @@ export class PaginationComponent implements OnInit {
     selectedPage = new EventEmitter<number>()
 
     pageNumber: number = 1;
-    pagePlusOne: number = this.pageNumber + 1;
-    pagePlusTwo: number = this.pageNumber + 2;
-    pagePlusThree: number = this.pageNumber + 3;
+    displayedPages: number[] = [1, 2, 3, 4, 5]
+    // pagePlusOne: number = this.pageNumber + 1;
+    // pagePlusTwo: number = this.pageNumber + 2;
+    // pagePlusThree: number = this.pageNumber + 3;
 
     constructor() {
     }
@@ -27,9 +28,9 @@ export class PaginationComponent implements OnInit {
     showPreviousPage() {
         if (this.pageNumber > 1) {
             this.pageNumber = this.pageNumber - 1
-            this.pagePlusOne = this.pagePlusOne - 1
-            this.pagePlusTwo = this.pagePlusTwo - 1
-            this.pagePlusThree = this.pagePlusThree - 1
+            this.displayedPages = this.displayedPages.map((num) =>{
+                return num - 1
+            })
         }
         this.selectedPage.emit(this.pageNumber)
     }
@@ -37,9 +38,9 @@ export class PaginationComponent implements OnInit {
     showNextPage() {
         if (this.pageNumber < this.pageCount) {
             this.pageNumber = this.pageNumber + 1
-            this.pagePlusOne = this.pagePlusOne + 1
-            this.pagePlusTwo = this.pagePlusTwo + 1
-            this.pagePlusThree = this.pagePlusThree + 1
+            this.displayedPages = this.displayedPages.map((num) =>{
+                return num + 1
+            })
         }
         this.selectedPage.emit(this.pageNumber)
     }
@@ -47,8 +48,8 @@ export class PaginationComponent implements OnInit {
     showDifferentPage(clickedPage) {
         this.selectedPage.emit(clickedPage)
         this.pageNumber = clickedPage
-        this.pagePlusOne = clickedPage + 1
-        this.pagePlusTwo = clickedPage + 2
-        this.pagePlusThree = clickedPage + 3
+        this.displayedPages = this.displayedPages.map((num, i) =>{
+            return clickedPage + i
+        })
     }
 }

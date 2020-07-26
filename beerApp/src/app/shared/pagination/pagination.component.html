@@ -4,19 +4,13 @@
             <li *ngIf="pageNumber >1" class="page-item ">
                 <a class="page-link" (click)="showPreviousPage()">Previous</a>
             </li>
-            <li class="page-item disabled">
-                <a class="page-link">{{pageNumber}}</a>
+
+            <li *ngFor="let page of displayedPages" class="page-item" [ngClass]="{'disabled':pageNumber === page}">
+                <a class="page-link" (click)="showDifferentPage(page)">{{page}}</a>
             </li>
-            <li class="page-item">
-                <a class="page-link" (click)="showDifferentPage(pagePlusOne)">{{pagePlusOne}}</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" (click)="showDifferentPage(pagePlusTwo)">{{pagePlusTwo}}</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" (click)="showDifferentPage(pagePlusThree)">{{pagePlusThree}}</a>
-            </li>
-            <li *ngIf="pageNumber <23" class="page-item"><a class="page-link" (click)="showNextPage()">Next</a></li>
+
+
+            <li *ngIf="pageNumber < pageCount" class="page-item"><a class="page-link" (click)="showNextPage()">Next</a></li>
         </ul>
     </nav>
 </section>
