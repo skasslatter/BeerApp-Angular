@@ -14,23 +14,38 @@ export class PaginationComponent implements OnInit {
     selectedPage = new EventEmitter<number>()
 
     pageNumber: number = 1;
-    displayedPages: number[] = [1, 2, 3, 4, 5]
-    // pagePlusOne: number = this.pageNumber + 1;
-    // pagePlusTwo: number = this.pageNumber + 2;
-    // pagePlusThree: number = this.pageNumber + 3;
+    displayedPages: number[] = []
 
     constructor() {
     }
 
     ngOnInit(): void {
+        this.calcDisplayedPages()
+    }
+
+    calcDisplayedPages(): void {
+        const arr = []
+        if (this.pageNumber < 3) {
+            for (let i = 1; i <= 5; i++) {
+                arr.push(i)
+            }
+        } else if (this.pageNumber < this.pageCount - 2) {
+            for (let i = this.pageNumber - 2; i <= this.pageNumber + 2; i++) {
+                arr.push(i)
+            }
+        } else {
+            for (let i = this.pageCount - 4; i <= this.pageCount; i++) {
+                arr.push(i)
+            }
+        }
+        this.displayedPages = arr
+
     }
 
     showPreviousPage() {
         if (this.pageNumber > 1) {
             this.pageNumber = this.pageNumber - 1
-            this.displayedPages = this.displayedPages.map((num) =>{
-                return num - 1
-            })
+            this.calcDisplayedPages();
         }
         this.selectedPage.emit(this.pageNumber)
     }
@@ -38,9 +53,7 @@ export class PaginationComponent implements OnInit {
     showNextPage() {
         if (this.pageNumber < this.pageCount) {
             this.pageNumber = this.pageNumber + 1
-            this.displayedPages = this.displayedPages.map((num) =>{
-                return num + 1
-            })
+            this.calcDisplayedPages()
         }
         this.selectedPage.emit(this.pageNumber)
     }
@@ -48,8 +61,6 @@ export class PaginationComponent implements OnInit {
     showDifferentPage(clickedPage) {
         this.selectedPage.emit(clickedPage)
         this.pageNumber = clickedPage
-        this.displayedPages = this.displayedPages.map((num, i) =>{
-            return clickedPage + i
-        })
+        this.calcDisplayedPages()
     }
 }
