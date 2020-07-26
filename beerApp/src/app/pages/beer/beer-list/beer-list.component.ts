@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {ApiService} from "../../../../services/api.service";
 
 import {Beer} from "../../../models/beer";
+import {PaginationComponent} from "../../../shared/pagination/pagination.component"
 
 @Component({
     selector: 'app-beer-list',
@@ -12,18 +13,14 @@ import {Beer} from "../../../models/beer";
 export class BeerListComponent implements OnInit {
     beers: Beer[] = [];
     isLoading: boolean = true;
-    page: number = 1;
-    pageCount: number;
-    pagePlusOne: number = this.page + 1;
-    pagePlusTwo: number = this.page + 2;
-    pagePlusThree: number = this.page + 3;
+    pageCount: number
 
     constructor(private http: HttpClient,
                 private apiService: ApiService) {
     }
 
     ngOnInit(): void {
-        this.getAllBeers(this.page)
+        this.getAllBeers(1)
     }
 
     getAllBeers(page: number) {
@@ -36,31 +33,35 @@ export class BeerListComponent implements OnInit {
         })
     }
 
-    showPreviousPage() {
-        if (this.page > 1) {
-            this.page = this.page - 1
-            this.pagePlusOne = this.pagePlusOne - 1
-            this.pagePlusTwo = this.pagePlusTwo - 1
-            this.pagePlusThree = this.pagePlusThree - 1
-        }
-        this.getAllBeers(this.page)
+    onPageSelected($event) {
+        this.getAllBeers($event)
     }
 
-    showNextPage() {
-        if (this.page < this.pageCount) {
-            this.page = this.page + 1
-            this.pagePlusOne = this.pagePlusOne + 1
-            this.pagePlusTwo = this.pagePlusTwo + 1
-            this.pagePlusThree = this.pagePlusThree + 1
-        }
-        this.getAllBeers(this.page)
-    }
+    // showPreviousPage() {
+    //     if (this.pageNumber > 1) {
+    //         this.pageNumber = this.pageNumber - 1
+    //         this.pagePlusOne = this.pagePlusOne - 1
+    //         this.pagePlusTwo = this.pagePlusTwo - 1
+    //         this.pagePlusThree = this.pagePlusThree - 1
+    //     }
+    //     this.getAllBeers(this.pageNumber)
+    // }
 
-    showDifferentPage(clickedPage) {
-        this.getAllBeers(clickedPage)
-        this.page = clickedPage
-        this.pagePlusOne = clickedPage + 1
-        this.pagePlusTwo = clickedPage + 2
-        this.pagePlusThree = clickedPage + 3
-    }
+    // showNextPage() {
+    //     if (this.pageNumber < this.pageCount) {
+    //         this.pageNumber = this.pageNumber + 1
+    //         this.pagePlusOne = this.pagePlusOne + 1
+    //         this.pagePlusTwo = this.pagePlusTwo + 1
+    //         this.pagePlusThree = this.pagePlusThree + 1
+    //     }
+    //     this.getAllBeers(this.pageNumber)
+    // }
+    //
+    // showDifferentPage(clickedPage) {
+    //     this.getAllBeers(clickedPage)
+    //     this.pageNumber = clickedPage
+    //     this.pagePlusOne = clickedPage + 1
+    //     this.pagePlusTwo = clickedPage + 2
+    //     this.pagePlusThree = clickedPage + 3
+    // }
 }

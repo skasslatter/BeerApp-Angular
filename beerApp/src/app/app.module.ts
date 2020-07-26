@@ -11,6 +11,7 @@ import {BreweryDetailComponent} from './pages/brewery/brewery-detail/brewery-det
 import {BeerDetailComponent} from './pages/beer/beer-detail/beer-detail.component';
 import {BeerListComponent} from './pages/beer/beer-list/beer-list.component';
 import {NavbarComponent} from "./shared/navbar/navbar.component";
+import { PaginationComponent } from './shared/pagination/pagination.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import {NavbarComponent} from "./shared/navbar/navbar.component";
         BeerDetailComponent,
         BeerListComponent,
         NavbarComponent,
+        PaginationComponent,
     ],
     imports: [
         BrowserModule,
