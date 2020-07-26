@@ -4,12 +4,13 @@ import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
-import {HomepageComponent} from './homepage/homepage.component';
+import {HomepageComponent} from './pages/homepage/homepage.component';
 import {BreweryListComponent} from './pages/brewery/brewery-list/brewery-list.component';
 import {FormsModule} from "@angular/forms";
 import {BreweryDetailComponent} from './pages/brewery/brewery-detail/brewery-detail.component';
 import {BeerDetailComponent} from './pages/beer/beer-detail/beer-detail.component';
 import {BeerListComponent} from './pages/beer/beer-list/beer-list.component';
+import {NavbarComponent} from "./shared/navbar/navbar.component";
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import {BeerListComponent} from './pages/beer/beer-list/beer-list.component';
         BreweryDetailComponent,
         BeerDetailComponent,
         BeerListComponent,
+        NavbarComponent,
     ],
     imports: [
         BrowserModule,

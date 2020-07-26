@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {HomepageComponent} from "./homepage/homepage.component"
+import {HomepageComponent} from "./pages/homepage/homepage.component"
 import {BreweryListComponent} from "./pages/brewery/brewery-list/brewery-list.component"
 import {BreweryDetailComponent} from "./pages/brewery/brewery-detail/brewery-detail.component";
 import {BeerDetailComponent} from "./pages/beer/beer-detail/beer-detail.component";
@@ -14,11 +14,22 @@ const routes: Routes = [
         path: '',
         component: HomepageComponent,
     },
-    {path: 'breweries', component: BreweryListComponent},
-    {path: 'brewery-detail/:id', component: BreweryDetailComponent},
-    {path: 'beer-detail/:id', component: BeerDetailComponent},
-    {path: 'beers', component: BeerListComponent},
-
+    {
+        path: 'breweries',
+        component: BreweryListComponent,
+    },
+    {
+        path: 'brewery-detail/:id',
+        component: BreweryDetailComponent,
+    },
+    {
+        path: 'beer-detail/:id',
+        component: BeerDetailComponent,
+    },
+    {
+        path: 'beers',
+        component: BeerListComponent,
+    },
 ];
 
 @NgModule({
