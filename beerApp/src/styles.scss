@@ -3,42 +3,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Roboto+Slab:wght@200&display=swap');
 
 body, html {
-  height: 100%;
-  font-family: 'Roboto Slab', serif;
+    height: 100%;
+    font-family: 'Roboto Slab', serif;
 }
 
-:root
-{
-  --base-color: #a71d2a;
+:root {
+    --base-color: #7c151f;
 }
 
 h1, h2, h3, h4, h5 {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
 }
 
-h1, h3,  {
-  color: var(--base-color);
-  padding: 4vh 0;
+h1, h3, {
+    color: var(--base-color);
+    padding: 4vh 0;
 }
 
 h5 {
-  color: var(--base-color);
+    color: var(--base-color);
 }
 
 .btn-show-all {
-  height: fit-content;
-  color: #fff;
-  border-color: #dc3545;
-  background-color: var(--base-color)
+    height: fit-content;
+    color: #fff;
+    border-color: #dc3545;
+    background-color: var(--base-color)
 }
 
-#filterFunctions{
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  margin: 7vh;
-  div {
-    text-align: center
-  }
+#filterFunctions {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 7vh;
+
+    div {
+        text-align: center
+    }
 }

@@ -1,0 +1,44 @@
+<div>
+    <div class="hero-image">
+        <h1 class="text-center hero-text">All beers</h1>
+    </div>
+</div>
+
+<div *ngIf="isLoading">
+    <h3 class="text-center">🍻🍻🍻 Loading...</h3>
+</div>
+
+<!-- Beer List -->
+<div *ngIf="!isLoading">
+    <div id="beer-list" class="container">
+        <div class="row">
+            <div *ngFor="let beer of beers" class="col-sm-6">
+
+                <div class="row beer-info">
+                    <div class="col-sm-4 beer-image">
+                        <a routerLink="/beer-detail/{{beer.id}}" routerLinkActive="active">
+                            <img *ngIf="beer.labels; else noImage" src="{{ beer.labels.icon }}" alt="Beer Image"/>
+                        </a>
+                    </div>
+                    <div class="col-sm-8">
+                        <a routerLink="/beer-detail/{{beer.id}}" routerLinkActive="active">
+                            <h5>{{beer.name}}</h5>
+                            <p *ngIf="beer.style">{{beer.style.name}}</p>
+                        </a>
+
+                        <a routerLink="/brewery-detail/{{beer.breweries[0].id}}" routerLinkActive="active">
+                            <p><i>{{beer.breweries[0].name}}</i></p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- Pagination -->
+</div>
+<app-pagination [pageCount]="pageCount" (selectedPage)="onPageSelected($event)"></app-pagination>
+
+<ng-template #noImage>
+    <img src="../../../../assets/beer.png" alt="Beer Image">
+</ng-template>
+

@@ -1,25 +1,26 @@
 interface ImageSet {
-  medium: String,
-  large: String,
+    medium: String,
+    large: String,
 }
+
 interface Location {
-  country: Country
+    country: Country
 }
 
 interface Country {
-  displayName: String
+    displayName: String
 }
 
 export interface Brewery {
-  id: number,
-  name: string,
-  description: string,
-  established: number,
-  images: ImageSet,
-  breweryType: string,
-  city: string,
-  country: string,
-  website: string,
-  locations: Array<Location>
+    id: number,
+    name: string,
+    description: string,
+    established: number,
+    images: ImageSet,
+    breweryType: string,
+    city: string,
+    country: string,
+    website: string,
+    locations: Array<Location>
 }
 
