@@ -1,1 +1,5 @@
-<p>filter works!</p>
+<select [ngModel]="currentValue" (ngModelChange)="onChange($event)">
+    <option value="" disabled selected="selected">Select</option>
+    <option *ngFor="let countryName of values" value="{{countryName}}">{{countryName}}</option>
+</select>
+

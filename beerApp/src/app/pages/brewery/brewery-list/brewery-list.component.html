@@ -4,15 +4,11 @@
     </div>
 
     <section id="filterFunctions">
-        <!--  Filter by Country-->
         <div>
-            <h5>Filter by Country</h5>
-            <select [ngModel]="filteredCountry" (ngModelChange)="onCountryChange($event)">
-                <option value="" disabled selected="selected">Select</option>
-                <option *ngFor="let countryName of uniqueCountryNames" value="{{countryName}}">{{countryName}}</option>
-            </select>
+        <h5>Filter by Country</h5>
+        <app-filter [currentValue]="filteredCountry" [values]="uniqueCountryNames"
+                    (onChanged)="filterBreweriesByCountry($event)"></app-filter>
         </div>
-
         <!--  Search by Name-->
         <div>
             <h5>Search by name</h5>
@@ -45,4 +41,5 @@
             </div>
         </div>
     </section>
+
 </div>
