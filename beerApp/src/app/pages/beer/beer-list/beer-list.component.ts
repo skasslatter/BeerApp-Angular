@@ -14,8 +14,9 @@ export class BeerListComponent implements OnInit {
     filteredBeers: Beer[] = [];
     isLoading: boolean = true;
     pageCount: number;
-    beerTypes: object
+    beerTypes: any
     filteredType: string;
+    errorMessage: string
 
     constructor(private http: HttpClient,
                 private apiService: ApiService) {
@@ -43,6 +44,7 @@ export class BeerListComponent implements OnInit {
 
     getBeerStyles() {
         this.apiService.getBeerStyles().subscribe((response) => {
+            console.log("response",response)
             this.beerTypes = response
                 .filter((style) => {
                     return style.shortName !== null && style.shortName !== undefined
@@ -50,11 +52,12 @@ export class BeerListComponent implements OnInit {
                 .map((style) => {
                     return {name: style.shortName, id: style.id}
                 })
-            console.log("xxx", this.beerTypes)
+            this.beerTypes.sort((a, b) => (a.name > b.name) ? 1 : -1)
         })
     }
 
     onTypeChange(value: string) {
+        console.log("yyy", value)
         this.filterBeersByType(value)
     }
 
@@ -72,13 +75,22 @@ export class BeerListComponent implements OnInit {
     //         })
     // }
 
-    filterBeersByType(selectedType) {
-        this.filteredType = selectedType
-        if (!selectedType) {
+    filterBeersByType(selectedTypeId) {
+        this.filteredType = selectedTypeId
+        if (!selectedTypeId) {
             return this.beers
         }
-        this.apiService.getBeerByStyle(selectedType.id).subscribe((response) => {
-            console.log("this", response)
+        this.apiService.getBeerByStyle(selectedTypeId).subscribe((response) => {
+            if (response === undefined) {
+                console.log("no beer found")
+                this.filteredBeers = []
+                return this.errorMessage = "Sorry, no beer was found"
+            }
+            else {
+                this.filteredBeers = response
+                this.errorMessage = ""
+            }
+
         })
     }
 }

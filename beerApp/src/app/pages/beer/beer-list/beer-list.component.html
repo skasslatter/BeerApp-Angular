@@ -10,15 +10,16 @@
 
 <!-- Beer List -->
 <div *ngIf="!isLoading">
-
     <!--  Search by Type-->
-    <div>
-        <h5>Filter by Type</h5>
-        <app-filter [currentValue]="filteredType" [items]="beerTypes"
-                    (onChanged)="onTypeChange($event)"></app-filter>
-    </div>
+    <section id="filterFunctions">
+        <div>
+            <h5>Filter by Type</h5>
+            <app-filter [currentValue]="filteredType" [items]="beerTypes"
+                        (onChanged)="onTypeChange($event)"></app-filter>
+        </div>
 
-
+    </section>
+    <h5 class="text-center">{{errorMessage}}</h5>
     <div id="beer-list" class="container">
         <div class="row">
             <div *ngFor="let beer of filteredBeers" class="col-sm-6">
@@ -35,15 +36,17 @@
                             <p *ngIf="beer.style">{{beer.style.shortName}}</p>
                         </a>
 
-                        <a routerLink="/brewery-detail/{{beer.breweries[0].id}}" routerLinkActive="active">
-                            <p><i>{{beer.breweries[0].name}}</i></p>
-                        </a>
+                        <div *ngIf="beer.breweries">
+                            <a routerLink="/brewery-detail/{{beer.breweries[0].id}}" routerLinkActive="active">
+                                <p><i>{{beer.breweries[0].name}}</i></p>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-        <!-- Pagination -->
+    <!-- Pagination -->
 </div>
 <app-pagination [pageCount]="pageCount" (selectedPage)="onPageSelected($event)"></app-pagination>
 

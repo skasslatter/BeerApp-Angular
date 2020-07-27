@@ -61,9 +61,9 @@ export class ApiService {
             })))
     }
 
-    getBeerByStyle(styleId) {
+    getBeerByStyle(id) {
         let beers = []
-        return this.http.get(`/api/beers?styleId=${styleId}`)
+        return this.http.get(`/api/beers?styleId=${id}`)
             .pipe((map((data: ApiResponse) => {
                 beers = data.data;
                 return beers;
