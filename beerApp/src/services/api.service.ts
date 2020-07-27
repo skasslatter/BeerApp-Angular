@@ -29,7 +29,7 @@ export class ApiService {
     getAllBeers(page): Observable<any> {
         console.log("page", page)
         return this.http.get(`/api/beers?withBreweries=Y&withLocations=Y&p=${page}`)
-            .pipe((map((data: ApiResponse) => {
+            .pipe((map((data) => {
                 return data;
             })))
     }
@@ -37,7 +37,7 @@ export class ApiService {
     getBreweryInformation(id: number): Observable<any> {
         let breweryApiData = []
         return this.http.get(`/api/brewery/${id}/beers?withBreweries=Y`)
-            .pipe((map((data: ApiResponse) => {
+            .pipe((map((data: any) => {
                 breweryApiData = data.data;
                 return breweryApiData;
             })))
@@ -46,7 +46,7 @@ export class ApiService {
     getBeerInformation(id: number): Observable<any> {
         let beerApiData = []
         return this.http.get(`/api/beer/${id}?withBreweries=Y`)
-            .pipe((map((data: ApiResponse) => {
+            .pipe((map((data: any) => {
                 beerApiData = data.data;
                 return beerApiData;
             })))
@@ -55,25 +55,23 @@ export class ApiService {
     getBeerStyles() {
         let beerStyles = []
         return this.http.get(`/api/styles?withBreweries=Y`)
-            .pipe((map((data: ApiResponse) => {
+            .pipe((map((data: any) => {
                 beerStyles = data.data;
                 return beerStyles;
             })))
     }
 
     getBeerByStyle(id) {
-        let beers = []
         return this.http.get(`/api/beers?styleId=${id}`)
-            .pipe((map((data: ApiResponse) => {
-                beers = data.data;
-                return beers;
+            .pipe((map((data: any) => {
+                return data;
             })))
     }
 
     getBeerByName(name) {
         let beers = []
         return this.http.get(`/api/beers?name=${name}`)
-            .pipe((map((data: ApiResponse) => {
+            .pipe((map((data: any) => {
                 beers = data.data;
                 return beers;
             })))

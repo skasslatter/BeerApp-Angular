@@ -67,14 +67,14 @@ export class BeerListComponent implements OnInit {
         }
         // this.isLoading = true
         this.apiService.getBeerByStyle(selectedTypeId).subscribe((response) => {
-            this.pageCount = 0
-            if (response === undefined) {
+            this.pageCount = response.numberOfPages
+            if (this.pageCount === 0) {
                 console.log("no beer found")
                 this.filteredBeers = []
                 return this.errorMessage = "Sorry, no beer was found"
             }
             else {
-                this.filteredBeers = response
+                this.filteredBeers = response.data
                 this.errorMessage = ""
             }
 
