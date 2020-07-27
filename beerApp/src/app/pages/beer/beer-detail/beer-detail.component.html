@@ -1,7 +1,4 @@
-<div *ngIf="isLoading">
-    <div class="hero-image"></div>
-    <h3 class="text-center">🍻🍻🍻 Loading...</h3>
-</div>
+<app-loading *ngIf="isLoading"></app-loading>
 
 <div *ngIf="!isLoading">
     <div>
@@ -12,7 +9,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-6 beer-image">
-                <img *ngIf="beer.labels; else noImage" src="{{beer.labels.medium}}">
+                <img *ngIf="beer.labels; else noImage" src="{{beer.labels.medium}}" alt="Beer Label">
             </div>
             <div class="col-sm-5 beer-info">
                 <h5 *ngIf="beer.style.shortName">Type: {{beer.style.shortName}}</h5>

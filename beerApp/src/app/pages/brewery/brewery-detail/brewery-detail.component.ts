@@ -6,7 +6,6 @@ import {ApiService} from "../../../../services/api.service";
 
 import {Brewery} from "../../../models/brewery";
 import {Beer} from "../../../models/beer";
-import {Item} from "../../../shared/filter-function/filter-function.component";
 
 
 @Component({
@@ -18,7 +17,7 @@ export class BreweryDetailComponent implements OnInit {
     breweryApiData: Beer[] = [];
     filteredBeers: Beer[] = [];
     breweryInfo: Brewery;
-    loading: boolean = true;
+    isLoading: boolean = true;
     nameSearch: string;
     uniqueBeerTypes: any
     filteredType: string;
@@ -41,7 +40,7 @@ export class BreweryDetailComponent implements OnInit {
             this.breweryApiData = response
             this.filteredBeers = response
             this.breweryInfo = this.breweryApiData[0].breweries[0]
-            this.loading = false
+            this.isLoading = false
             this.getBeerTypes()
         })
     }

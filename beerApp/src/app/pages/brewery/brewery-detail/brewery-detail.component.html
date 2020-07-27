@@ -1,9 +1,6 @@
-<div *ngIf="loading">
-    <div class="hero-image"></div>
-    <h3 class="text-center">🍻🍻🍻 Loading...</h3>
-</div>
+<app-loading *ngIf="isLoading"></app-loading>
 
-<div *ngIf="!loading">
+<div *ngIf="!isLoading">
     <div>
         <div class="hero-image">
             <h1 class="text-center hero-text">{{breweryInfo.name}}</h1>

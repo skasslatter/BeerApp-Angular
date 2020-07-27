@@ -4,22 +4,21 @@
     </div>
 </div>
 
-<div *ngIf="isLoading">
-    <h3 class="text-center">🍻🍻🍻 Loading...</h3>
-</div>
+<app-loading *ngIf="isLoading"></app-loading>
 
 <!-- Beer List -->
-<div *ngIf="!isLoading">
-    <!--  Search by Type-->
-    <section id="filterFunctions">
+<section *ngIf="!isLoading">
+    <div id="filterFunctions">
         <div>
             <h5>Filter by Type</h5>
             <app-filter [currentValue]="filteredType" [items]="beerTypes"
                         (onChanged)="onTypeChange($event)"></app-filter>
         </div>
+        <button class="btn btn-show-all" (click)="getAllBeers(1)">Show all</button>
+    </div>
 
-    </section>
     <h5 class="text-center">{{errorMessage}}</h5>
+
     <div id="beer-list" class="container">
         <div class="row">
             <div *ngFor="let beer of filteredBeers" class="col-sm-6">
@@ -47,8 +46,10 @@
         </div>
     </div>
     <!-- Pagination -->
-</div>
-<app-pagination [pageCount]="pageCount" (selectedPage)="onPageSelected($event)"></app-pagination>
+</section>
+
+<app-pagination *ngIf="pageCount !== 0" [pageCount]="pageCount"
+                (selectedPage)="onPageSelected($event)"></app-pagination>
 
 <ng-template #noImage>
     <img src="../../../../assets/beer.png" alt="Beer Image">

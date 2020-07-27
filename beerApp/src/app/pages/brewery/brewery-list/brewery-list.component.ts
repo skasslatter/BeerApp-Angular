@@ -15,7 +15,7 @@ export class BreweryListComponent implements OnInit {
     uniqueCountryNames: Item[] = [];
     nameSearch: string;
     filteredCountry: string;
-    loading: boolean = true;
+    isLoading: boolean = true;
 
     constructor(private http: HttpClient,
                 private apiService: ApiService) {
@@ -30,7 +30,7 @@ export class BreweryListComponent implements OnInit {
             this.breweries = response
             this.filteredBreweries = this.breweries
             this.getBreweriesLocations()
-            this.loading = false
+            this.isLoading = false
         })
     }
 

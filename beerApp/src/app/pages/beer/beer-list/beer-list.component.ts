@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {ApiService} from "../../../../services/api.service";
 
 import {Beer} from "../../../models/beer";
+import {Item} from "../../../shared/filter-function/filter-function.component";
 
 @Component({
     selector: 'app-beer-list',
@@ -13,8 +14,8 @@ export class BeerListComponent implements OnInit {
     beers: Beer[] = [];
     filteredBeers: Beer[] = [];
     isLoading: boolean = true;
-    pageCount: number;
-    beerTypes: any
+    pageCount: number = 0;
+    beerTypes: Item[] = [];
     filteredType: string;
     errorMessage: string
 
@@ -44,7 +45,6 @@ export class BeerListComponent implements OnInit {
 
     getBeerStyles() {
         this.apiService.getBeerStyles().subscribe((response) => {
-            console.log("response",response)
             this.beerTypes = response
                 .filter((style) => {
                     return style.shortName !== null && style.shortName !== undefined
@@ -57,30 +57,17 @@ export class BeerListComponent implements OnInit {
     }
 
     onTypeChange(value: string) {
-        console.log("yyy", value)
         this.filterBeersByType(value)
     }
-
-    // filterBeersByType(selectedType: string) {
-    //     this.filteredType = selectedType
-    //     if (!selectedType) {
-    //         return this.beers
-    //     }
-    //     this.filteredBeers = this.beers
-    //         .filter((beer) => {
-    //             return beer.style !== null && beer.style !== undefined;
-    //         })
-    //         .filter((beer) => {
-    //             return beer.style.shortName === selectedType
-    //         })
-    // }
 
     filterBeersByType(selectedTypeId) {
         this.filteredType = selectedTypeId
         if (!selectedTypeId) {
             return this.beers
         }
+        // this.isLoading = true
         this.apiService.getBeerByStyle(selectedTypeId).subscribe((response) => {
+            this.pageCount = 0
             if (response === undefined) {
                 console.log("no beer found")
                 this.filteredBeers = []

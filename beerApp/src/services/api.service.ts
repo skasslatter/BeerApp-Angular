@@ -69,4 +69,13 @@ export class ApiService {
                 return beers;
             })))
     }
+
+    getBeerByName(name) {
+        let beers = []
+        return this.http.get(`/api/beers?name=${name}`)
+            .pipe((map((data: ApiResponse) => {
+                beers = data.data;
+                return beers;
+            })))
+    }
 }

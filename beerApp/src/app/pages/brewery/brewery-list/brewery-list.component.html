@@ -6,9 +6,9 @@
     <section id="filterFunctions">
         <!--  Search by Country-->
         <div>
-        <h5>Filter by Country</h5>
-        <app-filter [currentValue]="filteredCountry" [items]="uniqueCountryNames"
-                    (onChanged)="onCountryChange($event)"></app-filter>
+            <h5>Filter by Country</h5>
+            <app-filter [currentValue]="filteredCountry" [items]="uniqueCountryNames"
+                        (onChanged)="onCountryChange($event)"></app-filter>
         </div>
         <!--  Search by Name-->
         <div>
@@ -20,12 +20,10 @@
     </section>
 
     <section>
-        <div *ngIf="loading">
-            <h3 class="text-center">🍻🍻🍻 Loading...</h3>
-        </div>
+        <app-loading *ngIf="isLoading"></app-loading>
 
         <!-- Brewery List -->
-        <div *ngIf="!loading" class="row justify-content-center">
+        <div *ngIf="!isLoading" class="row justify-content-center">
             <div class="col-sm-10">
                 <div *ngFor="let brewery of filteredBreweries" class="card">
                     <a routerLink="/brewery-detail/{{brewery.id}}" routerLinkActive="active">
