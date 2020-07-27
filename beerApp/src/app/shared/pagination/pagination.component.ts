@@ -1,20 +1,19 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
-
 @Component({
     selector: 'app-pagination',
     templateUrl: './pagination.component.html',
-    styleUrls: ['./pagination.component.scss']
+    styleUrls: ['./pagination.component.scss'],
 })
 export class PaginationComponent implements OnInit {
     @Input()
     pageCount: number;
 
     @Output()
-    selectedPage = new EventEmitter<number>()
+    selectedPage = new EventEmitter<number>();
 
     pageNumber: number = 1;
-    displayedPages: number[] = []
+    displayedPages: number[] = [];
 
     constructor() {
     }
@@ -39,7 +38,6 @@ export class PaginationComponent implements OnInit {
             }
         }
         this.displayedPages = arr
-
     }
 
     showPreviousPage() {
@@ -59,8 +57,8 @@ export class PaginationComponent implements OnInit {
     }
 
     showDifferentPage(clickedPage) {
-        this.selectedPage.emit(clickedPage)
         this.pageNumber = clickedPage
         this.calcDisplayedPages()
+        this.selectedPage.emit(clickedPage)
     }
 }
