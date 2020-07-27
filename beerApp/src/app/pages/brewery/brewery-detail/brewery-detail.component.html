@@ -28,20 +28,20 @@
     <!--  <h2 class="text-center">The beers</h2>-->
 
     <section id="filterFunctions">
-        <!--  Filter by Type-->
+        <!--  Search by Type-->
         <div>
             <h5>Filter by Type</h5>
-            <select [ngModel]="filteredType" (ngModelChange)="onTypeChange($event)">
-                <option disabled selected="selected" value="">Select</option>
-                <option *ngFor="let type of uniqueBeerTypes" value="{{type}}">{{type}}</option>
-            </select>
+            <app-filter [currentValue]="filteredType" [values]="uniqueBeerTypes"
+                        (onChanged)="onTypeChange($event)"></app-filter>
         </div>
 
         <!--  Search by Name-->
         <div>
             <h5>Search by name</h5>
-            <input type="text" [ngModel]="nameSearch" (ngModelChange)="searchByName($event)"
-                   placeholder="Type to search...">
+            <label>
+                <input type="text" [ngModel]="nameSearch" (ngModelChange)="searchByName($event)"
+                       placeholder="Type to search...">
+            </label>
         </div>
         <button class="btn btn-show-all" (click)="showAllBeers()">Show all</button>
     </section>
