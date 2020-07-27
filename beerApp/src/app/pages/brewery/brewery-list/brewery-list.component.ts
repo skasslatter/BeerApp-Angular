@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ApiService} from "src/services/api.service"
 import {Brewery} from "../../../models/brewery";
-import {FilterFunctionComponent} from "../../../shared/filter-function/filter-function.component";
+import {Item} from "../../../shared/filter-function/filter-function.component";
 
 @Component({
     selector: 'app-brewery-list',
@@ -11,10 +11,10 @@ import {FilterFunctionComponent} from "../../../shared/filter-function/filter-fu
 })
 export class BreweryListComponent implements OnInit {
     breweries: Brewery[] = [];
-    filteredBreweries: Brewery[] = [];
-    uniqueCountryNames: String[] = [];
-    nameSearch: String;
-    filteredCountry: String;
+    filteredBreweries: Brewery[] = []
+    uniqueCountryNames: Item[] = [];
+    nameSearch: string;
+    filteredCountry: string;
     loading: boolean = true;
 
     constructor(private http: HttpClient,
@@ -49,7 +49,11 @@ export class BreweryListComponent implements OnInit {
         const countryNames = flatLocations.map((location) => {
             return location.country.displayName;
         })
-        this.uniqueCountryNames = [...new Set(countryNames)]
+        const unique = [...new Set(countryNames)]
+        this.uniqueCountryNames = unique.map((countryName) => {
+            return {id: countryName, name: countryName}
+        })
+        this.uniqueCountryNames.sort((a, b) => (a.name > b.name) ? 1 : -1)
     }
 
     onCountryChange(value) {

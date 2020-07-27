@@ -6,6 +6,8 @@ import {ApiService} from "../../../../services/api.service";
 
 import {Brewery} from "../../../models/brewery";
 import {Beer} from "../../../models/beer";
+import {Item} from "../../../shared/filter-function/filter-function.component";
+
 
 @Component({
     selector: 'app-brewery-detail',
@@ -17,9 +19,9 @@ export class BreweryDetailComponent implements OnInit {
     filteredBeers: Beer[] = [];
     breweryInfo: Brewery;
     loading: boolean = true;
-    nameSearch: String;
-    uniqueBeerTypes: String[] = [];
-    filteredType: String;
+    nameSearch: string;
+    uniqueBeerTypes: any
+    filteredType: string;
     private routeSub: Subscription;
 
     constructor
@@ -68,7 +70,11 @@ export class BreweryDetailComponent implements OnInit {
         const types = styles.map((style) => {
             return style.shortName
         })
-        this.uniqueBeerTypes = [...new Set(types)].sort()
+        const unique = [...new Set(types)]
+        this.uniqueBeerTypes = unique.map((type) => {
+            return {id: type, name: type}
+        })
+        this.uniqueBeerTypes.sort((a, b) => (a.name > b.name) ? 1 : -1)
     }
 
     onTypeChange(value: string) {
@@ -95,4 +101,6 @@ export class BreweryDetailComponent implements OnInit {
         this.filteredType = "";
         this.filteredBeers = this.breweryApiData
     }
+
 }
+

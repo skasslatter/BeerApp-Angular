@@ -31,7 +31,7 @@
         <!--  Search by Type-->
         <div>
             <h5>Filter by Type</h5>
-            <app-filter [currentValue]="filteredType" [values]="uniqueBeerTypes"
+            <app-filter [currentValue]="filteredType" [items]="uniqueBeerTypes"
                         (onChanged)="onTypeChange($event)"></app-filter>
         </div>
 

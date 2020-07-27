@@ -1,5 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
+export interface Item {
+    name: string;
+    id: string;
+}
+
 @Component({
     selector: 'app-filter',
     templateUrl: './filter-function.component.html',
@@ -7,7 +12,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class FilterFunctionComponent implements OnInit {
     @Input()
-    values: string[] = [];
+    items: Item[]
+
     @Input()
     currentValue: string
 

@@ -7,8 +7,8 @@
         <!--  Search by Country-->
         <div>
         <h5>Filter by Country</h5>
-        <app-filter [currentValue]="filteredCountry" [values]="uniqueCountryNames"
-                    (onChanged)="filterBreweriesByCountry($event)"></app-filter>
+        <app-filter [currentValue]="filteredCountry" [items]="uniqueCountryNames"
+                    (onChanged)="onCountryChange($event)"></app-filter>
         </div>
         <!--  Search by Name-->
         <div>

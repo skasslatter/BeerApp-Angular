@@ -60,4 +60,13 @@ export class ApiService {
                 return beerStyles;
             })))
     }
+
+    getBeerByStyle(styleId) {
+        let beers = []
+        return this.http.get(`/api/beers?styleId=${styleId}`)
+            .pipe((map((data: ApiResponse) => {
+                beers = data.data;
+                return beers;
+            })))
+    }
 }

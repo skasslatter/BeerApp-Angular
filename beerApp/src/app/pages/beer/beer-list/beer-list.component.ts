@@ -11,9 +11,11 @@ import {Beer} from "../../../models/beer";
 })
 export class BeerListComponent implements OnInit {
     beers: Beer[] = [];
+    filteredBeers: Beer[] = [];
     isLoading: boolean = true;
     pageCount: number;
-    beerStyles: string[] = [];
+    beerTypes: object
+    filteredType: string;
 
     constructor(private http: HttpClient,
                 private apiService: ApiService) {
@@ -31,6 +33,7 @@ export class BeerListComponent implements OnInit {
             console.log("all beers response", this.beers)
             this.isLoading = false
             this.pageCount = response.numberOfPages
+            this.filteredBeers = this.beers
         })
     }
 
@@ -38,17 +41,44 @@ export class BeerListComponent implements OnInit {
         this.getAllBeers($event)
     }
 
-    getBeerStyles(){
+    getBeerStyles() {
         this.apiService.getBeerStyles().subscribe((response) => {
-            const styles = response
+            this.beerTypes = response
                 .filter((style) => {
                     return style.shortName !== null && style.shortName !== undefined
                 })
                 .map((style) => {
-                    return style.shortName
+                    return {name: style.shortName, id: style.id}
                 })
-            console.log("beer styles", styles)
-            this.beerStyles = styles
+            console.log("xxx", this.beerTypes)
+        })
+    }
+
+    onTypeChange(value: string) {
+        this.filterBeersByType(value)
+    }
+
+    // filterBeersByType(selectedType: string) {
+    //     this.filteredType = selectedType
+    //     if (!selectedType) {
+    //         return this.beers
+    //     }
+    //     this.filteredBeers = this.beers
+    //         .filter((beer) => {
+    //             return beer.style !== null && beer.style !== undefined;
+    //         })
+    //         .filter((beer) => {
+    //             return beer.style.shortName === selectedType
+    //         })
+    // }
+
+    filterBeersByType(selectedType) {
+        this.filteredType = selectedType
+        if (!selectedType) {
+            return this.beers
+        }
+        this.apiService.getBeerByStyle(selectedType.id).subscribe((response) => {
+            console.log("this", response)
         })
     }
 }
