@@ -13,7 +13,8 @@ import {PaginationComponent} from "../../../shared/pagination/pagination.compone
 export class BeerListComponent implements OnInit {
     beers: Beer[] = [];
     isLoading: boolean = true;
-    pageCount: number
+    pageCount: number;
+    beerStyles: string[] = [];
 
     constructor(private http: HttpClient,
                 private apiService: ApiService) {
@@ -21,6 +22,7 @@ export class BeerListComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAllBeers(1)
+        this.getBeerStyles()
     }
 
     getAllBeers(page: number) {
@@ -37,31 +39,17 @@ export class BeerListComponent implements OnInit {
         this.getAllBeers($event)
     }
 
-    // showPreviousPage() {
-    //     if (this.pageNumber > 1) {
-    //         this.pageNumber = this.pageNumber - 1
-    //         this.pagePlusOne = this.pagePlusOne - 1
-    //         this.pagePlusTwo = this.pagePlusTwo - 1
-    //         this.pagePlusThree = this.pagePlusThree - 1
-    //     }
-    //     this.getAllBeers(this.pageNumber)
-    // }
-
-    // showNextPage() {
-    //     if (this.pageNumber < this.pageCount) {
-    //         this.pageNumber = this.pageNumber + 1
-    //         this.pagePlusOne = this.pagePlusOne + 1
-    //         this.pagePlusTwo = this.pagePlusTwo + 1
-    //         this.pagePlusThree = this.pagePlusThree + 1
-    //     }
-    //     this.getAllBeers(this.pageNumber)
-    // }
-    //
-    // showDifferentPage(clickedPage) {
-    //     this.getAllBeers(clickedPage)
-    //     this.pageNumber = clickedPage
-    //     this.pagePlusOne = clickedPage + 1
-    //     this.pagePlusTwo = clickedPage + 2
-    //     this.pagePlusThree = clickedPage + 3
-    // }
+    getBeerStyles(){
+        this.apiService.getBeerStyles().subscribe((response) => {
+            const styles = response
+                .filter((style) => {
+                    return style.shortName !== null && style.shortName !== undefined
+                })
+                .map((style) => {
+                    return style.shortName
+                })
+            console.log("beer styles", styles)
+            this.beerStyles = styles
+        })
+    }
 }
