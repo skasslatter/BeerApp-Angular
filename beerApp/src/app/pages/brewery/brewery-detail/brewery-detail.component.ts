@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {Subscription} from "rxjs";
-import {HttpClient} from "@angular/common/http";
-import {ApiService} from "../../../../services/api.service";
+import {ActivatedRoute} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {ApiService} from '../../../../services/api/api.service';
 
-import {Brewery} from "../../../models/brewery";
-import {Beer} from "../../../models/beer";
+import {Brewery} from '../../../models/brewery/brewery';
+import {Beer} from '../../../models/beer/beer';
+import {Item} from "../../../components/filter-function/filter-function.component";
 
 @Component({
     selector: 'app-brewery-detail',
@@ -16,83 +17,88 @@ export class BreweryDetailComponent implements OnInit {
     breweryApiData: Beer[] = [];
     filteredBeers: Beer[] = [];
     breweryInfo: Brewery;
-    loading: boolean = true;
-    nameSearch: String;
-    uniqueBeerTypes: String[] = [];
-    filteredType: String;
+    isLoading = true;
+    nameSearch: string;
+    uniqueBeerTypes: Item[] = [];
+    filteredType: string;
     private routeSub: Subscription;
 
-    constructor
-    (private route: ActivatedRoute, private http: HttpClient, private apiService: ApiService) {
+    constructor(
+        private route: ActivatedRoute,
+        private http: HttpClient,
+        private apiService: ApiService
+    ) {
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.routeSub = this.route.params.subscribe(params => {
-            let selectedBreweryID = params.id
-            this.getBreweryInformation(selectedBreweryID)
+            const selectedBreweryID = params.id;
+            this.getBreweryInformation(selectedBreweryID);
         });
     }
 
-    getBreweryInformation(id: number) {
+    getBreweryInformation(id: number): void {
         this.apiService.getBreweryInformation(id).subscribe((response) => {
-            console.log("Brewery details response", response)
-            this.breweryApiData = response
-            this.filteredBeers = response
-            this.breweryInfo = this.breweryApiData[0].breweries[0]
-            this.loading = false
-            this.getBeerTypes()
-        })
+            this.breweryApiData = response;
+            this.filteredBeers = response;
+            this.breweryInfo = this.breweryApiData[0].breweries[0];
+            this.isLoading = false;
+            this.getBeerTypes();
+        });
     }
 
-    searchByName(value: string) {
-        this.filteredType = ""
-        this.nameSearch = value
+    searchByName(value: string): void {
+        this.filteredType = '';
+        this.nameSearch = value;
+        this.filteredBeers = this.breweryApiData;
+        const searchTerm = value.toLowerCase();
         this.filteredBeers = this.breweryApiData
-        const searchTerm = value.toLowerCase()
-        const filteredBeers = this.breweryApiData
             .filter((beer) => {
-                return beer.name.toLowerCase().indexOf(searchTerm) !== -1
-            })
-        console.log("filteredBeers", filteredBeers)
-        this.filteredBeers = filteredBeers
+                return beer.name.toLowerCase().indexOf(searchTerm) !== -1;
+            });
     }
 
-    getBeerTypes() {
+    getBeerTypes(): void {
         const styles = this.breweryApiData
             .filter((beer) => {
-                return beer.style !== null && beer.style !== undefined
+                return beer.style !== null && beer.style !== undefined;
             })
             .map((beer) => {
-                return beer.style
-            })
+                return beer.style;
+            });
         const types = styles.map((style) => {
-            return style.shortName
-        })
-        this.uniqueBeerTypes = [...new Set(types)].sort()
+            return style.shortName;
+        });
+        const unique = [...new Set(types)];
+        this.uniqueBeerTypes = unique.map((type) => {
+            return {id: type, name: type};
+        });
+        this.uniqueBeerTypes.sort((a, b) => (a.name > b.name) ? 1 : -1);
     }
 
-    onTypeChange(value: string) {
-        this.filterBeersByType(value)
+    onTypeChange(value: string): void {
+        this.filterBeersByType(value);
     }
 
-    filterBeersByType(selectedType: string) {
-        this.nameSearch = ""
-        this.filteredType = selectedType
+    filterBeersByType(selectedType: string): Beer[] {
+        this.nameSearch = '';
+        this.filteredType = selectedType;
         if (!selectedType) {
-            return this.breweryApiData
+            return this.breweryApiData;
         }
         this.filteredBeers = this.breweryApiData
             .filter((beer) => {
                 return beer.style !== null && beer.style !== undefined;
             })
             .filter((beer) => {
-                return beer.style.shortName === selectedType
-            })
+                return beer.style.shortName === selectedType;
+            });
     }
 
-    showAllBeers() {
-        this.nameSearch = "";
-        this.filteredType = "";
-        this.filteredBeers = this.breweryApiData
+    clearFilters(): void {
+        this.nameSearch = '';
+        this.filteredType = '';
+        this.filteredBeers = this.breweryApiData;
     }
 }
+

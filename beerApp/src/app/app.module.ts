@@ -6,12 +6,14 @@ import {HttpClientModule} from '@angular/common/http';
 import {AppComponent} from './app.component';
 import {HomepageComponent} from './pages/homepage/homepage.component';
 import {BreweryListComponent} from './pages/brewery/brewery-list/brewery-list.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 import {BreweryDetailComponent} from './pages/brewery/brewery-detail/brewery-detail.component';
 import {BeerDetailComponent} from './pages/beer/beer-detail/beer-detail.component';
 import {BeerListComponent} from './pages/beer/beer-list/beer-list.component';
-import {NavbarComponent} from "./shared/navbar/navbar.component";
-import { PaginationComponent } from './shared/pagination/pagination.component';
+import {NavbarComponent} from './components/navbar/navbar.component';
+import {PaginationComponent} from './components/pagination/pagination.component';
+import {FilterFunctionComponent} from './components/filter-function/filter-function.component';
+import {LoadingComponent} from './components/loading/loading.component';
 
 
 @NgModule({
@@ -24,6 +26,8 @@ import { PaginationComponent } from './shared/pagination/pagination.component';
         BeerListComponent,
         NavbarComponent,
         PaginationComponent,
+        FilterFunctionComponent,
+        LoadingComponent,
     ],
     imports: [
         BrowserModule,

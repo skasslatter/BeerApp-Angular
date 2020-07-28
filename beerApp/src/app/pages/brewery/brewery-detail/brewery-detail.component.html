@@ -1,12 +1,9 @@
-<div *ngIf="loading">
-    <div class="hero-image"></div>
-    <h3 class="text-center">🍻🍻🍻 Loading...</h3>
-</div>
+<app-loading *ngIf="isLoading"></app-loading>
 
-<div *ngIf="!loading">
+<div *ngIf="!isLoading">
     <div>
-        <div class="hero-image">
-            <h1 class="text-center hero-text">{{breweryInfo.name}}</h1>
+        <div class="main-image">
+            <h1 class="text-center header-text">{{breweryInfo.name}}</h1>
         </div>
     </div>
     <section class=" justify-content-center">
@@ -28,22 +25,22 @@
     <!--  <h2 class="text-center">The beers</h2>-->
 
     <section id="filterFunctions">
-        <!--  Filter by Type-->
+        <!--  Search by Type-->
         <div>
             <h5>Filter by Type</h5>
-            <select [ngModel]="filteredType" (ngModelChange)="onTypeChange($event)">
-                <option disabled selected="selected" value="">Select</option>
-                <option *ngFor="let type of uniqueBeerTypes" value="{{type}}">{{type}}</option>
-            </select>
+            <app-filter [currentValue]="filteredType" [items]="uniqueBeerTypes"
+                        (onChanged)="onTypeChange($event)"></app-filter>
         </div>
 
         <!--  Search by Name-->
         <div>
             <h5>Search by name</h5>
-            <input type="text" [ngModel]="nameSearch" (ngModelChange)="searchByName($event)"
-                   placeholder="Type to search...">
+            <label>
+                <input type="text" [ngModel]="nameSearch" (ngModelChange)="searchByName($event)"
+                       placeholder="Type to search...">
+            </label>
         </div>
-        <button class="btn btn-show-all" (click)="showAllBeers()">Show all</button>
+        <button class="btn btn-show-all" (click)="clearFilters()">Clear filters</button>
     </section>
 
     <section id="beer-list">
@@ -53,7 +50,7 @@
                     <a routerLink="/beer-detail/{{beer.id}}" routerLinkActive="active">
                         <div class="row beer-info">
                             <div class="col-sm-4 beer-image">
-                                <img *ngIf="beer.labels; else noImage" src="{{ beer.labels.icon }}" alt="Beer Image"/>
+                                <img src="{{beer.labels ? beer.labels.icon : '/assets/beer.png' }}" alt="Beer Label">
                             </div>
                             <div class="col-sm-8">
                                 <h5>{{beer.name}}</h5>
@@ -69,7 +66,4 @@
 
 <ng-template #noDescription>
     <p>Sorry, no description available.</p>
-</ng-template>
-<ng-template #noImage>
-    <img src="../../../../assets/beer.png" alt="Beer Image"/>
 </ng-template>

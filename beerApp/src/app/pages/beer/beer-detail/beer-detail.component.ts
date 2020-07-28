@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
-import {ApiService} from "../../../../services/api.service";
-import {Beer} from "../../../models/beer";
+import {Subscription} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
+import {ApiService} from '../../../../services/api/api.service';
+import {Beer} from '../../../models/beer/beer';
 
 @Component({
     selector: 'app-beer-detail',
@@ -13,26 +13,28 @@ import {Beer} from "../../../models/beer";
 
 export class BeerDetailComponent implements OnInit {
     beer: Beer;
-    isLoading: boolean = true;
+    isLoading = true;
 
     private routeSub: Subscription;
 
-    constructor
-    (private route: ActivatedRoute, private http: HttpClient, private apiService: ApiService) {
+    constructor(
+        private route: ActivatedRoute,
+        private http: HttpClient,
+        private apiService: ApiService
+    ) {
     }
 
     ngOnInit(): void {
-        this.getBeerInformation()
+        this.getBeerInformation();
     }
 
-    getBeerInformation() {
+    getBeerInformation(): void {
         this.routeSub = this.route.params.subscribe(params => {
-            let selectedBeerID = params.id
+            const selectedBeerID = params.id;
             this.apiService.getBeerInformation(selectedBeerID).subscribe((response) => {
-                console.log("Beer detail response", response)
-                this.beer = response
-                this.isLoading = false
-            })
-        })
+                this.beer = response;
+                this.isLoading = false;
+            });
+        });
     }
 }

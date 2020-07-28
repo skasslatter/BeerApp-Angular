@@ -1,44 +1,53 @@
 <div>
-    <div class="hero-image">
-        <h1 class="text-center hero-text">All beers</h1>
+    <div class="main-image">
+        <h1 class="text-center header-text">All beers</h1>
     </div>
 </div>
 
-<div *ngIf="isLoading">
-    <h3 class="text-center">🍻🍻🍻 Loading...</h3>
-</div>
+<app-loading *ngIf="isLoading"></app-loading>
 
 <!-- Beer List -->
-<div *ngIf="!isLoading">
+<section *ngIf="!isLoading">
+    <div id="filterFunctions">
+        <div>
+            <h5>Filter by Type</h5>
+            <app-filter [currentValue]="filteredType" [items]="beerTypes"
+                        (onChanged)="onTypeChange($event)"></app-filter>
+        </div>
+        <button class="btn btn-show-all" (click)="clearFilters(1)">Clear filters</button>
+    </div>
+
+    <h5 class="text-center">{{errorMessage}}</h5>
+
     <div id="beer-list" class="container">
         <div class="row">
-            <div *ngFor="let beer of beers" class="col-sm-6">
+            <div *ngFor="let beer of filteredBeers" class="col-sm-6">
 
                 <div class="row beer-info">
                     <div class="col-sm-4 beer-image">
                         <a routerLink="/beer-detail/{{beer.id}}" routerLinkActive="active">
-                            <img *ngIf="beer.labels; else noImage" src="{{ beer.labels.icon }}" alt="Beer Image"/>
+                            <img src="{{beer.labels ? beer.labels.icon : '/assets/beer.png' }}" alt="Beer Label">
                         </a>
                     </div>
                     <div class="col-sm-8">
                         <a routerLink="/beer-detail/{{beer.id}}" routerLinkActive="active">
                             <h5>{{beer.name}}</h5>
-                            <p *ngIf="beer.style">{{beer.style.name}}</p>
+                            <p *ngIf="beer.style">{{beer.style.shortName}}</p>
                         </a>
 
-                        <a routerLink="/brewery-detail/{{beer.breweries[0].id}}" routerLinkActive="active">
-                            <p><i>{{beer.breweries[0].name}}</i></p>
-                        </a>
+                        <div *ngIf="beer.breweries">
+                            <a routerLink="/brewery-detail/{{beer.breweries[0].id}}" routerLinkActive="active">
+                                <p><i>{{beer.breweries[0].name}}</i></p>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-        <!-- Pagination -->
-</div>
-<app-pagination [pageCount]="pageCount" (selectedPage)="onPageSelected($event)"></app-pagination>
+    <!-- Pagination -->
+</section>
 
-<ng-template #noImage>
-    <img src="../../../../assets/beer.png" alt="Beer Image">
-</ng-template>
+<app-pagination *ngIf="pageCount !== 0" [pageCount]="pageCount"
+                (selectedPage)="onPageSelected($event)"></app-pagination>
 

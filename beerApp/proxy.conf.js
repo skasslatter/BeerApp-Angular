@@ -13,7 +13,6 @@ const PROXY_CONFIG = {
             } else {
                 apiURL = `${keyword}&${apiKey}`
             }
-            console.log("proxy URL: ", apiURL);
             return apiURL
         }
     }
