@@ -30,16 +30,6 @@ export class BeerListComponent implements OnInit {
         this.getBeerStyles();
     }
 
-    clearFilters(page: number): void {
-        this.isLoading = true;
-        this.apiService.getAllBeers(page).subscribe((response) => {
-            this.beers = response.data;
-            this.isLoading = false;
-            this.pageCount = response.numberOfPages;
-            this.filteredBeers = this.beers;
-        });
-    }
-
     onPageSelected($event): void {
         this.clearFilters($event);
     }
@@ -75,6 +65,17 @@ export class BeerListComponent implements OnInit {
                 this.filteredBeers = response.data;
                 this.errorMessage = '';
             }
+        });
+    }
+
+    clearFilters(page: number): void {
+        this.isLoading = true;
+        this.apiService.getAllBeers(page).subscribe((response) => {
+            this.beers = response.data;
+            this.isLoading = false;
+            this.filteredType = '';
+            this.pageCount = 0;
+            this.filteredBeers = this.beers;
         });
     }
 }
