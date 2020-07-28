@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {ApiService} from "../../../../services/api.service";
+import {HttpClient} from '@angular/common/http';
+import {ApiService} from '../../../../services/api/api.service';
 
-import {Beer} from "../../../models/beer";
-import {Item} from "../../../shared/filter-function/filter-function.component";
+import {Beer} from '../../../models/beer/beer';
+import {Item} from '../../../components/filter-function/filter-function.component';
 
 @Component({
     selector: 'app-beer-list',
@@ -13,71 +13,67 @@ import {Item} from "../../../shared/filter-function/filter-function.component";
 export class BeerListComponent implements OnInit {
     beers: Beer[] = [];
     filteredBeers: Beer[] = [];
-    isLoading: boolean = true;
-    pageCount: number = 0;
+    isLoading = true;
+    pageCount = 0;
     beerTypes: Item[] = [];
     filteredType: string;
-    errorMessage: string
+    errorMessage: string;
 
     constructor(private http: HttpClient,
                 private apiService: ApiService) {
     }
 
     ngOnInit(): void {
-        this.getAllBeers(1)
-        this.getBeerStyles()
+        this.getAllBeers(1);
+        this.getBeerStyles();
     }
 
-    getAllBeers(page: number) {
-        this.isLoading = true
+    getAllBeers(page: number): void {
+        this.isLoading = true;
         this.apiService.getAllBeers(page).subscribe((response) => {
-            this.beers = response.data
-            console.log("all beers response", this.beers)
-            this.isLoading = false
-            this.pageCount = response.numberOfPages
-            this.filteredBeers = this.beers
-        })
+            this.beers = response.data;
+            console.log('all beers response', this.beers);
+            this.isLoading = false;
+            this.pageCount = response.numberOfPages;
+            this.filteredBeers = this.beers;
+        });
     }
 
-    onPageSelected($event) {
-        this.getAllBeers($event)
+    onPageSelected($event): void {
+        this.getAllBeers($event);
     }
 
-    getBeerStyles() {
+    getBeerStyles(): void {
         this.apiService.getBeerStyles().subscribe((response) => {
             this.beerTypes = response
                 .filter((style) => {
-                    return style.shortName !== null && style.shortName !== undefined
+                    return style.shortName !== null && style.shortName !== undefined;
                 })
                 .map((style) => {
-                    return {name: style.shortName, id: style.id}
-                })
-            this.beerTypes.sort((a, b) => (a.name > b.name) ? 1 : -1)
-        })
+                    return {name: style.shortName, id: style.id};
+                });
+            this.beerTypes.sort((a, b) => (a.name > b.name) ? 1 : -1);
+        });
     }
 
-    onTypeChange(value: string) {
-        this.filterBeersByType(value)
+    onTypeChange(value: string): void {
+        this.filterBeersByType(value);
     }
 
-    filterBeersByType(selectedTypeId) {
-        this.filteredType = selectedTypeId
+    filterBeersByType(selectedTypeId): Beer[] {
+        this.filteredType = selectedTypeId;
         if (!selectedTypeId) {
-            return this.beers
+            return this.beers;
         }
-        // this.isLoading = true
         this.apiService.getBeerByStyle(selectedTypeId).subscribe((response) => {
-            this.pageCount = response.numberOfPages
+            this.pageCount = response.numberOfPages;
             if (this.pageCount === 0) {
-                console.log("no beer found")
-                this.filteredBeers = []
-                return this.errorMessage = "Sorry, no beer was found"
+                this.filteredBeers = [];
+                return this.errorMessage = 'Sorry, no beer was found';
+            } else {
+                this.filteredBeers = response.data;
+                this.errorMessage = '';
             }
-            else {
-                this.filteredBeers = response.data
-                this.errorMessage = ""
-            }
-
-        })
+        });
     }
 }

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {ApiService} from "src/services/api.service"
-import {Brewery} from "../../../models/brewery";
-import {Item} from "../../../shared/filter-function/filter-function.component";
+import {HttpClient} from '@angular/common/http';
+import {ApiService} from 'src/services/api/api.service';
+import {Brewery} from '../../../models/brewery/brewery';
+import {Item} from '../../../components/filter-function/filter-function.component';
 
 @Component({
     selector: 'app-brewery-list',
@@ -11,92 +11,91 @@ import {Item} from "../../../shared/filter-function/filter-function.component";
 })
 export class BreweryListComponent implements OnInit {
     breweries: Brewery[] = [];
-    filteredBreweries: Brewery[] = []
+    filteredBreweries: Brewery[] = [];
     uniqueCountryNames: Item[] = [];
     nameSearch: string;
     filteredCountry: string;
-    isLoading: boolean = true;
+    isLoading = true;
 
     constructor(private http: HttpClient,
                 private apiService: ApiService) {
     }
 
     ngOnInit(): void {
-        this.getAllBreweries()
+        this.getAllBreweries();
     }
 
-    getAllBreweries() {
+    getAllBreweries(): void {
         this.apiService.getAllBreweries().subscribe((response) => {
-            this.breweries = response
-            this.filteredBreweries = this.breweries
-            this.getBreweriesLocations()
-            this.isLoading = false
-        })
+            this.breweries = response;
+            this.filteredBreweries = this.breweries;
+            this.getBreweriesLocations();
+            this.isLoading = false;
+        });
     }
 
-    getBreweriesLocations() {
+    getBreweriesLocations(): void {
         const locations = this.breweries
             .filter((brewery) => {
-                return brewery.locations !== null && brewery.locations !== undefined
+                return brewery.locations !== null && brewery.locations !== undefined;
             })
             .map((brewery) => {
-                return brewery.locations
-            })
-        let flatLocations = []
+                return brewery.locations;
+            });
+        let flatLocations = [];
         locations.forEach((locationArray) => {
-            flatLocations = flatLocations.concat(locationArray)
-        })
+            flatLocations = flatLocations.concat(locationArray);
+        });
         const countryNames = flatLocations.map((location) => {
             return location.country.displayName;
-        })
-        const unique = [...new Set(countryNames)]
+        });
+        const unique = [...new Set(countryNames)];
         this.uniqueCountryNames = unique.map((countryName) => {
-            return {id: countryName, name: countryName}
-        })
-        this.uniqueCountryNames.sort((a, b) => (a.name > b.name) ? 1 : -1)
+            return {id: countryName, name: countryName};
+        });
+        this.uniqueCountryNames.sort((a, b) => (a.name > b.name) ? 1 : -1);
     }
 
-    onCountryChange(value) {
-        this.filterBreweriesByCountry(value)
+    onCountryChange(value): void {
+        this.filterBreweriesByCountry(value);
     }
 
-    filterBreweriesByCountry(countryName) {
-        this.nameSearch = ""
-        this.filteredCountry = countryName
+    filterBreweriesByCountry(countryName): Brewery[] {
+        this.nameSearch = '';
+        this.filteredCountry = countryName;
         if (!countryName) {
-            return this.breweries
+            return this.breweries;
         }
         this.filteredBreweries = this.breweries
             .filter((brewery) => {
                 return brewery.locations !== null && brewery.locations !== undefined;
             })
             .filter((brewery) => {
-                let hasLocation = false
+                let hasLocation = false;
                 brewery.locations.forEach((location) => {
                     if (location.country.displayName === countryName) {
-                        hasLocation = true
+                        hasLocation = true;
                     }
-                })
-                return hasLocation
-            })
+                });
+                return hasLocation;
+            });
     }
 
-    searchByName(value) {
-        this.filteredCountry = ""
-        this.nameSearch = value
-        this.filteredBreweries = this.breweries
-        const searchTerm = value.toLowerCase()
+    searchByName(value): void {
+        this.filteredCountry = '';
+        this.nameSearch = value;
+        this.filteredBreweries = this.breweries;
+        const searchTerm = value.toLowerCase();
         const filteredBreweries = this.breweries
             .filter((brewery) => {
-                return brewery.name.toLowerCase().indexOf(searchTerm) !== -1
-            })
-        console.log("filteredBreweries", filteredBreweries)
-        this.filteredBreweries = filteredBreweries
+                return brewery.name.toLowerCase().indexOf(searchTerm) !== -1;
+            });
+        this.filteredBreweries = filteredBreweries;
     }
 
-    showAllBreweries() {
-        this.nameSearch = "";
-        this.filteredCountry = ""
-        this.filteredBreweries = this.breweries
+    resetResults(): void {
+        this.nameSearch = '';
+        this.filteredCountry = '';
+        this.filteredBreweries = this.breweries;
     }
 }

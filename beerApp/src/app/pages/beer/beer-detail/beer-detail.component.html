@@ -14,7 +14,7 @@
             <div class="col-sm-5 beer-info">
                 <h5 *ngIf="beer.style.shortName">Type: {{beer.style.shortName}}</h5>
                 <a routerLink="/brewery-detail/{{beer.breweries[0].id}}" routerLinkActive="active">
-                <p>{{beer.breweries[0].name}}</p>
+                    <p>{{beer.breweries[0].name}}</p>
                 </a>
                 <br>
                 <p *ngIf="beer.description, else noDescription">{{beer.description}}</p>
@@ -27,5 +27,5 @@
     <p>Sorry, no description available.</p>
 </ng-template>
 <ng-template #noImage>
-    <img src="../../../../assets/beer-large.png"/>
+    <img src="../../../../assets/img/beer-large.png"/>
 </ng-template>

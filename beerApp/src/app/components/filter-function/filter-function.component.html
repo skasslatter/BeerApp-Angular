@@ -1,0 +1,7 @@
+<label>
+    <select [ngModel]="currentValue" (ngModelChange)="onChange($event)">
+        <option value="" disabled selected="selected">Select</option>
+        <option *ngFor="let item of items" value="{{item.id}}">{{item.name}}</option>
+    </select>
+</label>
+

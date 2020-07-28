@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 export interface Item {
     name: string;
-    id: string;
+    id: string | number;
 }
 
 @Component({
@@ -12,10 +12,10 @@ export interface Item {
 })
 export class FilterFunctionComponent implements OnInit {
     @Input()
-    items: Item[]
+    items: Item[];
 
     @Input()
-    currentValue: string
+    currentValue: string;
 
     @Output()
     onChanged = new EventEmitter<string>();
@@ -26,7 +26,7 @@ export class FilterFunctionComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    onChange($event) {
-        this.onChanged.emit($event)
+    onChange($event): void {
+        this.onChanged.emit($event);
     }
 }

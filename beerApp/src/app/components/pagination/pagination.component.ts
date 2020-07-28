@@ -12,57 +12,57 @@ export class PaginationComponent implements OnInit, OnChanges {
     @Output()
     selectedPage = new EventEmitter<number>();
 
-    pageNumber: number = 1;
+    pageNumber = 1;
     displayedPages: number[] = [];
 
     constructor() {
     }
 
     ngOnInit(): void {
-        this.calcDisplayedPages()
+        this.getDisplayedPages();
     }
 
-    calcDisplayedPages(): void {
-        const arr = []
+    getDisplayedPages(): void {
+        const arr = [];
         if (this.pageNumber < 3) {
             for (let i = 1; i <= 5 && i <= this.pageCount; i++) {
-                arr.push(i)
+                arr.push(i);
             }
         } else if (this.pageNumber < this.pageCount - 2) {
             for (let i = this.pageNumber - 2; i <= this.pageNumber + 2; i++) {
-                arr.push(i)
+                arr.push(i);
             }
         } else {
             for (let i = this.pageCount - 4; i <= this.pageCount; i++) {
-                arr.push(i)
+                arr.push(i);
             }
         }
-        this.displayedPages = arr
+        this.displayedPages = arr;
     }
 
-    showPreviousPage() {
+    showPreviousPage(): void {
         if (this.pageNumber > 1) {
-            this.pageNumber = this.pageNumber - 1
-            this.calcDisplayedPages();
+            this.pageNumber = this.pageNumber - 1;
+            this.getDisplayedPages();
         }
-        this.selectedPage.emit(this.pageNumber)
+        this.selectedPage.emit(this.pageNumber);
     }
 
-    showNextPage() {
+    showNextPage(): void {
         if (this.pageNumber < this.pageCount) {
-            this.pageNumber = this.pageNumber + 1
-            this.calcDisplayedPages()
+            this.pageNumber = this.pageNumber + 1;
+            this.getDisplayedPages();
         }
-        this.selectedPage.emit(this.pageNumber)
+        this.selectedPage.emit(this.pageNumber);
     }
 
-    showDifferentPage(clickedPage) {
-        this.pageNumber = clickedPage
-        this.calcDisplayedPages()
-        this.selectedPage.emit(clickedPage)
+    showDifferentPage(clickedPage): void {
+        this.pageNumber = clickedPage;
+        this.getDisplayedPages();
+        this.selectedPage.emit(clickedPage);
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        this.calcDisplayedPages()
+        this.getDisplayedPages();
     }
 }
