@@ -14,7 +14,9 @@ interface ApiResponse {
 })
 
 export class ApiService {
-    constructor(private http: HttpClient) {
+    constructor(
+        private http: HttpClient
+    ) {
     }
 
     getAllBreweries(): Observable<any> {

@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ApiService} from 'src/services/api/api.service';
+import {SearchService} from 'src/services/search/search.service';
+
+
 import {Brewery} from '../../../models/brewery/brewery';
 import {Item} from '../../../components/filter-function/filter-function.component';
 
@@ -19,7 +22,8 @@ export class BreweryListComponent implements OnInit {
 
     constructor(
         private http: HttpClient,
-        private apiService: ApiService
+        private apiService: ApiService,
+        private searchService: SearchService,
     ) {
     }
 
@@ -83,15 +87,11 @@ export class BreweryListComponent implements OnInit {
             });
     }
 
-    searchByName(value): void {
+    searchByName(value): any {
+        this.filteredBreweries = this.breweries;
         this.filteredCountry = '';
         this.nameSearch = value;
-        this.filteredBreweries = this.breweries;
-        const searchTerm = value.toLowerCase();
-        this.filteredBreweries = this.breweries
-            .filter((brewery) => {
-                return brewery.name.toLowerCase().indexOf(searchTerm) !== -1;
-            });
+        this.filteredBreweries =  this.searchService.searchByValue(value, this.breweries);
     }
 
     clearFilters(): void {

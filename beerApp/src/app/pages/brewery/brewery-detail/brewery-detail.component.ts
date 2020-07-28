@@ -6,7 +6,8 @@ import {ApiService} from '../../../../services/api/api.service';
 
 import {Brewery} from '../../../models/brewery/brewery';
 import {Beer} from '../../../models/beer/beer';
-import {Item} from "../../../components/filter-function/filter-function.component";
+import {Item} from '../../../components/filter-function/filter-function.component';
+import {SearchService} from '../../../../services/search/search.service';
 
 @Component({
     selector: 'app-brewery-detail',
@@ -26,7 +27,8 @@ export class BreweryDetailComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private http: HttpClient,
-        private apiService: ApiService
+        private apiService: ApiService,
+        private searchService: SearchService,
     ) {
     }
 
@@ -47,15 +49,11 @@ export class BreweryDetailComponent implements OnInit {
         });
     }
 
-    searchByName(value: string): void {
+    searchByName(value: string): any {
+        this.filteredBeers = this.breweryApiData;
         this.filteredType = '';
         this.nameSearch = value;
-        this.filteredBeers = this.breweryApiData;
-        const searchTerm = value.toLowerCase();
-        this.filteredBeers = this.breweryApiData
-            .filter((beer) => {
-                return beer.name.toLowerCase().indexOf(searchTerm) !== -1;
-            });
+        this.filteredBeers = this.searchService.searchByValue(value, this.breweryApiData);
     }
 
     getBeerTypes(): void {
