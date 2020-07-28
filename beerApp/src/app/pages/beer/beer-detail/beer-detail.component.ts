@@ -32,7 +32,6 @@ export class BeerDetailComponent implements OnInit {
         this.routeSub = this.route.params.subscribe(params => {
             const selectedBeerID = params.id;
             this.apiService.getBeerInformation(selectedBeerID).subscribe((response) => {
-                console.log('Beer detail response', response);
                 this.beer = response;
                 this.isLoading = false;
             });

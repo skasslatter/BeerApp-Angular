@@ -27,7 +27,6 @@ export class ApiService {
     }
 
     getAllBeers(page): Observable<any> {
-        console.log('page', page);
         return this.http.get(`/api/beers?withBreweries=Y&withLocations=Y&p=${page}`)
             .pipe((map((data) => {
                 return data;

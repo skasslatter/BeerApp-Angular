@@ -35,7 +35,6 @@ export class BreweryDetailComponent implements OnInit {
 
     getBreweryInformation(id: number): void  {
         this.apiService.getBreweryInformation(id).subscribe((response) => {
-            console.log('Brewery details response', response);
             this.breweryApiData = response;
             this.filteredBeers = response;
             this.breweryInfo = this.breweryApiData[0].breweries[0];

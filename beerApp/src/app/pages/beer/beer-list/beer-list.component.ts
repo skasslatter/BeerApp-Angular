@@ -32,7 +32,6 @@ export class BeerListComponent implements OnInit {
         this.isLoading = true;
         this.apiService.getAllBeers(page).subscribe((response) => {
             this.beers = response.data;
-            console.log('all beers response', this.beers);
             this.isLoading = false;
             this.pageCount = response.numberOfPages;
             this.filteredBeers = this.beers;
