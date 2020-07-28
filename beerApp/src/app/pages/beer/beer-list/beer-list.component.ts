@@ -12,26 +12,41 @@ import {Item} from '../../../components/filter-function/filter-function.componen
 })
 export class BeerListComponent implements OnInit {
     beers: Beer[] = [];
-    filteredBeers: Beer[] = [];
+    filteredBeers: any;
     isLoading = true;
     pageCount = 0;
+    totalPages: number;
     beerTypes: Item[] = [];
     filteredType: string;
     errorMessage: string;
+    nameSearch: string;
 
     constructor(
         private http: HttpClient,
-        private apiService: ApiService
+        private apiService: ApiService,
     ) {
     }
 
     ngOnInit(): void {
+        this.getAllBeers(1);
         this.clearFilters(1);
         this.getBeerStyles();
     }
 
     onPageSelected($event): void {
-        this.clearFilters($event);
+        this.getAllBeers($event);
+    }
+
+    getAllBeers(page: number): void {
+        this.isLoading = true;
+        this.apiService.getAllBeers(page).subscribe((response) => {
+            this.beers = response.data;
+            this.isLoading = false;
+            this.filteredType = '';
+            this.totalPages = response.numberOfPages;
+            this.pageCount = this.totalPages;
+            this.filteredBeers = this.beers;
+        });
     }
 
     getBeerStyles(): void {
@@ -52,6 +67,7 @@ export class BeerListComponent implements OnInit {
     }
 
     filterBeersByType(selectedTypeId): Beer[] {
+        this.nameSearch = '';
         this.filteredType = selectedTypeId;
         if (!selectedTypeId) {
             return this.beers;
@@ -68,14 +84,29 @@ export class BeerListComponent implements OnInit {
         });
     }
 
-    clearFilters(page: number): void {
-        this.isLoading = true;
-        this.apiService.getAllBeers(page).subscribe((response) => {
-            this.beers = response.data;
-            this.isLoading = false;
-            this.filteredType = '';
-            this.pageCount = 0;
-            this.filteredBeers = this.beers;
+    searchByName(value): any {
+        this.filteredBeers = this.beers;
+        this.filteredType = '';
+        this.errorMessage = '';
+        this.nameSearch = value;
+        this.pageCount = 0;
+        this.apiService.getBeerByName(value).subscribe((response) => {
+            this.filteredBeers = response;
         });
+    }
+
+    clearFilters(page: number): void {
+        this.filteredBeers = this.beers;
+        this.filteredType = '';
+        this.nameSearch = '';
+        this.errorMessage = '';
+        this.pageCount = this.totalPages;
+        // this.apiService.getAllBeers(page).subscribe((response) => {
+        //     // this.beers = response.data;
+        //     // this.isLoading = false;
+        //     // this.filteredType = '';
+        //     // this.pageCount = 0;
+        //     this.filteredBeers = this.beers;
+        // });
     }
 }
