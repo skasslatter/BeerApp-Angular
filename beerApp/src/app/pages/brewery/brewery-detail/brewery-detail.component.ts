@@ -74,6 +74,7 @@ export class BreweryDetailComponent implements OnInit {
             return {id: type, name: type}
         })
         this.uniqueBeerTypes.sort((a, b) => (a.name > b.name) ? 1 : -1)
+        console.log("uniqueBeerTypes", this.uniqueBeerTypes)
     }
 
     onTypeChange(value: string) {
