@@ -50,7 +50,7 @@
                     <a routerLink="/beer-detail/{{beer.id}}" routerLinkActive="active">
                         <div class="row beer-info">
                             <div class="col-sm-4 beer-image">
-                                <img *ngIf="beer.labels; else noImage" src="{{ beer.labels.icon }}" alt="Beer Image"/>
+                                <img src="{{beer.labels ? beer.labels.icon : '/assets/beer.png' }}" alt="Beer Label">
                             </div>
                             <div class="col-sm-8">
                                 <h5>{{beer.name}}</h5>
@@ -66,7 +66,4 @@
 
 <ng-template #noDescription>
     <p>Sorry, no description available.</p>
-</ng-template>
-<ng-template #noImage>
-    <img src="../../../../assets/img/beer.png" alt="Beer Image"/>
 </ng-template>

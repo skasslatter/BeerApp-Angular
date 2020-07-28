@@ -9,7 +9,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-6 beer-image">
-                <img *ngIf="beer.labels; else noImage" src="{{beer.labels.medium}}" alt="Beer Label">
+                <img src="{{beer.labels ? beer.labels.medium : '/assets/beer-large.png' }}" alt="Beer Label">
             </div>
             <div class="col-sm-5 beer-info">
                 <h5 *ngIf="beer.style.shortName">Type: {{beer.style.shortName}}</h5>
@@ -25,7 +25,4 @@
 
 <ng-template #noDescription>
     <p>Sorry, no description available.</p>
-</ng-template>
-<ng-template #noImage>
-    <img src="../../../../assets/img/beer-large.png"/>
 </ng-template>
