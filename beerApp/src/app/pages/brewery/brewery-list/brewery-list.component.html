@@ -13,8 +13,10 @@
         <!--  Search by Name-->
         <div>
             <h5>Search by name</h5>
-            <input type="text" [ngModel]="nameSearch" (ngModelChange)="searchByName($event)"
-                   placeholder="Type to search...">
+            <label>
+                <input type="text" [ngModel]="nameSearch" (ngModelChange)="searchByName($event)"
+                       placeholder="Type to search...">
+            </label>
         </div>
         <button class="btn btn-show-all" (click)="clearFilters()">Clear filters</button>
     </section>
@@ -27,10 +29,12 @@
             <div class="col-sm-10">
                 <div *ngFor="let brewery of filteredBreweries" class="card">
                     <a routerLink="/brewery-detail/{{brewery.id}}" routerLinkActive="active">
-                        <img class="card-img-top" *ngIf="brewery.images" src="{{brewery.images.large}}"
-                             alt="Brewery Image">
-                        <div class="card-body">
+                        <div class="text-center">
+                            <img *ngIf="brewery.images" src="{{brewery.images.medium}}"
+                                 alt="Brewery Image">
                             <h3 class="card-title text-center">{{brewery.name}}</h3>
+                        </div>
+                        <div class="card-body">
                             <p class="card-subtitle mb-2 text-muted" *ngIf="brewery.established">established
                                 in {{brewery.established}}</p>
                             <p class="card-text">{{brewery.description}}</p>
