@@ -7,15 +7,28 @@
 <app-loading *ngIf="isLoading"></app-loading>
 
 <!-- Beer List -->
-<section *ngIf="!isLoading">
-    <div id="filterFunctions">
+<div *ngIf="!isLoading">
+
+    <!--   -->
+    <section id="filterFunctions">
+        <!--  Search by Type-->
         <div>
             <h5>Filter by Type</h5>
             <app-filter [currentValue]="filteredType" [items]="beerTypes"
                         (onChanged)="onTypeChange($event)"></app-filter>
         </div>
+
+        <!--  Search by Name-->
+        <div>
+            <h5>Search by name</h5>
+            <label>
+                <input type="text" [ngModel]="nameSearch" (ngModelChange)="searchByName($event)"
+                       placeholder="Type to search...">
+            </label>
+        </div>
+
         <button class="btn btn-show-all" (click)="clearFilters(1)">Clear filters</button>
-    </div>
+    </section>
 
     <h5 class="text-center">{{errorMessage}}</h5>
 
@@ -46,7 +59,8 @@
         </div>
     </div>
     <!-- Pagination -->
-</section>
+
+</div>
 
 <app-pagination *ngIf="pageCount !== 0" [pageCount]="pageCount"
                 (selectedPage)="onPageSelected($event)"></app-pagination>
