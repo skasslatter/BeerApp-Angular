@@ -6,6 +6,7 @@ import {ApiService} from '../../../../services/api/api.service';
 
 import {Brewery} from '../../../models/brewery/brewery';
 import {Beer} from '../../../models/beer/beer';
+import {Item} from "../../../components/filter-function/filter-function.component";
 
 @Component({
     selector: 'app-brewery-detail',
@@ -18,12 +19,15 @@ export class BreweryDetailComponent implements OnInit {
     breweryInfo: Brewery;
     isLoading = true;
     nameSearch: string;
-    uniqueBeerTypes: any;
+    uniqueBeerTypes: Item[] = [];
     filteredType: string;
     private routeSub: Subscription;
 
-    constructor
-   (private route: ActivatedRoute, private http: HttpClient, private apiService: ApiService) {
+    constructor(
+        private route: ActivatedRoute,
+        private http: HttpClient,
+        private apiService: ApiService
+    ) {
     }
 
     ngOnInit(): void {
@@ -33,7 +37,7 @@ export class BreweryDetailComponent implements OnInit {
         });
     }
 
-    getBreweryInformation(id: number): void  {
+    getBreweryInformation(id: number): void {
         this.apiService.getBreweryInformation(id).subscribe((response) => {
             this.breweryApiData = response;
             this.filteredBeers = response;
@@ -43,19 +47,18 @@ export class BreweryDetailComponent implements OnInit {
         });
     }
 
-    searchByName(value: string): void  {
+    searchByName(value: string): void {
         this.filteredType = '';
         this.nameSearch = value;
         this.filteredBeers = this.breweryApiData;
         const searchTerm = value.toLowerCase();
-        const filteredBeers = this.breweryApiData
+        this.filteredBeers = this.breweryApiData
             .filter((beer) => {
                 return beer.name.toLowerCase().indexOf(searchTerm) !== -1;
             });
-        this.filteredBeers = filteredBeers;
     }
 
-    getBeerTypes(): void  {
+    getBeerTypes(): void {
         const styles = this.breweryApiData
             .filter((beer) => {
                 return beer.style !== null && beer.style !== undefined;
@@ -68,16 +71,16 @@ export class BreweryDetailComponent implements OnInit {
         });
         const unique = [...new Set(types)];
         this.uniqueBeerTypes = unique.map((type) => {
-            return {name: type};
+            return {id: type, name: type};
         });
         this.uniqueBeerTypes.sort((a, b) => (a.name > b.name) ? 1 : -1);
     }
 
-    onTypeChange(value: string): void  {
+    onTypeChange(value: string): void {
         this.filterBeersByType(value);
     }
 
-    filterBeersByType(selectedType: string): Beer[]  {
+    filterBeersByType(selectedType: string): Beer[] {
         this.nameSearch = '';
         this.filteredType = selectedType;
         if (!selectedType) {
@@ -92,7 +95,7 @@ export class BreweryDetailComponent implements OnInit {
             });
     }
 
-    showAllBeers(): void {
+    clearFilters(): void {
         this.nameSearch = '';
         this.filteredType = '';
         this.filteredBeers = this.breweryApiData;

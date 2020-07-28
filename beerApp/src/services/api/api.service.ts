@@ -9,10 +9,10 @@ interface ApiResponse {
     data: Array<Brewery>;
 }
 
-
 @Injectable({
     providedIn: 'root'
 })
+
 export class ApiService {
     constructor(private http: HttpClient) {
     }

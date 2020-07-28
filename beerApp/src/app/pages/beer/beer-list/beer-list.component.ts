@@ -19,16 +19,18 @@ export class BeerListComponent implements OnInit {
     filteredType: string;
     errorMessage: string;
 
-    constructor(private http: HttpClient,
-                private apiService: ApiService) {
+    constructor(
+        private http: HttpClient,
+        private apiService: ApiService
+    ) {
     }
 
     ngOnInit(): void {
-        this.getAllBeers(1);
+        this.clearFilters(1);
         this.getBeerStyles();
     }
 
-    getAllBeers(page: number): void {
+    clearFilters(page: number): void {
         this.isLoading = true;
         this.apiService.getAllBeers(page).subscribe((response) => {
             this.beers = response.data;
@@ -39,7 +41,7 @@ export class BeerListComponent implements OnInit {
     }
 
     onPageSelected($event): void {
-        this.getAllBeers($event);
+        this.clearFilters($event);
     }
 
     getBeerStyles(): void {

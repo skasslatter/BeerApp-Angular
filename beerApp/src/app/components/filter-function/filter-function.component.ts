@@ -26,7 +26,7 @@ export class FilterFunctionComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    onChange($event): void {
+    onChange($event): any {
         this.onChanged.emit($event);
     }
 }

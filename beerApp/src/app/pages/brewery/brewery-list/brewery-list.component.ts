@@ -17,8 +17,10 @@ export class BreweryListComponent implements OnInit {
     filteredCountry: string;
     isLoading = true;
 
-    constructor(private http: HttpClient,
-                private apiService: ApiService) {
+    constructor(
+        private http: HttpClient,
+        private apiService: ApiService
+    ) {
     }
 
     ngOnInit(): void {
@@ -86,14 +88,13 @@ export class BreweryListComponent implements OnInit {
         this.nameSearch = value;
         this.filteredBreweries = this.breweries;
         const searchTerm = value.toLowerCase();
-        const filteredBreweries = this.breweries
+        this.filteredBreweries = this.breweries
             .filter((brewery) => {
                 return brewery.name.toLowerCase().indexOf(searchTerm) !== -1;
             });
-        this.filteredBreweries = filteredBreweries;
     }
 
-    resetResults(): void {
+    clearFilters(): void {
         this.nameSearch = '';
         this.filteredCountry = '';
         this.filteredBreweries = this.breweries;

@@ -14,7 +14,7 @@
             <app-filter [currentValue]="filteredType" [items]="beerTypes"
                         (onChanged)="onTypeChange($event)"></app-filter>
         </div>
-        <button class="btn btn-show-all" (click)="getAllBeers(1)">Show all</button>
+        <button class="btn btn-show-all" (click)="clearFilters(1)">Clear filters</button>
     </div>
 
     <h5 class="text-center">{{errorMessage}}</h5>
