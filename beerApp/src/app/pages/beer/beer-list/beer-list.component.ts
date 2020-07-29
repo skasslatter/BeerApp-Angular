@@ -85,13 +85,14 @@ export class BeerListComponent implements OnInit {
     }
 
     searchByName(value): any {
-        this.filteredBeers = this.beers;
+        this.isLoading = true;
         this.filteredType = '';
         this.errorMessage = '';
         this.nameSearch = value;
         this.pageCount = 0;
         this.apiService.getBeerByName(value).subscribe((response) => {
             this.filteredBeers = response;
+            this.isLoading = false;
         });
     }
 

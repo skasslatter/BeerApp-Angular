@@ -22,6 +22,7 @@ export class BreweryDetailComponent implements OnInit {
     nameSearch: string;
     uniqueBeerTypes: Item[] = [];
     filteredType: string;
+    errorMessage: string;
     private routeSub: Subscription;
 
     constructor(
@@ -41,11 +42,17 @@ export class BreweryDetailComponent implements OnInit {
 
     getBreweryInformation(id: number): void {
         this.apiService.getBreweryInformation(id).subscribe((response) => {
+            this.isLoading = false;
+            if (!response) {
+                this.errorMessage = 'Sorry, no Data available';
+            }
+            else{
             this.breweryApiData = response;
             this.filteredBeers = response;
             this.breweryInfo = this.breweryApiData[0].breweries[0];
-            this.isLoading = false;
+            // this.isLoading = false;
             this.getBeerTypes();
+            }
         });
     }
 

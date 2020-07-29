@@ -1,11 +1,12 @@
+<div>
+    <div class="main-image">
+        <h1 *ngIf="beer" class="text-center header-text">{{beer.name}}</h1>
+    </div>
+</div>
+
 <app-loading *ngIf="isLoading"></app-loading>
 
 <div *ngIf="!isLoading">
-    <div>
-        <div class="main-image">
-            <h1 class="text-center header-text">{{beer.name}}</h1>
-        </div>
-    </div>
     <div class="container">
         <div class="row">
             <div class="col-sm-6 beer-image">

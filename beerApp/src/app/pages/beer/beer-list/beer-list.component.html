@@ -4,32 +4,30 @@
     </div>
 </div>
 
+<section id="filterFunctions" class="row">
+    <!--  Search by Type-->
+    <div>
+        <h5>Filter by Type</h5>
+        <app-filter [currentValue]="filteredType" [items]="beerTypes"
+                    (onChanged)="onTypeChange($event)"></app-filter>
+    </div>
+
+    <!--  Search by Name-->
+    <div>
+        <h5>Search by name</h5>
+        <label>
+            <input type="text" [ngModel]="nameSearch" (ngModelChange)="searchByName($event)"
+                   placeholder="Type to search...">
+        </label>
+    </div>
+    <!--    Reset Filters-->
+    <button class="btn btn-show-all" (click)="clearFilters(1)">Clear filters</button>
+</section>
+
 <app-loading *ngIf="isLoading"></app-loading>
 
 <!-- Beer List -->
 <div *ngIf="!isLoading">
-
-    <!--   -->
-    <section id="filterFunctions">
-        <!--  Search by Type-->
-        <div>
-            <h5>Filter by Type</h5>
-            <app-filter [currentValue]="filteredType" [items]="beerTypes"
-                        (onChanged)="onTypeChange($event)"></app-filter>
-        </div>
-
-        <!--  Search by Name-->
-        <div>
-            <h5>Search by name</h5>
-            <label>
-                <input type="text" [ngModel]="nameSearch" (ngModelChange)="searchByName($event)"
-                       placeholder="Type to search...">
-            </label>
-        </div>
-
-        <button class="btn btn-show-all" (click)="clearFilters(1)">Clear filters</button>
-    </section>
-
     <h5 class="text-center">{{errorMessage}}</h5>
 
     <div id="beer-list" class="container">

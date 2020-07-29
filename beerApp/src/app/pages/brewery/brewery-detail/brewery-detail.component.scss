@@ -4,6 +4,7 @@
     @extend .header-image !optional;
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url('/assets/img/brewery-detail.jpeg');
+    //url('../../../../assets/img/brewery-detail.jpeg')
 }
 
 .brewery-info {

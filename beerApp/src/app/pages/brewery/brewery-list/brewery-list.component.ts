@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {ApiService} from 'src/services/api/api.service';
 import {SearchService} from 'src/services/search/search.service';
 
-
 import {Brewery} from '../../../models/brewery/brewery';
 import {Item} from '../../../components/filter-function/filter-function.component';
 

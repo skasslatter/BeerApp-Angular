@@ -1,11 +1,13 @@
-<app-loading *ngIf="isLoading"></app-loading>
-
-<div *ngIf="!isLoading">
-    <div>
-        <div class="main-image">
-            <h1 class="text-center header-text">{{breweryInfo.name}}</h1>
-        </div>
+<div>
+    <div class="main-image">
+        <h1 *ngIf="breweryInfo" class="text-center header-text">{{breweryInfo.name}}</h1>
     </div>
+</div>
+
+<app-loading *ngIf="isLoading"></app-loading>
+<h5 class="text-center">{{errorMessage}}</h5>
+
+<div *ngIf="!isLoading && !errorMessage">
     <section class=" justify-content-center">
         <div>
             <div class="text-center brewery-image">
@@ -22,16 +24,13 @@
         </div>
     </section>
 
-    <!--  <h2 class="text-center">The beers</h2>-->
-
-    <section id="filterFunctions">
+    <section id="filterFunctions" class="row">
         <!--  Search by Type-->
         <div>
             <h5>Filter by Type</h5>
             <app-filter [currentValue]="filteredType" [items]="uniqueBeerTypes"
                         (onChanged)="onTypeChange($event)"></app-filter>
         </div>
-
         <!--  Search by Name-->
         <div>
             <h5>Search by name</h5>
@@ -50,7 +49,8 @@
                     <a routerLink="/beer-detail/{{beer.id}}" routerLinkActive="active">
                         <div class="row beer-info">
                             <div class="col-sm-4 beer-image">
-                                <img src="{{beer.labels ? beer.labels.icon : '/assets/img/beer.png' }}" alt="Beer Label">
+                                <img src="{{beer.labels ? beer.labels.icon : '/assets/img/beer.png' }}"
+                                     alt="Beer Label">
                             </div>
                             <div class="col-sm-8">
                                 <h5>{{beer.name}}</h5>
