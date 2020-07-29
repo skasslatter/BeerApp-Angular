@@ -86,7 +86,7 @@ export class BreweryListComponent implements OnInit {
             });
     }
 
-    searchByName(value): any {
+    searchByName(value): void {
         this.filteredBreweries = this.breweries;
         this.filteredCountry = '';
         this.nameSearch = value;

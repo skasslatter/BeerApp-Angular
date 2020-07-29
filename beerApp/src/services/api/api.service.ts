@@ -4,9 +4,24 @@ import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 
 import {Brewery} from '../../app/models/brewery/brewery';
+import {Beer, Type} from '../../app/models/beer/beer';
 
 interface ApiResponse {
-    data: Array<Brewery>;
+    numberOfPages: number;
+}
+interface BreweryApiResponse extends ApiResponse{
+    data: Brewery[];
+}
+interface BeersApiResponse extends ApiResponse{
+    data: Beer[];
+}
+
+interface BeerApiResponse extends ApiResponse{
+    data: Beer;
+}
+
+interface TypesApiResponse extends ApiResponse{
+    data: Type[];
 }
 
 @Injectable({
@@ -19,63 +34,57 @@ export class ApiService {
     ) {
     }
 
-    getAllBreweries(): Observable<any> {
+    getAllBreweries(): Observable<Brewery[]> {
         let breweries = [];
         return this.http.get('/api/breweries?withLocations=Y')
-            .pipe((map((data: ApiResponse) => {
+            .pipe((map((data: BreweryApiResponse) => {
                 breweries = data.data;
                 return breweries;
             })));
     }
 
-    getAllBeers(page): Observable<any> {
+    getAllBeers(page): Observable<BeersApiResponse> {
         return this.http.get(`/api/beers?withBreweries=Y&withLocations=Y&p=${page}`)
-            .pipe((map((data) => {
+            .pipe((map((data: BeersApiResponse) => {
                 return data;
             })));
     }
 
-    getBreweryInformation(id: number): Observable<any> {
+    getBreweryInformation(id: number): Observable<Beer[]> {
         let breweryApiData = [];
         return this.http.get(`/api/brewery/${id}/beers?withBreweries=Y`)
-            .pipe((map((data: any) => {
+            .pipe((map((data: BeersApiResponse) => {
                 breweryApiData = data.data;
                 return breweryApiData;
             })));
     }
 
-    getBeerInformation(id: number): Observable<any> {
-        let beerApiData = [];
+    getBeerInformation(id: number): Observable<Beer> {
         return this.http.get(`/api/beer/${id}?withBreweries=Y`)
-            .pipe((map((data: any) => {
-                beerApiData = data.data;
-                return beerApiData;
+            .pipe((map((data: BeerApiResponse  ) => {
+                return  data.data;
             })));
     }
 
-    getBeerStyles(): Observable<any> {
-        let beerStyles = [];
+    getBeerTypes(): Observable<Type[]> {
         return this.http.get(`/api/styles?withBreweries=Y`)
-            .pipe((map((data: any) => {
-                beerStyles = data.data;
-                return beerStyles;
+            .pipe((map((data: TypesApiResponse) => {
+                return data.data;
             })));
     }
 
-    getBeerByStyle(id): Observable<any> {
+    getBeerByType(id): Observable<BeersApiResponse> {
         return this.http.get(`/api/beers?styleId=${id}`)
-            .pipe((map((data: any) => {
+            .pipe((map((data: BeersApiResponse) => {
+                console.log(data);
                 return data;
             })));
     }
 
-    getBeerByName(name): Observable<any> {
-        let beers = [];
+    getBeerByName(name): Observable<Beer[]> {
         return this.http.get(`/api/beers?name=${name}`)
-            .pipe((map((data: any) => {
-                console.log('data', data);
-                beers = data.data;
-                return beers;
+            .pipe((map((data: BeersApiResponse) => {
+                return data.data;
             })));
     }
 }

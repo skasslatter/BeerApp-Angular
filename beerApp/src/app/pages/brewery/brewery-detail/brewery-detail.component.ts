@@ -15,7 +15,7 @@ import {SearchService} from '../../../../services/search/search.service';
     styleUrls: ['./brewery-detail.component.scss']
 })
 export class BreweryDetailComponent implements OnInit {
-    breweryApiData: Beer[] = [];
+    allBeers: Beer[] = [];
     filteredBeers: Beer[] = [];
     breweryInfo: Brewery;
     isLoading = true;
@@ -47,24 +47,23 @@ export class BreweryDetailComponent implements OnInit {
                 this.errorMessage = 'Sorry, no Data available';
             }
             else{
-            this.breweryApiData = response;
+            this.allBeers = response;
             this.filteredBeers = response;
-            this.breweryInfo = this.breweryApiData[0].breweries[0];
-            // this.isLoading = false;
+            this.breweryInfo = this.allBeers[0].breweries[0];
             this.getBeerTypes();
             }
         });
     }
 
-    searchByName(value: string): any {
-        this.filteredBeers = this.breweryApiData;
+    searchByName(value: string): void {
+        this.filteredBeers = this.allBeers;
         this.filteredType = '';
         this.nameSearch = value;
-        this.filteredBeers = this.searchService.searchByValue(value, this.breweryApiData);
+        this.filteredBeers = this.searchService.searchByValue(value, this.allBeers);
     }
 
     getBeerTypes(): void {
-        const styles = this.breweryApiData
+        const styles = this.allBeers
             .filter((beer) => {
                 return beer.style !== null && beer.style !== undefined;
             })
@@ -89,9 +88,9 @@ export class BreweryDetailComponent implements OnInit {
         this.nameSearch = '';
         this.filteredType = selectedType;
         if (!selectedType) {
-            return this.breweryApiData;
+            return this.allBeers;
         }
-        this.filteredBeers = this.breweryApiData
+        this.filteredBeers = this.allBeers
             .filter((beer) => {
                 return beer.style !== null && beer.style !== undefined;
             })
@@ -103,7 +102,7 @@ export class BreweryDetailComponent implements OnInit {
     clearFilters(): void {
         this.nameSearch = '';
         this.filteredType = '';
-        this.filteredBeers = this.breweryApiData;
+        this.filteredBeers = this.allBeers;
     }
 }
 

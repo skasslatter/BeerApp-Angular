@@ -7,9 +7,10 @@ interface LabelSet {
     contentAwareMedium: string;
 }
 
-interface Style {
+export interface Type {
     name: string;
     shortName: string;
+    id: number;
 }
 
 export interface Beer {
@@ -17,6 +18,6 @@ export interface Beer {
     name: string;
     description: string;
     id: number;
-    style: Style;
+    style: Type;
     labels: LabelSet;
 }

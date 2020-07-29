@@ -1,5 +1,9 @@
 import {Injectable} from '@angular/core';
 
+interface SearchableObject {
+    name: string;
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -8,7 +12,7 @@ export class SearchService {
     constructor() {
     }
 
-    searchByValue(value, items): any {
+    searchByValue<T extends SearchableObject>(value: string, items: T[]): T[] {
         const searchTerm = value.toLowerCase();
         return items
             .filter((item) => {
