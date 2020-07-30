@@ -65,12 +65,9 @@ export class BreweryListComponent implements OnInit {
         this.filterBreweriesByCountry(value);
     }
 
-    filterBreweriesByCountry(countryName): Brewery[] {
+    filterBreweriesByCountry(countryName): void {
         this.searchedName = '';
         this.filteredCountry = countryName;
-        if (!countryName) {
-            return this.breweries;
-        }
         this.filteredBreweries = this.breweries
             .filter((brewery) => {
                 return brewery.locations !== null && brewery.locations !== undefined;

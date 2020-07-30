@@ -48,9 +48,7 @@ export class ApiService {
 
     getAllBeers(page: number): Observable<BeersApiResponse> {
         return this.http.get(`/api/beers?withBreweries=Y&withLocations=Y&p=${page}`)
-            .pipe((map((data: BeersApiResponse) => {
-                return data;
-            })));
+            .pipe() as Observable<BeersApiResponse>;
     }
 
     getBreweryInformation(id: number): Observable<Beer[]> {
@@ -78,9 +76,7 @@ export class ApiService {
 
     getBeerByType(id, page: number): Observable<BeersApiResponse> {
         return this.http.get(`/api/beers?styleId=${id}&p=${page}`)
-            .pipe((map((data: BeersApiResponse) => {
-                return data;
-            })));
+            .pipe() as Observable<BeersApiResponse>;
     }
 
     getBeerByName(name: string): Observable<Beer[]> {

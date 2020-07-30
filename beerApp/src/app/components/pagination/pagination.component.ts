@@ -43,19 +43,19 @@ export class PaginationComponent implements OnInit, OnChanges {
     }
 
     showPreviousPage(): void {
-        if (this.currentPage > 1) {
-            this.currentPage = this.currentPage - 1;
-            this.getDisplayedPages();
+        if (this.currentPage < 1) {
+            this.selectedPage.emit(1);
+        } else {
+            this.selectedPage.emit(this.currentPage - 1);
         }
-        this.selectedPage.emit(this.currentPage);
     }
 
     showNextPage(): void {
-        if (this.currentPage < this.pageCount) {
-            this.currentPage = this.currentPage + 1;
-            this.getDisplayedPages();
+        if (this.currentPage > this.pageCount) {
+            this.selectedPage.emit(this.pageCount);
+        } else {
+            this.selectedPage.emit(this.currentPage + 1);
         }
-        this.selectedPage.emit(this.currentPage);
     }
 
     showDifferentPage(clickedPage): void {
