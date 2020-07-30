@@ -56,8 +56,10 @@
             </div>
         </div>
     </div>
+
+    <app-pagination *ngIf="beers.length !== 0" [pageCount]="totalPages" [currentPage]="currentPage"
+                    (selectedPage)="onPageSelected($event)"></app-pagination>
 </section>
 
-<app-pagination *ngIf="beers.length !== 0" [pageCount]="totalPages" [currentPage]="currentPage"
-                (selectedPage)="onPageSelected($event)"></app-pagination>
+
 
