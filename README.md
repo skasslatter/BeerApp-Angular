@@ -1,6 +1,6 @@
 
 <h2>My solution</h2>
-<h3>Provide one or multiple examples of code that you’re proud of and explain why</h2>
+<h3>Provide one or multiple examples of code that you’re proud of and explain why</h3>
 <ul>
 <li><p><a href='https://gitlab.pxlwidgets.com/pxl.widgets-heroes/assignments/blob/block1_sybille/beerApp/src/app/components/pagination/pagination.component.ts'>Pagination</a></p>
 <ul>
