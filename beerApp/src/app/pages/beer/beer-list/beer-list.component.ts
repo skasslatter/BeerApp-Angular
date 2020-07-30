@@ -11,14 +11,12 @@ import {Item} from '../../../components/filter-function/filter-function.componen
     styleUrls: ['./beer-list.component.scss']
 })
 export class BeerListComponent implements OnInit {
-    allBeers: Beer[] = [];
-    filteredBeers: Beer[] = [];
+    beers: Beer[] = [];
     isLoading = true;
-    currentPage = 0;
+    currentPage = 1;
     totalPages: number;
     beerTypes: Item[] = [];
     filteredType: string;
-    errorMessage: string;
     nameSearch: string;
 
     constructor(
@@ -29,23 +27,24 @@ export class BeerListComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAllBeers(1);
-        this.clearFilters(1);
         this.getBeerTypes();
     }
 
-    onPageSelected($event): void {
-        this.getAllBeers($event);
+    onPageSelected(pageNumber): void {
+        if (this.filteredType) {
+            this.filterBeersByType(this.filteredType, pageNumber);
+        } else {
+            this.getAllBeers(pageNumber);
+        }
     }
 
     getAllBeers(page: number): void {
         this.isLoading = true;
         this.apiService.getAllBeers(page).subscribe((response) => {
-            this.allBeers = response.data;
+            this.beers = response.data;
             this.isLoading = false;
-            this.filteredType = '';
             this.totalPages = response.numberOfPages;
-            this.currentPage = this.totalPages;
-            this.filteredBeers = this.allBeers;
+            this.currentPage = response.currentPage;
         });
     }
 
@@ -63,23 +62,21 @@ export class BeerListComponent implements OnInit {
     }
 
     onTypeChange(value: string): void {
-        this.filterBeersByType(value);
+        this.nameSearch = '';
+        this.filteredType = value;
+        this.filterBeersByType(value, 1);
     }
 
-    filterBeersByType(selectedTypeId): Beer[] {
-        this.nameSearch = '';
-        this.filteredType = selectedTypeId;
-        if (!selectedTypeId) {
-            return this.allBeers;
-        }
-        this.apiService.getBeerByType(selectedTypeId).subscribe((response) => {
-            this.currentPage = response.numberOfPages;
-            if (this.currentPage === 0) {
-                this.filteredBeers = [];
-                return this.errorMessage = 'Sorry, no beer was found';
+    filterBeersByType(selectedTypeId: string, page: number): void {
+        this.isLoading = true;
+        this.apiService.getBeerByType(selectedTypeId, page).subscribe((response) => {
+            this.isLoading = false;
+            this.currentPage = response.currentPage;
+            this.totalPages = response.numberOfPages;
+            if (this.totalPages === 0) {
+                this.beers = [];
             } else {
-                this.filteredBeers = response.data;
-                this.errorMessage = '';
+                this.beers = response.data;
             }
         });
     }
@@ -87,20 +84,22 @@ export class BeerListComponent implements OnInit {
     searchByName(value): void {
         this.isLoading = true;
         this.filteredType = '';
-        this.errorMessage = '';
         this.nameSearch = value;
-        this.currentPage = 0;
+        this.currentPage = 1;
+        this.totalPages = 1;
         this.apiService.getBeerByName(value).subscribe((response) => {
-            this.filteredBeers = response;
             this.isLoading = false;
+            if (!response) {
+                this.beers = [];
+            } else {
+                this.beers = response;
+            }
         });
     }
 
-    clearFilters(page: number): void {
-        this.filteredBeers = this.allBeers;
+    clearFilters(): void {
         this.filteredType = '';
         this.nameSearch = '';
-        this.errorMessage = '';
-        this.currentPage = this.totalPages;
+        this.getAllBeers(1);
     }
 }

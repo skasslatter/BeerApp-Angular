@@ -8,6 +8,7 @@ import {Beer, Type} from '../../app/models/beer/beer';
 
 interface ApiResponse {
     numberOfPages: number;
+    currentPage: number;
 }
 interface BreweryApiResponse extends ApiResponse{
     data: Brewery[];
@@ -73,10 +74,9 @@ export class ApiService {
             })));
     }
 
-    getBeerByType(id): Observable<BeersApiResponse> {
-        return this.http.get(`/api/beers?styleId=${id}`)
+    getBeerByType(id, page: number): Observable<BeersApiResponse> {
+        return this.http.get(`/api/beers?styleId=${id}&p=${page}`)
             .pipe((map((data: BeersApiResponse) => {
-                console.log(data);
                 return data;
             })));
     }

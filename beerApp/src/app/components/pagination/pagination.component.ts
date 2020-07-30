@@ -9,10 +9,12 @@ export class PaginationComponent implements OnInit, OnChanges {
     @Input()
     pageCount: number;
 
+    @Input()
+    currentPage = 1;
+
     @Output()
     selectedPage = new EventEmitter<number>();
 
-    pageNumber = 1;
     displayedPages: number[] = [];
 
     constructor() {
@@ -24,16 +26,16 @@ export class PaginationComponent implements OnInit, OnChanges {
 
     getDisplayedPages(): void {
         const arr = [];
-        if (this.pageNumber < 3) {
+        if (this.currentPage < 3) {
             for (let i = 1; i <= 5 && i <= this.pageCount; i++) {
                 arr.push(i);
             }
-        } else if (this.pageNumber < this.pageCount - 2) {
-            for (let i = this.pageNumber - 2; i <= this.pageNumber + 2; i++) {
+        } else if (this.currentPage < this.pageCount - 2) {
+            for (let i = this.currentPage - 2; i <= this.currentPage + 2; i++) {
                 arr.push(i);
             }
         } else {
-            for (let i = this.pageCount - 4; i <= this.pageCount; i++) {
+            for (let i = Math.max(1, this.pageCount - 4); i <= this.pageCount; i++) {
                 arr.push(i);
             }
         }
@@ -41,23 +43,23 @@ export class PaginationComponent implements OnInit, OnChanges {
     }
 
     showPreviousPage(): void {
-        if (this.pageNumber > 1) {
-            this.pageNumber = this.pageNumber - 1;
+        if (this.currentPage > 1) {
+            this.currentPage = this.currentPage - 1;
             this.getDisplayedPages();
         }
-        this.selectedPage.emit(this.pageNumber);
+        this.selectedPage.emit(this.currentPage);
     }
 
     showNextPage(): void {
-        if (this.pageNumber < this.pageCount) {
-            this.pageNumber = this.pageNumber + 1;
+        if (this.currentPage < this.pageCount) {
+            this.currentPage = this.currentPage + 1;
             this.getDisplayedPages();
         }
-        this.selectedPage.emit(this.pageNumber);
+        this.selectedPage.emit(this.currentPage);
     }
 
     showDifferentPage(clickedPage): void {
-        this.pageNumber = clickedPage;
+        this.currentPage = clickedPage;
         this.getDisplayedPages();
         this.selectedPage.emit(clickedPage);
     }

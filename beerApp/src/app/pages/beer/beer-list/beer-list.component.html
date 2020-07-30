@@ -21,18 +21,18 @@
         </label>
     </div>
     <!--    Reset Filters-->
-    <button class="btn btn-show-all" (click)="clearFilters(1)">Clear filters</button>
+    <button class="btn btn-show-all" (click)="clearFilters()">Clear filters</button>
 </section>
 
 <app-loading *ngIf="isLoading"></app-loading>
 
 <!-- Beer List -->
-<div *ngIf="!isLoading">
-    <h5 class="text-center">{{errorMessage}}</h5>
+<section *ngIf="!isLoading">
+    <h5 *ngIf="beers.length === 0" class="text-center">Sorry, no beer was found</h5>
 
     <div id="beer-list" class="container">
         <div class="row">
-            <div *ngFor="let beer of filteredBeers" class="col-sm-6">
+            <div *ngFor="let beer of beers" class="col-sm-6">
 
                 <div class="row beer-info">
                     <div class="col-sm-4 beer-image">
@@ -56,10 +56,8 @@
             </div>
         </div>
     </div>
-    <!-- Pagination -->
+</section>
 
-</div>
-
-<app-pagination *ngIf="currentPage !== 0" [pageCount]="currentPage"
+<app-pagination *ngIf="beers.length !== 0" [pageCount]="totalPages" [currentPage]="currentPage"
                 (selectedPage)="onPageSelected($event)"></app-pagination>
 
