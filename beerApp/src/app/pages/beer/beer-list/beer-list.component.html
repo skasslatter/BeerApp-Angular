@@ -9,14 +9,14 @@
     <div>
         <h5>Filter by Type</h5>
         <app-filter [currentValue]="filteredType" [items]="beerTypes"
-                    (onChanged)="onTypeChange($event)"></app-filter>
+                    (onChanged)="onBeerTypeChange($event)"></app-filter>
     </div>
 
     <!--  Search by Name-->
     <div>
         <h5>Search by name</h5>
         <label>
-            <input type="text" [ngModel]="nameSearch" (ngModelChange)="searchByName($event)"
+            <input type="text" [ngModel]="searchedName" (ngModelChange)="searchByName($event)"
                    placeholder="Type to search...">
         </label>
     </div>
@@ -58,7 +58,7 @@
     </div>
 
     <app-pagination *ngIf="beers.length !== 0" [pageCount]="totalPages" [currentPage]="currentPage"
-                    (selectedPage)="onPageSelected($event)"></app-pagination>
+                    (selectedPage)="onNewPageSelected($event)"></app-pagination>
 </section>
 
 

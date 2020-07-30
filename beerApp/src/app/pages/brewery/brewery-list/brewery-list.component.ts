@@ -15,7 +15,7 @@ export class BreweryListComponent implements OnInit {
     breweries: Brewery[] = [];
     filteredBreweries: Brewery[] = [];
     uniqueCountryNames: Item[] = [];
-    nameSearch: string;
+    searchedName: string;
     filteredCountry: string;
     isLoading = true;
 
@@ -66,7 +66,7 @@ export class BreweryListComponent implements OnInit {
     }
 
     filterBreweriesByCountry(countryName): Brewery[] {
-        this.nameSearch = '';
+        this.searchedName = '';
         this.filteredCountry = countryName;
         if (!countryName) {
             return this.breweries;
@@ -89,12 +89,12 @@ export class BreweryListComponent implements OnInit {
     searchByName(value): void {
         this.filteredBreweries = this.breweries;
         this.filteredCountry = '';
-        this.nameSearch = value;
+        this.searchedName = value;
         this.filteredBreweries = this.searchService.searchByValue(value, this.breweries);
     }
 
     clearFilters(): void {
-        this.nameSearch = '';
+        this.searchedName = '';
         this.filteredCountry = '';
         this.filteredBreweries = this.breweries;
     }

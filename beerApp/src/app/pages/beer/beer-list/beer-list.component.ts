@@ -17,7 +17,7 @@ export class BeerListComponent implements OnInit {
     totalPages: number;
     beerTypes: Item[] = [];
     filteredType: string;
-    nameSearch: string;
+    searchedName: string;
 
     constructor(
         private http: HttpClient,
@@ -28,14 +28,6 @@ export class BeerListComponent implements OnInit {
     ngOnInit(): void {
         this.getAllBeers(1);
         this.getBeerTypes();
-    }
-
-    onPageSelected(pageNumber): void {
-        if (this.filteredType) {
-            this.filterBeersByType(this.filteredType, pageNumber);
-        } else {
-            this.getAllBeers(pageNumber);
-        }
     }
 
     getAllBeers(page: number): void {
@@ -61,8 +53,16 @@ export class BeerListComponent implements OnInit {
         });
     }
 
-    onTypeChange(value: string): void {
-        this.nameSearch = '';
+    onNewPageSelected(pageNumber): void {
+        if (this.filteredType) {
+            this.filterBeersByType(this.filteredType, pageNumber);
+        } else {
+            this.getAllBeers(pageNumber);
+        }
+    }
+
+    onBeerTypeChange(value: string): void {
+        this.searchedName = '';
         this.filteredType = value;
         this.filterBeersByType(value, 1);
     }
@@ -84,7 +84,7 @@ export class BeerListComponent implements OnInit {
     searchByName(value): void {
         this.isLoading = true;
         this.filteredType = '';
-        this.nameSearch = value;
+        this.searchedName = value;
         this.currentPage = 1;
         this.totalPages = 1;
         this.apiService.getBeerByName(value).subscribe((response) => {
@@ -99,7 +99,7 @@ export class BeerListComponent implements OnInit {
 
     clearFilters(): void {
         this.filteredType = '';
-        this.nameSearch = '';
+        this.searchedName = '';
         this.getAllBeers(1);
     }
 }

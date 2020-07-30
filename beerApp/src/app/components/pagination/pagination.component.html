@@ -8,7 +8,8 @@
                 [ngClass]="{'disabled selected': currentPage === page}">
                 <a class="page-link" (click)="showDifferentPage(page)">{{page}}</a>
             </li>
-            <li *ngIf="currentPage < pageCount" class="page-item"><a class="page-link" (click)="showNextPage()">Next</a>
+            <li *ngIf="currentPage < pageCount" class="page-item">
+                <a class="page-link" (click)="showNextPage()">Next</a>
             </li>
         </ul>
     </nav>

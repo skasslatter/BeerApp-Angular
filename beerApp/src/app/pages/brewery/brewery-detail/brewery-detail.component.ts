@@ -3,11 +3,11 @@ import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {ApiService} from '../../../../services/api/api.service';
+import {SearchService} from '../../../../services/search/search.service';
 
 import {Brewery} from '../../../models/brewery/brewery';
 import {Beer} from '../../../models/beer/beer';
 import {Item} from '../../../components/filter-function/filter-function.component';
-import {SearchService} from '../../../../services/search/search.service';
 
 @Component({
     selector: 'app-brewery-detail',
@@ -19,7 +19,7 @@ export class BreweryDetailComponent implements OnInit {
     filteredBeers: Beer[] = [];
     breweryInfo: Brewery;
     isLoading = true;
-    nameSearch: string;
+    searchedName: string;
     uniqueBeerTypes: Item[] = [];
     filteredType: string;
     errorMessage: string;
@@ -54,13 +54,6 @@ export class BreweryDetailComponent implements OnInit {
         });
     }
 
-    searchByName(value: string): void {
-        this.filteredBeers = this.allBeers;
-        this.filteredType = '';
-        this.nameSearch = value;
-        this.filteredBeers = this.searchService.searchByValue(value, this.allBeers);
-    }
-
     getBeerTypes(): void {
         const styles = this.allBeers
             .filter((beer) => {
@@ -79,16 +72,20 @@ export class BreweryDetailComponent implements OnInit {
         this.uniqueBeerTypes.sort((a, b) => (a.name > b.name) ? 1 : -1);
     }
 
+    searchByName(value: string): void {
+        this.filteredBeers = this.allBeers;
+        this.filteredType = '';
+        this.searchedName = value;
+        this.filteredBeers = this.searchService.searchByValue(value, this.allBeers);
+    }
+
     onTypeChange(value: string): void {
         this.filterBeersByType(value);
     }
 
-    filterBeersByType(selectedType: string): Beer[] {
-        this.nameSearch = '';
+    filterBeersByType(selectedType: string): void {
+        this.searchedName = '';
         this.filteredType = selectedType;
-        if (!selectedType) {
-            return this.allBeers;
-        }
         this.filteredBeers = this.allBeers
             .filter((beer) => {
                 return beer.style !== null && beer.style !== undefined;
@@ -99,7 +96,7 @@ export class BreweryDetailComponent implements OnInit {
     }
 
     clearFilters(): void {
-        this.nameSearch = '';
+        this.searchedName = '';
         this.filteredType = '';
         this.filteredBeers = this.allBeers;
     }

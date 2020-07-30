@@ -7,7 +7,7 @@ const PROXY_CONFIG = {
             const apiKey = "key=659d5c6b8f3d2447f090119e48202fdb"
             const keyword = path.replace(/^\/api/, '');
 
-            let apiURL = ``
+            let apiURL = ``;
             if (keyword.indexOf('?') === -1) {
                 apiURL = `${keyword}?${apiKey}`
             } else {
