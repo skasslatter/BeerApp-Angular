@@ -3,7 +3,8 @@
 .main-image {
     @extend .header-image !optional;
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('/assets/img/brewery-list.jpeg');}
+    url('/assets/img/brewery-list.jpeg');
+}
 
 .breweries-list {
     h3 {

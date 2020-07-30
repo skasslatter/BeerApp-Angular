@@ -10,18 +10,20 @@ interface ApiResponse {
     numberOfPages: number;
     currentPage: number;
 }
-interface BreweryApiResponse extends ApiResponse{
+
+interface BreweryApiResponse extends ApiResponse {
     data: Brewery[];
 }
-interface BeersApiResponse extends ApiResponse{
+
+interface BeersApiResponse extends ApiResponse {
     data: Beer[];
 }
 
-interface BeerApiResponse extends ApiResponse{
+interface BeerApiResponse extends ApiResponse {
     data: Beer;
 }
 
-interface TypesApiResponse extends ApiResponse{
+interface TypesApiResponse extends ApiResponse {
     data: Type[];
 }
 
@@ -62,8 +64,8 @@ export class ApiService {
 
     getBeerInformation(id: number): Observable<Beer> {
         return this.http.get(`/api/beer/${id}?withBreweries=Y`)
-            .pipe((map((data: BeerApiResponse  ) => {
-                return  data.data;
+            .pipe((map((data: BeerApiResponse) => {
+                return data.data;
             })));
     }
 

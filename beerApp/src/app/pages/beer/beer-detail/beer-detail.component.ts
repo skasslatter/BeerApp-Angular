@@ -15,7 +15,7 @@ export class BeerDetailComponent implements OnInit {
     beer: Beer;
     isLoading = true;
 
-    private routeSub: Subscription;
+    routeSub: Subscription;
 
     constructor(
         private route: ActivatedRoute,

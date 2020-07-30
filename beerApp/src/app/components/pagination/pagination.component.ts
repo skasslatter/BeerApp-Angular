@@ -27,7 +27,7 @@ export class PaginationComponent implements OnInit, OnChanges {
     getDisplayedPages(): void {
         const arr = [];
         if (this.currentPage < 3) {
-            for (let i = 1; i <=  Math.min(5, this.pageCount) ; i++) {
+            for (let i = 1; i <= Math.min(5, this.pageCount); i++) {
                 arr.push(i);
             }
         } else if (this.currentPage < this.pageCount - 2) {

@@ -23,7 +23,7 @@ export class BreweryDetailComponent implements OnInit {
     uniqueBeerTypes: Item[] = [];
     filteredType: string;
     errorMessage: string;
-    private routeSub: Subscription;
+    routeSub: Subscription;
 
     constructor(
         private route: ActivatedRoute,
@@ -45,12 +45,11 @@ export class BreweryDetailComponent implements OnInit {
             this.isLoading = false;
             if (!response) {
                 this.errorMessage = 'Sorry, no Data available';
-            }
-            else{
-            this.allBeers = response;
-            this.filteredBeers = response;
-            this.breweryInfo = this.allBeers[0].breweries[0];
-            this.getBeerTypes();
+            } else {
+                this.allBeers = response;
+                this.filteredBeers = response;
+                this.breweryInfo = this.allBeers[0].breweries[0];
+                this.getBeerTypes();
             }
         });
     }

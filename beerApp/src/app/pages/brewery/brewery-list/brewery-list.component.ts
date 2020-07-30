@@ -90,7 +90,7 @@ export class BreweryListComponent implements OnInit {
         this.filteredBreweries = this.breweries;
         this.filteredCountry = '';
         this.nameSearch = value;
-        this.filteredBreweries =  this.searchService.searchByValue(value, this.breweries);
+        this.filteredBreweries = this.searchService.searchByValue(value, this.breweries);
     }
 
     clearFilters(): void {
