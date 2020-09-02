@@ -1,0 +1,30 @@
+@import "../beerApp/src/styles";
+
+.main-image {
+    @extend .header-image !optional;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('/assets/img/beer-list.png');
+}
+
+.beer-info {
+    min-height: 25vh;
+    align-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.beer-image {
+    align-self: center;
+    text-align: center;
+}
+
+#beer-list {
+    margin-bottom: 5vh;
+
+    a {
+        text-decoration: none;
+        color: black
+    }
+}
+
+
+

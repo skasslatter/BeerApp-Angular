@@ -1,0 +1,48 @@
+@import "../beerApp/src/styles";
+
+.main-image {
+    @extend .header-image !optional;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('/assets/img/brewery-detail.jpeg');
+    //url('../../../../assets/img/brewery-detail.jpeg')
+}
+
+.brewery-info {
+    background-color: var(--base-color);
+    padding: 3vh;
+    margin-top: 3vh;
+    border: 1px solid #BD2130;
+    margin-bottom: 5vh;
+
+    p {
+        color: white;
+    }
+
+    a {
+        color: white;
+    }
+}
+
+.brewery-image {
+    margin: 6vh;
+}
+
+#beer-list {
+    margin-bottom: 5vh;
+
+    a {
+        text-decoration: none;
+        color: black
+    }
+}
+
+.beer-info {
+    min-height: 20vh;
+    align-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.beer-image {
+    align-self: center;
+    text-align: center;
+}

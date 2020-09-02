@@ -1,0 +1,25 @@
+@import "../beerApp/src/styles";
+
+.main-image {
+    @extend .header-image !optional;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('/assets/img/brewery-list.jpeg');
+}
+
+.breweries-list {
+    h3 {
+        color: var(--base-color)
+    }
+}
+
+.card {
+    border-top: 2px solid var(--base-color);
+    border-left: none;
+    border-right: none;
+    padding: 4vh 0;
+
+    a {
+        text-decoration: none;
+        color: black
+    }
+}

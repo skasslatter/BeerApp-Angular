@@ -1,0 +1,24 @@
+@import "../beerApp/src/styles";
+
+.main-image {
+    @extend .header-image !optional;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('/assets/img/beer-detail.jpeg');
+}
+
+.beer-image {
+    text-align: center;
+    align-self: center;
+}
+
+.beer-info {
+    align-self: center;
+
+    a {
+        text-decoration: none;
+        color: black;
+        font-style: italic;
+        font-weight: bold;
+    }
+}
+

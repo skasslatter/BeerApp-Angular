@@ -1,0 +1,65 @@
+<div>
+    <div class="main-image">
+        <h1 class="text-center header-text">All Beers</h1>
+    </div>
+</div>
+
+<section id="filterFunctions" class="row">
+    <!--  Search by Type-->
+    <div>
+        <h5>Filter by Type</h5>
+        <app-filter [currentValue]="filteredType" [items]="beerTypes"
+                    (onChanged)="onBeerTypeChange($event)"></app-filter>
+    </div>
+
+    <!--  Search by Name-->
+    <div>
+        <h5>Search by name</h5>
+        <label>
+            <input type="text" [ngModel]="searchedName" (ngModelChange)="searchByName($event)"
+                   placeholder="Type to search...">
+        </label>
+    </div>
+    <!--    Reset Filters-->
+    <button class="btn btn-show-all" (click)="clearFilters()">Clear filters</button>
+</section>
+
+<app-loading *ngIf="isLoading"></app-loading>
+
+<!-- Beer List -->
+<section *ngIf="!isLoading">
+    <h5 *ngIf="beers.length === 0" class="text-center">Sorry, no beer was found</h5>
+
+    <div id="beer-list" class="container">
+        <div class="row">
+            <div *ngFor="let beer of beers" class="col-sm-6">
+
+                <div class="row beer-info">
+                    <div class="col-sm-4 beer-image">
+                        <a routerLink="/beer-detail/{{beer.id}}" routerLinkActive="active">
+                            <img src="{{beer.labels ? beer.labels.icon : '/assets/img/beer.png' }}" alt="Beer Label">
+                        </a>
+                    </div>
+                    <div class="col-sm-8">
+                        <a routerLink="/beer-detail/{{beer.id}}" routerLinkActive="active">
+                            <h5>{{beer.name}}</h5>
+                            <p *ngIf="beer.style">{{beer.style.shortName}}</p>
+                        </a>
+
+                        <div *ngIf="beer.breweries">
+                            <a routerLink="/brewery-detail/{{beer.breweries[0].id}}" routerLinkActive="active">
+                                <p><i>{{beer.breweries[0].name}}</i></p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-pagination *ngIf="beers.length !== 0" [pageCount]="totalPages" [currentPage]="currentPage"
+                    (selectedPage)="onNewPageSelected($event)"></app-pagination>
+</section>
+
+
+
